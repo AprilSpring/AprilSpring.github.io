@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python-matplotlib | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Python的Matplotlib模块Matplotlib是Python的一个绘图库，包含了大量创建图形的工具，例如散点图，三角函数曲线，三维图形等。 引用模块方式由于from x import * 是一种糟糕的导入方式，同时不想在程序里重复书写过于冗长的matplotlib.pyplot和numpy，因此我们采用下面的写法：12import matplotlib.pyplot as pltimp">
+<meta name="keywords" content="matplotlib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python-matplotlib">
+<meta property="og:url" content="http://yoursite.com/2017/07/27/Python-matplotlib/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Python的Matplotlib模块Matplotlib是Python的一个绘图库，包含了大量创建图形的工具，例如散点图，三角函数曲线，三维图形等。 引用模块方式由于from x import * 是一种糟糕的导入方式，同时不想在程序里重复书写过于冗长的matplotlib.pyplot和numpy，因此我们采用下面的写法：12import matplotlib.pyplot as pltimp">
+<meta property="og:updated_time" content="2017-07-28T07:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python-matplotlib">
+<meta name="twitter:description" content="Python的Matplotlib模块Matplotlib是Python的一个绘图库，包含了大量创建图形的工具，例如散点图，三角函数曲线，三维图形等。 引用模块方式由于from x import * 是一种糟糕的导入方式，同时不想在程序里重复书写过于冗长的matplotlib.pyplot和numpy，因此我们采用下面的写法：12import matplotlib.pyplot as pltimp">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python-matplotlib" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/27/Python-matplotlib/" class="article-date">
+  <time datetime="2017-07-27T04:56:17.000Z" itemprop="datePublished">2017-07-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python-matplotlib
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python的Matplotlib模块"><a href="#Python的Matplotlib模块" class="headerlink" title="Python的Matplotlib模块"></a>Python的Matplotlib模块</h1><p>Matplotlib是Python的一个绘图库，包含了大量创建图形的工具，例如散点图，三角函数曲线，三维图形等。</p>
+<h2 id="引用模块方式"><a href="#引用模块方式" class="headerlink" title="引用模块方式"></a>引用模块方式</h2><p>由于from x import * 是一种糟糕的导入方式，同时不想在程序里重复书写过于冗长的matplotlib.pyplot和numpy，因此我们采用下面的写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="绘图三大系统"><a href="#绘图三大系统" class="headerlink" title="绘图三大系统"></a>绘图三大系统</h2><ol>
+<li>pyplot<br>使用plt.style.use(‘ggplot’)命令，可以作出ggplot风格的图片。</li>
+<li>pylab(不推荐)</li>
+<li>面向对象</li>
+</ol>
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><ol>
+<li><p>散点图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = rand(50,30)  </span><br><span class="line">plt.scatter(x[:,1],x[:,0],marker = &apos;x&apos;, color = &apos;m&apos;, label=&apos;1&apos;, s = 30)</span><br><span class="line">plt.show()</span><br><span class="line"># or</span><br><span class="line">x = [1, 2, 3, 4, 5]</span><br><span class="line">y = [1, 4, 9, 16, 25]</span><br><span class="line">plt.plot(x,y,&apos;o&apos;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>折线图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = [1, 2, 3, 4, 5]</span><br><span class="line">y = [1, 4, 9, 16, 25]</span><br><span class="line">plt.plot(x,y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>条形图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mean_values = [1, 2, 3]</span><br><span class="line">variance = [0.2, 0.4, 0.5]</span><br><span class="line">bar_labels = [&apos;bar 1&apos;, &apos;bar 2&apos;, &apos;bar 3&apos;]</span><br><span class="line">x_pos = list(range(len(bar_labels)))</span><br><span class="line">plt.bar(x_pos, mean_values, yerr=variance, align=&apos;center&apos;, alpha=0.5)</span><br><span class="line">plt.ylabel(&apos;variable y&apos;)</span><br><span class="line">plt.xticks(x_pos, bar_labels)</span><br><span class="line">plt.title(&apos;Bar plot with error bars&apos;)</span><br><span class="line">plt.show()</span><br><span class="line">#参见：http://blog.topspeedsnail.com/archives/724</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直方图<br>函数：histogram() 或 hist()</p>
+</li>
+<li><p>饼状图<br>函数：pie()</p>
+</li>
+<li><p>箱形图<br>函数：boxplot() 或 plot.box()</p>
+</li>
+</ol>
+<h2 id="图形美化"><a href="#图形美化" class="headerlink" title="图形美化"></a>图形美化</h2><ol>
+<li><p>确定坐标范围</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.axis([xmin, xmax, ymin, ymax]) #给定了坐标范围</span><br><span class="line">xlim(xmin, xmax) #调整x坐标范围</span><br><span class="line">ylim(ymin, ymax) #调整y坐标范围</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加文字说明<br>在图中的任意位置添加文字：text() 支持LaTex语法<br>添加x轴和y轴标签：xlable(), ylable()<br>添加图的题目：title()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mu, sigma = 100, 15</span><br><span class="line">x = mu + sigma * np.random.randn(10000)</span><br><span class="line"></span><br><span class="line">#数据的直方图</span><br><span class="line">n, bins, patches = plt.hist(x, 50, normed=1, facecolor=&apos;g&apos;, alpha=0.75)</span><br><span class="line"></span><br><span class="line">plt.xlabel(&apos;Smarts&apos;)</span><br><span class="line">plt.ylabel(&apos;Probability&apos;)</span><br><span class="line"></span><br><span class="line">#添加标题</span><br><span class="line">plt.title(&apos;Histogram of IQ&apos;)</span><br><span class="line"></span><br><span class="line">#添加文字</span><br><span class="line">plt.text(60, .025, r&apos;$mu=100, sigma=15$&apos;)</span><br><span class="line">plt.axis([40, 160, 0, 0.03])</span><br><span class="line">plt.grid(True)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加图片注释<br>函数：annotate()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ax = plt.subplot(111)</span><br><span class="line"></span><br><span class="line">t = np.arange(0.0, 5.0, 0.01)</span><br><span class="line">s = np.cos(2*np.pi*t)</span><br><span class="line">line = plt.plot(t, s, lw=2)</span><br><span class="line"></span><br><span class="line">plt.annotate(&apos;local max&apos;, xy=(2,1), xytext=(3,1.5),</span><br><span class="line">            arrowprops=dict(facecolor=&apos;black&apos;, shrink=0.05),)</span><br><span class="line">plt.ylim(-2,2)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置坐标轴刻度<br>函数：xticks()/ yticks()，为x,y轴的刻度设置颜色、大小、方向，以及标签大小。</p>
+</li>
+<li><p>设置坐标轴体系-Axes对象<br>函数：axes(rect=[左,下,宽,高],axisbg=’y’)<br>设置坐标轴边界和表面的颜色、坐标刻度值大小和网格的显示。</p>
+</li>
+<li><p>添加图例<br>函数：legend()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plot(X, C, color=&quot;blue&quot;, linewidth=2.5, linestyle=&quot;-&quot;, label=&quot;cosine&quot;)</span><br><span class="line">plot(X, S, color=&quot;red&quot;,  linewidth=2.5, linestyle=&quot;-&quot;, label=&quot;sine&quot;)</span><br><span class="line">legend(loc=&apos;upper left&apos;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>叠加图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">t = np.arange(0., 5., 0.2)</span><br><span class="line">#red dashes, blue squares and green triangles</span><br><span class="line">plt.plot(t, t, &apos;r--&apos;, t, t**2, &apos;bs&apos;, t, t**3, &apos;g&lt;&apos;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多张图<br>创建新图：figure()<br>创建子图：subplot()。其中，subplot(2,3,1)表示把图标分割成2*3的网格，也可以简写plt.subplot(231)。第一个参数是行数，第二个参数是列数，第三个参数表示图形的标号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(1)      # 第一张图</span><br><span class="line">plt.subplot(211)   # 第一张图中的第一张子图</span><br><span class="line">plt.plot([1,2,3])</span><br><span class="line">plt.subplot(212)   # 第一张图中的第二张子图</span><br><span class="line">plt.plot([4,5,6])</span><br><span class="line"></span><br><span class="line">plt.figure(2)      # 第二张图</span><br><span class="line">plt.plot([4,5,6])  # 默认创建子图subplot(111)</span><br><span class="line"></span><br><span class="line">plt.figure(1)      # 切换到figure(1)</span><br><span class="line">plt.subplot(211)   # 切换到figure(1)的子图subplot(211)</span><br><span class="line">plt.title(&apos;Easy as 1,2,3&apos;) # 添加subplot(211)的标题</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图形正常显示中文<br>函数：rcParams()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.rcParams[&apos;font.sans-serif&apos;]=[&apos;SimHei&apos;] #用来正常显示中文标签</span><br><span class="line">plt.rcParams[&apos;axes.unicode_minus&apos;]=False   #用来正常显示负号</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>保存图片<br>函数：savefig()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.plot([1,2,3],&apos;r--&apos;)</span><br><span class="line">plt.savefig(&apos;D:\\test.pdf&apos;,dpi=600, format=&quot;pdf&quot;) #png, pdf, ps, eps and svg</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="图形标记"><a href="#图形标记" class="headerlink" title="图形标记"></a>图形标记</h2><p>*1. 线条类型</p>
+<table>
+<thead>
+<tr>
+<th>标记</th>
+<th>描述</th>
+<th>标记</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘-‘</td>
+<td>实线</td>
+<td>‘:’</td>
+<td>虚线</td>
+</tr>
+<tr>
+<td>‘–’</td>
+<td>破折线</td>
+<td>‘-.’</td>
+<td>点划线</td>
+</tr>
+<tr>
+<td>‘None’ / ‘ ‘ / ‘’</td>
+<td>什么都不画</td>
+</tr>
+</tbody>
+</table>
+<p>*2. 线条标记</p>
+<table>
+<thead>
+<tr>
+<th>标记</th>
+<th>描述</th>
+<th>标记</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘o’</td>
+<td>实心圆圈</td>
+<td>‘.’</td>
+<td>点</td>
+</tr>
+<tr>
+<td>‘D’</td>
+<td>实心菱形</td>
+<td>‘s’</td>
+<td>实心正方形</td>
+</tr>
+<tr>
+<td>‘h’</td>
+<td>竖六边形</td>
+<td>‘*’</td>
+<td>星号</td>
+</tr>
+<tr>
+<td>‘H’</td>
+<td>横六边形</td>
+<td>‘d’</td>
+<td>瘦菱形</td>
+</tr>
+<tr>
+<td>‘_’</td>
+<td>水平线</td>
+<td>‘+’</td>
+<td>加号</td>
+</tr>
+<tr>
+<td>‘8’</td>
+<td>实心八边形</td>
+<td></td>
+<td>竖线</td>
+</tr>
+<tr>
+<td>‘p’</td>
+<td>实心五边形</td>
+<td>‘,’</td>
+<td>像素标记(极小点)</td>
+</tr>
+<tr>
+<td>‘v’</td>
+<td>下三角标记</td>
+<td>‘&lt;’</td>
+<td>左三角标记</td>
+</tr>
+<tr>
+<td>‘&gt;’</td>
+<td>右三角标记</td>
+<td>‘^’</td>
+<td>上三角标记</td>
+</tr>
+<tr>
+<td>‘1’</td>
+<td>下花三角标记</td>
+<td>‘2’</td>
+<td>上花三角标记</td>
+</tr>
+<tr>
+<td>‘3’</td>
+<td>左花三角标记</td>
+<td>‘4’</td>
+<td>右花三角标记</td>
+</tr>
+</tbody>
+</table>
+<p>*3. 颜色标记</p>
+<table>
+<thead>
+<tr>
+<th>标记</th>
+<th>描述</th>
+<th>标记</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘b’</td>
+<td>蓝色</td>
+<td>‘g’</td>
+<td>绿色</td>
+</tr>
+<tr>
+<td>‘r’</td>
+<td>红色</td>
+<td>‘y’</td>
+<td>黄色</td>
+</tr>
+<tr>
+<td>‘c’</td>
+<td>青色</td>
+<td>‘k’</td>
+<td>黑色</td>
+</tr>
+<tr>
+<td>‘m’</td>
+<td>洋红色</td>
+<td>‘w’</td>
+<td>白色</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://matplotlib.org/contents.html" target="_blank" rel="noopener">https://matplotlib.org/contents.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/27/Python-matplotlib/" data-id="cjf25s8hs00068jfykr38xioy" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/matplotlib/">matplotlib</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/28/Python-常用函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Python-常用函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/26/Python-numpy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Python-numpy</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BlogBulid/">BlogBulid</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Excel/">Excel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test/">Test</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Test/">Test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/matplotlib/">matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/numpy/">numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/">spark</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Test/" style="font-size: 20px;">Test</a> <a href="/tags/matplotlib/" style="font-size: 10px;">matplotlib</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/numpy/" style="font-size: 10px;">numpy</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/20/初识Spark/">初识Spark</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/17/MySQL文本导入/">MySQL用法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/12/Excel数据处理/">Excel数据处理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/28/Python-常用函数/">Python-常用函数</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/27/Python-matplotlib/">Python-matplotlib</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

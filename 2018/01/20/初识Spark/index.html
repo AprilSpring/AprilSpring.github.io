@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>初识Spark | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="浅谈Spark与PythonSpark是什么？参见：https://www.cnblogs.com/Vito2008/p/5216324.html Spark是分布式计算框架，可以将大量数据集的计算任务分配到多台计算机上，提供高效内存计算。 分布式计算框架要解决两个问题：如何分发数据和如何分发计算？ Hadoop使用HDFS(分布式文件系统)来解决分布式数据问题，MapReduce计算范式提供有效">
+<meta name="keywords" content="spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识Spark">
+<meta property="og:url" content="http://yoursite.com/2018/01/20/初识Spark/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="浅谈Spark与PythonSpark是什么？参见：https://www.cnblogs.com/Vito2008/p/5216324.html Spark是分布式计算框架，可以将大量数据集的计算任务分配到多台计算机上，提供高效内存计算。 分布式计算框架要解决两个问题：如何分发数据和如何分发计算？ Hadoop使用HDFS(分布式文件系统)来解决分布式数据问题，MapReduce计算范式提供有效">
+<meta property="og:updated_time" content="2018-02-23T06:32:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识Spark">
+<meta name="twitter:description" content="浅谈Spark与PythonSpark是什么？参见：https://www.cnblogs.com/Vito2008/p/5216324.html Spark是分布式计算框架，可以将大量数据集的计算任务分配到多台计算机上，提供高效内存计算。 分布式计算框架要解决两个问题：如何分发数据和如何分发计算？ Hadoop使用HDFS(分布式文件系统)来解决分布式数据问题，MapReduce计算范式提供有效">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-初识Spark" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/20/初识Spark/" class="article-date">
+  <time datetime="2018-01-20T02:33:10.000Z" itemprop="datePublished">2018-01-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Spark/">Spark</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      初识Spark
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="浅谈Spark与Python"><a href="#浅谈Spark与Python" class="headerlink" title="浅谈Spark与Python"></a>浅谈Spark与Python</h1><h2 id="Spark是什么？"><a href="#Spark是什么？" class="headerlink" title="Spark是什么？"></a>Spark是什么？</h2><p>参见：<a href="https://www.cnblogs.com/Vito2008/p/5216324.html" target="_blank" rel="noopener">https://www.cnblogs.com/Vito2008/p/5216324.html</a></p>
+<p>Spark是分布式计算框架，可以将大量数据集的计算任务分配到多台计算机上，提供高效内存计算。</p>
+<p>分布式计算框架要解决两个问题：如何分发数据和如何分发计算？</p>
+<p>Hadoop使用HDFS(分布式文件系统)来解决分布式数据问题，MapReduce计算范式提供有效的分布式计算。</p>
+<p>而MapReduce要求每个步骤间的数据要序列化到磁盘，这意味着MapReduce作业的I/O成本很高，导致交互分析和迭代算法开销很大。</p>
+<p>Spark与Hadoop相似，拥有Hadoop MapReduce所具有的优点，但不同于MapReduce的是，Spark拥有多种语言的函数式编程API，提供了除map和reduce之外更多的运算符，这些操作是通过弹性分布式数据集RDD进行的，可以将Job的中间输出结果保存在内存中，从而不再需要读写HDFS，因此，Spark能更好地适用于数据挖掘与机器学习等需要迭代的MapReduce算法。</p>
+<a id="more"></a>
+<h2 id="Spark核心组件及功能"><a href="#Spark核心组件及功能" class="headerlink" title="Spark核心组件及功能"></a>Spark核心组件及功能</h2><p>Spark Core：包含Spark的基本功能；尤其是定义RDD的API、操作以及这两者上的动作。其他Spark的库都是构建在RDD和Spark Core之上的。<br>Spark SQL：提供通过Apache Hive的SQL变体Hive查询语言(HiveQL)与Spark进行交互的API。<br>Spark Streaming：允许对实时数据流进行处理和控制。<br>MLlib：常用机器学习算法库，包括分类、回归等需要对大量数据集进行迭代的操作。<br>GraphX：控制图、并行图操作和计算的一组算法和工具的集合。</p>
+<h2 id="Spark本机安装"><a href="#Spark本机安装" class="headerlink" title="Spark本机安装"></a>Spark本机安装</h2><p>参见：<a href="http://coredumper.cn/index.php/2017/07/02/spark-run-environment-build/" target="_blank" rel="noopener">http://coredumper.cn/index.php/2017/07/02/spark-run-environment-build/</a><br>下载地址：<a href="https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1-bin-hadoop2.7.tgz" target="_blank" rel="noopener">https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1-bin-hadoop2.7.tgz</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd spark-2.1.1-bin-hadoop2.7</span><br></pre></td></tr></table></figure></p>
+<h2 id="Spark与Python交互"><a href="#Spark与Python交互" class="headerlink" title="Spark与Python交互"></a>Spark与Python交互</h2><p>参见：<a href="https://www.cnblogs.com/yangzhang-home/p/6056133.html" target="_blank" rel="noopener">https://www.cnblogs.com/yangzhang-home/p/6056133.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">./bin/pyspark</span><br><span class="line"></span><br><span class="line">val textFile = sc.textFile(&quot;README.md&quot;)</span><br><span class="line">textFile.count()</span><br><span class="line">textFile.first()</span><br><span class="line">val linesWithSpark = textFile.filter(line =&gt; line.contains(&quot;Spark&quot;))</span><br><span class="line">textFile.filter(line =&gt; line.contains(&quot;Spark&quot;)).count()</span><br></pre></td></tr></table></figure></p>
+<h2 id="Python的map和reduce函数"><a href="#Python的map和reduce函数" class="headerlink" title="Python的map和reduce函数"></a>Python的map和reduce函数</h2><p>参见：<br><a href="https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/00141861202544241651579c69d4399a9aa135afef28c44000" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/00141861202544241651579c69d4399a9aa135afef28c44000</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">map(square,[1,2,3,4])</span><br><span class="line">map(f, [x1, x2, x3, x4]) = [f(x1),f(x2),f(x3),f(x4)]</span><br><span class="line">reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)</span><br></pre></td></tr></table></figure></p>
+<h2 id="弹性分布式数据集RDD是什么？"><a href="#弹性分布式数据集RDD是什么？" class="headerlink" title="弹性分布式数据集RDD是什么？"></a>弹性分布式数据集RDD是什么？</h2><p>RDD(Resilient Distributed Dataset)支持两种类型的操作：actions和transformations<br>actions: 在数据集上运行计算后返回值，包括collect, reduce, count, save, lookupKey等。<br>transformations: 转换，从现有数据集创建一个新的数据集，包括map, flatMap, filter, union, sample, join, groupByKey, cogroup, ReduceByKey, cros, sortByKey, mapValues等。</p>
+<h2 id="创建RRD"><a href="#创建RRD" class="headerlink" title="创建RRD"></a>创建RRD</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">textFile = sc.textFile(&quot;README.md&quot;)</span><br><span class="line">textFile.count()</span><br><span class="line">textFile.first()</span><br><span class="line">linesWithSpark = textFile.filter(lambda line: &quot;Spark&quot; in line)</span><br><span class="line">textFile.filter(lambda line: &quot;Spark&quot; in line).count() </span><br><span class="line">textFile.map(lambda line: len(line.split())).reduce(lambda a, b: a if (a&gt;b) else b)</span><br><span class="line">#or</span><br><span class="line">def max(a, b):</span><br><span class="line">	if a &gt; b:</span><br><span class="line">		return a</span><br><span class="line">	else:</span><br><span class="line">		return b</span><br><span class="line">textFile.map(lambda line: len(line.split())).reduce(max)</span><br><span class="line">wordCounts = textFile.flatMap(lambda line: line.split()).map(lambda word: (word, 1)).reduceByKey(lambda a, b: a+b)</span><br><span class="line">#flatMap(func)：与map相似，但是每个输入的item能够被map到0个或者更多的输出items上，也就是说func的返回值应当是一个Seq，而不是一个单独的item</span><br><span class="line">#reduceByKey(func)：可以作用于使用&quot;键-值&quot;(K, V)形式存储的数据集上，并返回一组新的数据集(K, V)</span><br><span class="line">wordCounts.collect()</span><br></pre></td></tr></table></figure>
+<h2 id="RRD缓存"><a href="#RRD缓存" class="headerlink" title="RRD缓存"></a>RRD缓存</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">linesWithSpark.cache()</span><br><span class="line">linesWithSpark.count()</span><br></pre></td></tr></table></figure>
+<h2 id="自含式应用程序-self-contained-applications-调用"><a href="#自含式应用程序-self-contained-applications-调用" class="headerlink" title="自含式应用程序(self-contained applications)调用"></a>自含式应用程序(self-contained applications)调用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./bin/spark-submit --master local[4] python/pyspark/version.py</span><br><span class="line">#更多例子脚本见 examples\src\main\python</span><br></pre></td></tr></table></figure>
+<h2 id="Spark执行过程"><a href="#Spark执行过程" class="headerlink" title="Spark执行过程"></a>Spark执行过程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">text = sc.textFile(&quot;README.md&quot;)</span><br><span class="line">#print text</span><br><span class="line"></span><br><span class="line">from operator import add</span><br><span class="line">def tokenize(text):</span><br><span class="line">	return text.split()</span><br><span class="line"></span><br><span class="line">words = text.flatMap(tokenize)</span><br><span class="line">#print words</span><br><span class="line"></span><br><span class="line">wc = words.map(lambda x: (x,1))</span><br><span class="line">print wc.toDebugString()  #查看PipelinedRDD是怎么被转换的</span><br><span class="line"></span><br><span class="line">counts = wc.reduceByKey(add)</span><br><span class="line">counts.saveAsTextFile(&quot;wc&quot;)  #一旦我们最终调用了saveAsTextFile动作，这个分布式作业就开始执行了</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls wc/  #退出pyspark，查看运行结果</span><br><span class="line">less wc/part-00000  #每个part文件表示并行进程计算得到的结果，最终被保存到磁盘上。</span><br><span class="line">#备注：结果未像Hadoop一样被排序，可以使用sort在结果写入磁盘前进行排序。</span><br></pre></td></tr></table></figure>
+<h2 id="参考信息"><a href="#参考信息" class="headerlink" title="参考信息"></a>参考信息</h2><p><a href="https://www.cnblogs.com/Vito2008/p/5216324.html" target="_blank" rel="noopener">https://www.cnblogs.com/Vito2008/p/5216324.html</a><br><a href="http://coredumper.cn/index.php/2017/07/02/spark-run-environment-build/" target="_blank" rel="noopener">http://coredumper.cn/index.php/2017/07/02/spark-run-environment-build/</a><br><a href="https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/00141861202544241651579c69d4399a9aa135afef28c44000" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/00141861202544241651579c69d4399a9aa135afef28c44000</a><br><a href="https://www.zhihu.com/question/26568496" target="_blank" rel="noopener">https://www.zhihu.com/question/26568496</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/20/初识Spark/" data-id="cjf25s8hy000h8jfyuhkrvzwl" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/17/MySQL文本导入/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">MySQL用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BlogBulid/">BlogBulid</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Excel/">Excel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test/">Test</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Test/">Test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/matplotlib/">matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/numpy/">numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/">spark</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Test/" style="font-size: 20px;">Test</a> <a href="/tags/matplotlib/" style="font-size: 10px;">matplotlib</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/numpy/" style="font-size: 10px;">numpy</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/20/初识Spark/">初识Spark</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/17/MySQL文本导入/">MySQL用法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/12/Excel数据处理/">Excel数据处理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/28/Python-常用函数/">Python-常用函数</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/27/Python-matplotlib/">Python-matplotlib</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

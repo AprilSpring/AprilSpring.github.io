@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python-常用函数 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Python的常用函数get()功能：给字典中的某个键对应的值赋予新值。key：字典中要查找的键default：当指定键不存在时，返回{key:default}。1dict.get(key, default=None)">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python-常用函数">
+<meta property="og:url" content="http://yoursite.com/2017/07/28/Python-常用函数/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Python的常用函数get()功能：给字典中的某个键对应的值赋予新值。key：字典中要查找的键default：当指定键不存在时，返回{key:default}。1dict.get(key, default=None)">
+<meta property="og:updated_time" content="2017-08-03T07:08:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python-常用函数">
+<meta name="twitter:description" content="Python的常用函数get()功能：给字典中的某个键对应的值赋予新值。key：字典中要查找的键default：当指定键不存在时，返回{key:default}。1dict.get(key, default=None)">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python-常用函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/28/Python-常用函数/" class="article-date">
+  <time datetime="2017-07-28T05:56:17.000Z" itemprop="datePublished">2017-07-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python-常用函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python的常用函数"><a href="#Python的常用函数" class="headerlink" title="Python的常用函数"></a>Python的常用函数</h1><h2 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h2><p>功能：给字典中的某个键对应的值赋予新值。<br>key：字典中要查找的键<br>default：当指定键不存在时，返回{key:default}。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict.get(key, default=None)</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="operator-itemgetter"><a href="#operator-itemgetter" class="headerlink" title="operator.itemgetter()"></a>operator.itemgetter()</h2><p>功能：用于提取指定索引对应的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import operator</span><br><span class="line">a = [1,2,3] </span><br><span class="line">&gt;&gt;&gt; b=operator.itemgetter(1)   #用于提取索引为&#123;1&#125;的操作</span><br><span class="line">&gt;&gt;&gt; b(a) </span><br><span class="line">2 </span><br><span class="line">&gt;&gt;&gt; b=operator.itemgetter(1,0) #用于提取索引为&#123;1,0&#125;的操作</span><br><span class="line">&gt;&gt;&gt; b(a) </span><br><span class="line">(2,1)</span><br></pre></td></tr></table></figure></p>
+<h2 id="items-和iteritems"><a href="#items-和iteritems" class="headerlink" title="items()和iteritems()"></a>items()和iteritems()</h2><p>dict.items():返回一个字典(键,值)对应的列表。<br>dict.iteritems():返回一个字典(键,值)对应的迭代器<br>(Note: iteritems() was removed in python3, so you can’t use this method anymore.)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dict=&#123;1:&apos;one&apos;,2:&apos;two&apos;,3:&apos;three&apos;&#125;</span><br><span class="line">&gt;&gt;&gt; for k,v in dict.items():</span><br><span class="line">...     print(&quot;dict[%s] is %s&quot; % (k,v))</span><br><span class="line">...</span><br><span class="line">dict[1] is one</span><br><span class="line">dict[2] is two</span><br><span class="line">dict[3] is three</span><br></pre></td></tr></table></figure></p>
+<h2 id="对文件-文件夹的操作-os模块和shutil模块"><a href="#对文件-文件夹的操作-os模块和shutil模块" class="headerlink" title="对文件/文件夹的操作(os模块和shutil模块)"></a>对文件/文件夹的操作(os模块和shutil模块)</h2><p>得到当前工作目录: os.getcwd()<br>更改当前工作目录：os.chdir()<br>返回指定目录下的所有文件和目录名：os.listdir(“c：\python”)<br>删除一个文件：os.remove()<br>删除多个目录：os.removedirs(r”c：\python”)<br>判断是否是一个文件：os.path.isfile()<br>判断是否是一个目录：os.path.isdir()<br>判断是否是绝对路径：os.path.isabs()<br>判断给出的路径是否真存在:os.path.exists()<br>返回一个路径的目录名和文件名:os.path.split()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; os.path.split(&apos;/home/swaroop/byte/code/poem.txt&apos;)</span><br><span class="line">(&apos;/home/swaroop/byte/code&apos;, &apos;poem.txt&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>分离扩展名：os.path.splitext()<br>获取路径名：os.path.dirname()<br>获取文件名：os.path.basename()<br>获取文件大小：os.path.getsize(filename)<br>运行shell命令: os.system()<br>读取和设置环境变量：os.getenv()与os.putenv()<br>重命名：os.rename(old,new)<br>创建多级目录：os.makedirs(r”c：\python\test”)<br>创建单个目录：os.mkdir(“test”)<br>获取文件属性：os.stat(file)<br>修改文件权限与时间戳：os.chmod(file)<br>终止当前进程：os.exit()<br>复制文件：shutil.copyfile(“oldfile”,”newfile”) #oldfile和newfile都只能是文件<br>复制文件：shutil.copy(“oldfile”,”newfile”) #oldfile只能是文件夹，newfile可以是文件，也可以是目标目录<br>复制文件夹：shutil.copytree(“olddir”,”newdir”) olddir和newdir都只能是目录，且newdir必须不存在<br>删除目录：shutil.rmtree(“dir”) #空目录、有内容的目录都可以删</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/28/Python-常用函数/" data-id="cjf25s8hx000f8jfyzqy3ajo0" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/12/Excel数据处理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Excel数据处理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/27/Python-matplotlib/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Python-matplotlib</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BlogBulid/">BlogBulid</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Excel/">Excel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test/">Test</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Test/">Test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/matplotlib/">matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/numpy/">numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/">spark</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Test/" style="font-size: 20px;">Test</a> <a href="/tags/matplotlib/" style="font-size: 10px;">matplotlib</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/numpy/" style="font-size: 10px;">numpy</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/20/初识Spark/">初识Spark</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/17/MySQL文本导入/">MySQL用法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/12/Excel数据处理/">Excel数据处理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/28/Python-常用函数/">Python-常用函数</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/27/Python-matplotlib/">Python-matplotlib</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

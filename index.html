@@ -61,12 +61,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-初识Spark" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/22/hello-world/" class="article-date">
-  <time datetime="2018-03-22T06:05:06.442Z" itemprop="datePublished">2018-03-22</time>
+    <a href="/2018/01/20/初识Spark/" class="article-date">
+  <time datetime="2018-01-20T02:33:10.000Z" itemprop="datePublished">2018-01-20</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Spark/">Spark</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -75,7 +79,401 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/hello-world/">Hello World</a>
+      <a class="article-title" href="/2018/01/20/初识Spark/">初识Spark</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="浅谈Spark与Python"><a href="#浅谈Spark与Python" class="headerlink" title="浅谈Spark与Python"></a>浅谈Spark与Python</h1><h2 id="Spark是什么？"><a href="#Spark是什么？" class="headerlink" title="Spark是什么？"></a>Spark是什么？</h2><p>参见：<a href="https://www.cnblogs.com/Vito2008/p/5216324.html" target="_blank" rel="noopener">https://www.cnblogs.com/Vito2008/p/5216324.html</a></p>
+<p>Spark是分布式计算框架，可以将大量数据集的计算任务分配到多台计算机上，提供高效内存计算。</p>
+<p>分布式计算框架要解决两个问题：如何分发数据和如何分发计算？</p>
+<p>Hadoop使用HDFS(分布式文件系统)来解决分布式数据问题，MapReduce计算范式提供有效的分布式计算。</p>
+<p>而MapReduce要求每个步骤间的数据要序列化到磁盘，这意味着MapReduce作业的I/O成本很高，导致交互分析和迭代算法开销很大。</p>
+<p>Spark与Hadoop相似，拥有Hadoop MapReduce所具有的优点，但不同于MapReduce的是，Spark拥有多种语言的函数式编程API，提供了除map和reduce之外更多的运算符，这些操作是通过弹性分布式数据集RDD进行的，可以将Job的中间输出结果保存在内存中，从而不再需要读写HDFS，因此，Spark能更好地适用于数据挖掘与机器学习等需要迭代的MapReduce算法。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/01/20/初识Spark/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/20/初识Spark/" data-id="cjf25s8hy000h8jfyuhkrvzwl" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-MySQL文本导入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/17/MySQL文本导入/" class="article-date">
+  <time datetime="2018-01-17T03:53:30.000Z" itemprop="datePublished">2018-01-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/17/MySQL文本导入/">MySQL用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL如何导入文本文件"><a href="#MySQL如何导入文本文件" class="headerlink" title="MySQL如何导入文本文件"></a>MySQL如何导入文本文件</h1><h2 id="load-data-infile-‘path-test-txt’-into-table-table-name"><a href="#load-data-infile-‘path-test-txt’-into-table-table-name" class="headerlink" title="load data infile ‘path\test.txt’ into table table_name;"></a>load data infile ‘path\test.txt’ into table table_name;</h2><ol>
+<li><p>查看系统文件路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show global variables like &quot;%datadir%&quot;;  #C:\ProgramData\MySQL\MySQL Server 5.7\Data\</span><br><span class="line">show variables like &quot;%secure%&quot;;  #secure_file_priv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改C:\ProgramData\MySQL\MySQL Server 5.7\Data\my.ini文件中的secure-file-priv=’’。<br><img src="MySQL文本导入/1.png" alt=""></p>
+</li>
+<li>需要先创建好一个Table</li>
+<li>插入的文本中不需要有列名<br><img src="MySQL文本导入/2.png" alt=""></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">use cp;</span><br><span class="line">create table score(</span><br><span class="line">sid int(4),</span><br><span class="line">student_id int(4),</span><br><span class="line">corse_id int(4),</span><br><span class="line">number int(10)</span><br><span class="line">);</span><br><span class="line">load data infile &apos;D:\Learn\MySQL\inputTest.txt&apos; into table score;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2018/01/17/MySQL文本导入/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/17/MySQL文本导入/" data-id="cjf25s8hr00058jfy53zqiot2" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Excel数据处理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/12/Excel数据处理/" class="article-date">
+  <time datetime="2017-09-12T06:57:10.000Z" itemprop="datePublished">2017-09-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Excel/">Excel</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/12/Excel数据处理/">Excel数据处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="数据透视表"><a href="#数据透视表" class="headerlink" title="数据透视表"></a>数据透视表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://www.excelhome.net/video/excel/pivottable/</span><br><span class="line">https://www.zhihu.com/question/22484899/answer/39933218</span><br></pre></td></tr></table></figure>
+<p>数据透视表的建立、数据计算、表中数据的处理、筛选、切片器使用、多透视表的切片器连动、数据透视图等。</p>
+<p><img src="Excel数据处理/1.png" alt=""></p>
+<p>数据来自知乎大侠，感谢。<br>
+        
+          <p class="article-more-link">
+            <a href="/2017/09/12/Excel数据处理/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/12/Excel数据处理/" data-id="cjf25s8he00008jfyhdhpdpb9" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Excel/">Excel</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python-常用函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/28/Python-常用函数/" class="article-date">
+  <time datetime="2017-07-28T05:56:17.000Z" itemprop="datePublished">2017-07-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/28/Python-常用函数/">Python-常用函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python的常用函数"><a href="#Python的常用函数" class="headerlink" title="Python的常用函数"></a>Python的常用函数</h1><h2 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h2><p>功能：给字典中的某个键对应的值赋予新值。<br>key：字典中要查找的键<br>default：当指定键不存在时，返回{key:default}。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict.get(key, default=None)</span><br></pre></td></tr></table></figure></p>
+        
+          <p class="article-more-link">
+            <a href="/2017/07/28/Python-常用函数/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/28/Python-常用函数/" data-id="cjf25s8hx000f8jfyzqy3ajo0" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python-matplotlib" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/27/Python-matplotlib/" class="article-date">
+  <time datetime="2017-07-27T04:56:17.000Z" itemprop="datePublished">2017-07-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/27/Python-matplotlib/">Python-matplotlib</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python的Matplotlib模块"><a href="#Python的Matplotlib模块" class="headerlink" title="Python的Matplotlib模块"></a>Python的Matplotlib模块</h1><p>Matplotlib是Python的一个绘图库，包含了大量创建图形的工具，例如散点图，三角函数曲线，三维图形等。</p>
+<h2 id="引用模块方式"><a href="#引用模块方式" class="headerlink" title="引用模块方式"></a>引用模块方式</h2><p>由于from x import * 是一种糟糕的导入方式，同时不想在程序里重复书写过于冗长的matplotlib.pyplot和numpy，因此我们采用下面的写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br></pre></td></tr></table></figure></p>
+        
+          <p class="article-more-link">
+            <a href="/2017/07/27/Python-matplotlib/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/27/Python-matplotlib/" data-id="cjf25s8hs00068jfykr38xioy" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/matplotlib/">matplotlib</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python-numpy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/26/Python-numpy/" class="article-date">
+  <time datetime="2017-07-26T04:56:17.000Z" itemprop="datePublished">2017-07-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/26/Python-numpy/">Python-numpy</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python的Numpy模块"><a href="#Python的Numpy模块" class="headerlink" title="Python的Numpy模块"></a>Python的Numpy模块</h1><h2 id="数组对象"><a href="#数组对象" class="headerlink" title="数组对象"></a>数组对象</h2><ol>
+<li>ndarray对象<br>NumPy中定义的最重要的对象是称为ndarray的N维数组类型。它描述相同类型的元素集合，可以使用基于零的索引访问集合中的项目。<br>ndarray中的每个元素在内存中使用相同大小的块。ndarray中的每个元素是数据类型对象的对象（称为 dtype）。</li>
+</ol>
+        
+          <p class="article-more-link">
+            <a href="/2017/07/26/Python-numpy/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/26/Python-numpy/" data-id="cjf25s8ht000a8jfyglx2f50g" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/numpy/">numpy</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Hexo-build" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/13/Hexo-build/" class="article-date">
+  <time datetime="2017-04-13T06:07:36.000Z" itemprop="datePublished">2017-04-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BlogBulid/">BlogBulid</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/13/Hexo-build/">Hexo build</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>终于搭建好了自己的博客，借助前辈们的基础，自己也踩了几个坑。<br>下面就谈谈，身为菜鸟的我，是怎么一步步操作的。</p>
+<h1 id="一、Hexo搭建"><a href="#一、Hexo搭建" class="headerlink" title="一、Hexo搭建"></a>一、Hexo搭建</h1><h2 id="1-必要软件下载"><a href="#1-必要软件下载" class="headerlink" title="1. 必要软件下载"></a>1. 必要软件下载</h2><p>node.js：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a><br>git：<a href="https://git-scm.com/downloads/" target="_blank" rel="noopener">https://git-scm.com/downloads/</a></p>
+<h2 id="2-Github账号注册和Repository创建"><a href="#2-Github账号注册和Repository创建" class="headerlink" title="2. Github账号注册和Repository创建"></a>2. Github账号注册和Repository创建</h2><p>申请页面：<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a><br>记录好 <strong>用户名，Email，密码</strong><br>新建Repository，我的库名为<strong>AprilSpring.github.io</strong>。<br>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/13/Hexo-build/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/13/Hexo-build/" data-id="cjf25s8hi00018jfytlh8h9b8" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-My-New-Post" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/12/My-New-Post/" class="article-date">
+  <time datetime="2017-04-12T05:39:17.000Z" itemprop="datePublished">2017-04-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Test/">Test</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/12/My-New-Post/">My New Post</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一次搭建Blog！<br><img src="My-New-Post/test.jpg" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/12/My-New-Post/" data-id="cjf25s8hp00048jfy1f6gdfe0" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Test/">Test</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/12/hello-world/" class="article-date">
+  <time datetime="2017-04-12T05:39:17.000Z" itemprop="datePublished">2017-04-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Test/">Test</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/12/hello-world/">Hello World</a>
     </h1>
   
 
@@ -85,20 +483,20 @@
       
         <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a><br>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/12/hello-world/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/22/hello-world/" data-id="cjf25f1iv00003sfy3wtpes9x" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2017/04/12/hello-world/" data-id="cjf25s8hv000b8jfyfc85gyjy" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Test/">Test</a></li></ul>
+
     </footer>
   </div>
   
@@ -113,18 +511,39 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BlogBulid/">BlogBulid</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Excel/">Excel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test/">Test</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/">Excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Test/">Test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/matplotlib/">matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/numpy/">numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/">spark</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Test/" style="font-size: 20px;">Test</a> <a href="/tags/matplotlib/" style="font-size: 10px;">matplotlib</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/numpy/" style="font-size: 10px;">numpy</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul>
     </div>
   </div>
 
@@ -137,7 +556,23 @@
       <ul>
         
           <li>
-            <a href="/2018/03/22/hello-world/">Hello World</a>
+            <a href="/2018/01/20/初识Spark/">初识Spark</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/17/MySQL文本导入/">MySQL用法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/12/Excel数据处理/">Excel数据处理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/28/Python-常用函数/">Python-常用函数</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/27/Python-matplotlib/">Python-matplotlib</a>
           </li>
         
       </ul>
