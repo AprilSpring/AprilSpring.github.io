@@ -670,10 +670,10 @@
 <li><p>查看系统文件路径：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show global variables like &quot;%datadir%&quot;;  #C:\ProgramData\MySQL\MySQL Server 5.7\Data\</span><br><span class="line">show variables like &quot;%secure%&quot;;  #secure_file_priv</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>修改C:\ProgramData\MySQL\MySQL Server 5.7\Data\my.ini文件中的secure-file-priv=’’。<br><img src="MySQL文本导入/1.png" alt=""></p>
+<li><p>修改C:\ProgramData\MySQL\MySQL Server 5.7\Data\my.ini文件中的secure-file-priv=’’。<br><img src="/2018/01/17/MySQL文本导入/1.png" alt=""></p>
 </li>
 <li>需要先创建好一个Table</li>
-<li>插入的文本中不需要有列名<br><img src="MySQL文本导入/2.png" alt=""></li>
+<li>插入的文本中不需要有列名<br><img src="/2018/01/17/MySQL文本导入/2.png" alt=""></li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">use cp;</span><br><span class="line">create table score(</span><br><span class="line">sid int(4),</span><br><span class="line">student_id int(4),</span><br><span class="line">corse_id int(4),</span><br><span class="line">number int(10)</span><br><span class="line">);</span><br><span class="line">load data infile &apos;D:\Learn\MySQL\inputTest.txt&apos; into table score;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -973,8 +973,8 @@
         
           <h1 id="数据透视表"><a href="#数据透视表" class="headerlink" title="数据透视表"></a>数据透视表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://www.excelhome.net/video/excel/pivottable/</span><br><span class="line">https://www.zhihu.com/question/22484899/answer/39933218</span><br></pre></td></tr></table></figure>
 <p>数据透视表的建立、数据计算、表中数据的处理、筛选、切片器使用、多透视表的切片器连动、数据透视图等。</p>
-<p><img src="Excel数据处理/1.png" alt=""></p>
-<p>数据来自知乎大侠，感谢。<br>
+<p><img src="/2017/09/12/Excel数据处理/1.png" alt=""></p>
+<p>数据来自知乎大侠，感谢。<br></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/12/Excel数据处理/#more" rel="contents">
@@ -1567,7 +1567,7 @@
         
           <p>终于搭建好了自己的博客，借助前辈们的基础，自己也踩了几个坑。<br>下面就谈谈，身为菜鸟的我，是怎么一步步操作的。</p>
 <h1 id="一、Hexo搭建"><a href="#一、Hexo搭建" class="headerlink" title="一、Hexo搭建"></a>一、Hexo搭建</h1><h2 id="1-必要软件下载"><a href="#1-必要软件下载" class="headerlink" title="1. 必要软件下载"></a>1. 必要软件下载</h2><p>node.js：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a><br>git：<a href="https://git-scm.com/downloads/" target="_blank" rel="noopener">https://git-scm.com/downloads/</a></p>
-<h2 id="2-Github账号注册和Repository创建"><a href="#2-Github账号注册和Repository创建" class="headerlink" title="2. Github账号注册和Repository创建"></a>2. Github账号注册和Repository创建</h2><p>申请页面：<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a><br>记录好 <strong>用户名，Email，密码</strong><br>新建Repository，我的库名为<strong>AprilSpring.github.io</strong>。<br>
+<h2 id="2-Github账号注册和Repository创建"><a href="#2-Github账号注册和Repository创建" class="headerlink" title="2. Github账号注册和Repository创建"></a>2. Github账号注册和Repository创建</h2><p>申请页面：<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a><br>记录好 <strong>用户名，Email，密码</strong><br>新建Repository，我的库名为<strong>AprilSpring.github.io</strong>。<br></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/04/13/Hexo-build/#more" rel="contents">
