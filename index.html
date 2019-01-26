@@ -268,6 +268,266 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2019/01/26/BERT原理和使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AprilSpring">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/01/26/BERT原理和使用/" itemprop="url">
+                  BERT原理和使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T20:56:10+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MachineLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">MachineLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。</p>
+<h1 id="1-BERT简介"><a href="#1-BERT简介" class="headerlink" title="1. BERT简介"></a>1. BERT简介</h1><h3 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h3><p>BERT（<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentation from <strong>T</strong>ransformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项NLP任务均获得了相当不错的结果，文章于2018年10月发表，并提供了开源地址（ <a href="https://github.com/google-research/bert" target="_blank" rel="noopener">https://github.com/google-research/bert</a> ），致谢👏👏👏。</p>
+<h3 id="语料库"><a href="#语料库" class="headerlink" title="语料库"></a>语料库</h3><p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words). </p>
+<h3 id="预训练模型及参数"><a href="#预训练模型及参数" class="headerlink" title="预训练模型及参数"></a>预训练模型及参数</h3><p>可参考GitHub详细文档。</p>
+<h3 id="BERT的主要特点"><a href="#BERT的主要特点" class="headerlink" title="BERT的主要特点"></a>BERT的主要特点</h3><p>Ø  使用Transformer作为特征提取器</p>
+<p>Ø  双向语言模型</p>
+<font color="red">由于BERT是基于Transformer模型的，而Transformer模型主要基于Attention机制，因此先需要了解下Attention机制。</font>
+
+<p>​      </p>
+<h1 id="2-Attention机制"><a href="#2-Attention机制" class="headerlink" title="2. Attention机制"></a>2. Attention机制</h1><h3 id="Attention机制的提出"><a href="#Attention机制的提出" class="headerlink" title="Attention机制的提出"></a>Attention机制的提出</h3><p>Ø 早在Seq2seq基础上提出attention机制，现在提到的Seq2seq均指加入attention机制的模型 </p>
+<p>Ø Seq2seq模型：Encoder将整个输入压缩成固定长度的context vector</p>
+<p>Ø Attention机制：输入针对不同时刻的输出，有着不同的重要程度（即生成多个context vector）</p>
+<p>Ø 重点： <strong>如何计算context vector？</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126221118180.png" alt="image-20190126221118180"></p>
+<h3 id="Attention机制的原理"><a href="#Attention机制的原理" class="headerlink" title="Attention机制的原理"></a>Attention机制的原理</h3><p>Attention机制主要用于计算输入对不同时刻输出的差异重要程度。</p>
+<blockquote>
+<p>1）对于当前时刻T的输出yt，除了需要计算上一时刻状态St-1之外，还需要知道Encoder对yt的贡献程度Ct；</p>
+<p>2）分别计算Encoder不同时刻输入的隐藏层状态hj={h1,h2,…,hT}与Decoder 上一时刻的隐藏层状态St-1的相关性，来获取不同时刻hj的权重，即<strong>aij</strong>。</p>
+<p>3）使用aij与hj对应相乘，再加和，得到整体输入对当前时刻输出的贡献，即<strong>Ct</strong>。</p>
+<p>4）针对不同时刻输出，Ct的内容是不相同的，也即反应了输入对不同时刻输出的差异性。</p>
+</blockquote>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126222616736.png" alt="image-20190126222616736"></p>
+<h3 id="Attention机制的种类"><a href="#Attention机制的种类" class="headerlink" title="Attention机制的种类"></a>Attention机制的种类</h3><p>主要分为以下3种：</p>
+<p>1.Context-attention（即Encoder-Decoder Attention）</p>
+<p>2.Self-attention（Encoder内部 OR Decoder内部）</p>
+<p>3.Multi-head attention（可以是基于Context-attention的，也可以是基于Self-attention的）</p>
+<font color="red">基于对Attention机制的理解，我们来看看Transformer模型是什么东东。</font>
+
+<p>​      </p>
+<h1 id="3-Transformer模型"><a href="#3-Transformer模型" class="headerlink" title="3. Transformer模型"></a>3. Transformer模型</h1><h3 id="Transformer模型简介"><a href="#Transformer模型简介" class="headerlink" title="Transformer模型简介"></a>Transformer模型简介</h3><p>Transformer 是个叠加的“自注意力机制（Self Attention）”，是目前 NLP 里最强的特征提取器。具体来说，Transformer是一个升级版的seq2seq，也由一个encoder和一个decoder组成的，但是encoder和decoder过程都不用RNN，而且换成了多个attention机制模型。</p>
+<p>Ø Encoder：一共有N=6次循环，每次循环包含 2 个layers, 分别是：</p>
+<blockquote>
+<p>One multi-head self-attention mechanism（为输入句子向量的每个词学习一个权重）</p>
+<p>One position-wise fully connected feed-forward network</p>
+</blockquote>
+<p>Ø Decoder（right）：一共有N=6次循环，每次循环包含3个layers，分别是：</p>
+<blockquote>
+<p>One multi-head self-attention mechanism（当前翻译词与已翻译前文的关系）</p>
+<p>One multi-head context-attention mechanism（当前翻译词与编码特征向量的关系）</p>
+<p>One position-wise fully connected feed-forward network</p>
+</blockquote>
+<p>Ø 每个layer后面都跟了一个add&amp;norm，即添加residual connections + layer norm</p>
+<h3 id="Transformer模型结构"><a href="#Transformer模型结构" class="headerlink" title="Transformer模型结构"></a>Transformer模型结构</h3><p><img src="/2019/01/26/BERT原理和使用/image-20190126230757455.png" alt="image-20190126230757455"></p>
+<p><strong>1）Encoder部分</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126231024950.png" alt="image-20190126231024950"></p>
+<p><strong>2）Query+Key+Value</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126231201787.png" alt="image-20190126231201787"></p>
+<p><strong>3）Self-attention</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126231306422.png" alt="image-20190126231306422"></p>
+<p><strong>4）Multi-Head Attention</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126231441517.png" alt="image-20190126231441517"></p>
+<p><strong>5）Heads 数目影响</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126231550838.png" alt="image-20190126231550838"></p>
+<p><strong>6）Position embedding</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126231701048.png" alt="image-20190126231701048"></p>
+<p><strong>7）Residual connections and Layer norm</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126231813364.png" alt="image-20190126231813364"></p>
+<p><strong>8）Position-wise feed-forwardnetwork</strong></p>
+<p>是一个全连接网络，对每个位置过两个线性层，并使用ReLU作为激活函数。 </p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126232706562.png" alt="image-20190126232706562"></p>
+<p><strong>9）Decoder部分</strong></p>
+<p><img src="/2019/01/26/BERT原理和使用/transformer_decoding_1.gif" alt="transformer_decoding_1"></p>
+<p><img src="/2019/01/26/BERT原理和使用/transformer_decoding_2.gif" alt="transformer_decoding_2"></p>
+<p><strong>10）Masked机制</strong></p>
+<p>Transformer模型中涉及2种mask：</p>
+<p>1.Padding mask用在所有的scaled dot-product attention</p>
+<blockquote>
+<p>由于每次输入的句子长度不一样，需要对输入序列进行对齐，也就是给较短的序列后面填充0。由于填充序列没有什么意义，attention机制不应该把注意力放在这些位置，因此需要进行如下处理：把这些位置的值加上一个非常大的负数(可以是负无穷)，这样的话，经过softmax，这些位置的概率就会接近0。</p>
+</blockquote>
+<p>2.Sequence mask用在decoder的self-attention</p>
+<blockquote>
+<p>为了使得Decoder不能看见未来的信息，也就是针对一个序列，在t时刻的解码输出只能依赖于t时刻之前的输出，而不能依赖t时刻之后的输出，因此需要进行一些处理，将t时刻之后的信息隐藏起来。</p>
+</blockquote>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126232438364.png" alt="image-20190126232438364"></p>
+<p><strong>11）Final Linear and Softmax Layer</strong></p>
+<p>Decoder当前输出，经线性变换和softmax ，获得预测概率最大的词，作为输出结果。</p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126232604901.png" alt="image-20190126232604901"></p>
+<h3 id="Transformer的优势"><a href="#Transformer的优势" class="headerlink" title="Transformer的优势"></a>Transformer的优势</h3><ol>
+<li>并行计算, 提高训练速度</li>
+</ol>
+<blockquote>
+<p>Transformer用attention代替了原本的RNN；而RNN在训练的时候, 当前step的计算要依赖于上一个step的hidden state的，而Transformer不用RNN，所有的计算都可以并行进行，从而提高的训练的速度。 </p>
+</blockquote>
+<ol>
+<li>捕获长距离特征</li>
+</ol>
+<blockquote>
+<p>原本的RNN里，如果第一帧要和第十帧建立依赖，那么第一帧的数据要依次经过第二三四五…九帧传给第十帧，进而产生二者的计算；而在这个传递的过程中，可能第一帧的数据已经产生了biased，因此这个交互的速度和准确性都没有保障。而在Transformer中，由于有self attention的存在，任意两帧之间都有直接的交互，从而建立了直接的依赖，无论二者距离多远。 </p>
+</blockquote>
+<h1 id="4-BERT的双向Encoder表示"><a href="#4-BERT的双向Encoder表示" class="headerlink" title="4. BERT的双向Encoder表示"></a>4. BERT的双向Encoder表示</h1><p>BERT是multi-task语言模型，它的双向语言表示主要是基于以下2个task完成的。</p>
+<h3 id="Task1：Masked语言模型（masked-LM，即完形填空式预测）"><a href="#Task1：Masked语言模型（masked-LM，即完形填空式预测）" class="headerlink" title="Task1：Masked语言模型（masked LM，即完形填空式预测）"></a>Task1：Masked语言模型（masked LM，即完形填空式预测）</h3><p><img src="/2019/01/26/BERT原理和使用/image-20190126234431545.png" alt="image-20190126234431545"></p>
+<p>###Task2：Next Sentence Prediction（句子关系预测）</p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126234539448.png" alt="image-20190126234539448"></p>
+<p>###Multi-task Learning的损失函数</p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126234722765.png" alt="image-20190126234722765"></p>
+<h1 id="5-BERT-vs-GPT-vs-ELMo"><a href="#5-BERT-vs-GPT-vs-ELMo" class="headerlink" title="5. BERT vs. GPT vs. ELMo"></a>5. BERT vs. GPT vs. ELMo</h1><p>BERT与GPT和ELMo的相同和差异，如下：</p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126234850135.png" alt="image-20190126234850135"></p>
+<h1 id="6-BERT的应用"><a href="#6-BERT的应用" class="headerlink" title="6. BERT的应用"></a>6. BERT的应用</h1><p>###Sequence-level </p>
+<p>1）成对句子分类：如MNLI，用于预测第二个句子与第一个句子是承接关系，矛盾关系，还是中立关系？（三分类输出，脚本run_classifier.py）</p>
+<p>2）单个句子分类：如CoLA，用于判定给定英语句子的语言可接受性与否？（二分类输出，run_classifier.py）。 </p>
+<p>###Token-level </p>
+<p>1）智能问答：如SQuAD v1.1（The Standford Question Answering Dataset），语料为来自Wikipedia的问题和包含答案的段落，用于从段落中预测对应答案的文本跨度（即文本跨度预测问题span prediction task，输出为答案的Start+End+Span，脚本run_classifier.py）；</p>
+<p>2）命名实体识别：如CoNLL-2003 NER（实体类别Person, Organization, Location, Miscellaneous, or Other (non-named entity)），用于（即token tagging task，输出：，脚本extract_features.py）。 </p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126235236541.png" alt="image-20190126235236541"></p>
+<p>###Sentence Encoding/Embedding </p>
+<p>使用预训练好的模型，生成句向量（mapping a variable-length sentence to a fixed-length vector）。 </p>
+<p><a href="https://github.com/hanxiao/bert-as-service" target="_blank" rel="noopener">https://github.com/hanxiao/bert-as-service</a> </p>
+<p>###基于pytorch的Bert应用 </p>
+<p><a href="https://github.com/codertimo/BERT-pytorch" target="_blank" rel="noopener">https://github.com/codertimo/BERT-pytorch</a> </p>
+<p>###Pre-train, domain-pre-train and fine-tune</p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190127000153685.png" alt="image-20190127000153685"></p>
+<h3 id="Pre-train参数"><a href="#Pre-train参数" class="headerlink" title="Pre-train参数"></a>Pre-train参数</h3><p>We train with <strong>batch size of 256 sequences</strong> (256 sequences * 512 tokens = 128,000 tokens/batch) for 1,000,000 steps, which is approximately <strong>40 epochs</strong> over the <strong>3.3 billion word corpus</strong>. We use Adam with <strong>learning rate of 1e-4</strong>, β1 = 0.9, β2 = 0.999, L2 weight decay of 0.01, learning rate warmup over the first 10,000 steps, and linear decay of the learning rate. We use a <strong>dropout probability of 0.1</strong> on all layers. We use a <strong>gelu activation</strong> (Hendrycks and Gimpel, 2016) rather than the standard relu, following OpenAI GPT.</p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190127000626179.png" alt="image-20190127000626179"></p>
+<p>###Fine-tune参数 </p>
+<p>For fine-tuning, most model hyperparameters are the same as in pre-training, with the <strong>exception of the batch size, learning rate, and number of training epochs</strong>. The dropout probability was always kept at 0.1.</p>
+<p>!image-20190127000516938](BERT原理和使用/image-20190127000516938.png)</p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190127000547826.png" alt="image-20190127000547826"></p>
+<p><strong>特别鸣谢</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2018/07/12/自然语言处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1616,155 +1876,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2017/04/13/Hexo-build/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="April">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AprilSpring">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/13/Hexo-build/" itemprop="url">
-                  Hexo build
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-13T14:07:36+08:00">
-                2017-04-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>终于搭建好了自己的博客，借助前辈们的基础，自己也踩了几个坑。<br>下面就谈谈，身为菜鸟的我，是怎么一步步操作的。</p>
-<h1 id="一、Hexo搭建"><a href="#一、Hexo搭建" class="headerlink" title="一、Hexo搭建"></a>一、Hexo搭建</h1><h2 id="1-必要软件下载"><a href="#1-必要软件下载" class="headerlink" title="1. 必要软件下载"></a>1. 必要软件下载</h2><p>node.js：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a><br>git：<a href="https://git-scm.com/downloads/" target="_blank" rel="noopener">https://git-scm.com/downloads/</a></p>
-<h2 id="2-Github账号注册和Repository创建"><a href="#2-Github账号注册和Repository创建" class="headerlink" title="2. Github账号注册和Repository创建"></a>2. Github账号注册和Repository创建</h2><p>申请页面：<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a><br>记录好 <strong>用户名，Email，密码</strong><br>新建Repository，我的库名为<strong>AprilSpring.github.io</strong>。<br></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/13/Hexo-build/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1814,7 +1925,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1878,7 +1989,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
