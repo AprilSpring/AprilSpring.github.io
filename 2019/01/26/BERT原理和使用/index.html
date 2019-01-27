@@ -87,13 +87,13 @@
 
 
 
-<meta name="description" content="最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。 #1. BERT简介 ##1.1 BERT BERT（Bidirectional Encoder Representation from Transformers），是谷歌AI团队新发布的应用于NLP领域的模型，">
+<meta name="description" content="最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。 1. BERT简介1.1 BERTBERT（Bidirectional Encoder Representation from Transformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项N">
 <meta name="keywords" content="machinelearning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BERT原理和使用">
 <meta property="og:url" content="https://aprilspring.github.io/2019/01/26/BERT原理和使用/index.html">
 <meta property="og:site_name" content="AprilSpring">
-<meta property="og:description" content="最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。 #1. BERT简介 ##1.1 BERT BERT（Bidirectional Encoder Representation from Transformers），是谷歌AI团队新发布的应用于NLP领域的模型，">
+<meta property="og:description" content="最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。 1. BERT简介1.1 BERTBERT（Bidirectional Encoder Representation from Transformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项N">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://aprilspring.github.io/2019/01/26/BERT原理和使用/image-20190126221118180.png">
 <meta property="og:image" content="https://aprilspring.github.io/2019/01/26/BERT原理和使用/image-20190126222616736.png">
@@ -118,10 +118,10 @@
 <meta property="og:image" content="https://aprilspring.github.io/2019/01/26/BERT原理和使用/image-20190127000153685.png">
 <meta property="og:image" content="https://aprilspring.github.io/2019/01/26/BERT原理和使用/image-20190127000626179.png">
 <meta property="og:image" content="https://aprilspring.github.io/2019/01/26/BERT原理和使用/image-20190127000547826.png">
-<meta property="og:updated_time" content="2019-01-27T02:53:44.406Z">
+<meta property="og:updated_time" content="2019-01-27T02:55:02.456Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BERT原理和使用">
-<meta name="twitter:description" content="最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。 #1. BERT简介 ##1.1 BERT BERT（Bidirectional Encoder Representation from Transformers），是谷歌AI团队新发布的应用于NLP领域的模型，">
+<meta name="twitter:description" content="最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。 1. BERT简介1.1 BERTBERT（Bidirectional Encoder Representation from Transformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项N">
 <meta name="twitter:image" content="https://aprilspring.github.io/2019/01/26/BERT原理和使用/image-20190126221118180.png">
 
 
@@ -390,15 +390,10 @@
 
       
         <p>最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。</p>
-<p>#1. BERT简介</p>
-<p>##1.1 BERT</p>
-<p>BERT（<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentation from <strong>T</strong>ransformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项NLP任务均获得了相当不错的结果，文章于2018年10月发表，并提供了开源地址（ <a href="https://github.com/google-research/bert" target="_blank" rel="noopener">https://github.com/google-research/bert</a> ），致谢👏👏👏。</p>
-<p>##1.2 语料库</p>
-<p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words). </p>
-<p>##1.3 预训练模型及参数</p>
-<p>可参考GitHub详细文档。</p>
-<p>##1.4 BERT的主要特点</p>
-<p>Ø  使用Transformer作为特征提取器</p>
+<h1 id="1-BERT简介"><a href="#1-BERT简介" class="headerlink" title="1. BERT简介"></a>1. BERT简介</h1><h2 id="1-1-BERT"><a href="#1-1-BERT" class="headerlink" title="1.1 BERT"></a>1.1 BERT</h2><p>BERT（<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentation from <strong>T</strong>ransformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项NLP任务均获得了相当不错的结果，文章于2018年10月发表，并提供了开源地址（ <a href="https://github.com/google-research/bert" target="_blank" rel="noopener">https://github.com/google-research/bert</a> ），致谢👏👏👏。</p>
+<h2 id="1-2-语料库"><a href="#1-2-语料库" class="headerlink" title="1.2 语料库"></a>1.2 语料库</h2><p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words). </p>
+<h2 id="1-3-预训练模型及参数"><a href="#1-3-预训练模型及参数" class="headerlink" title="1.3 预训练模型及参数"></a>1.3 预训练模型及参数</h2><p>可参考GitHub详细文档。</p>
+<h2 id="1-4-BERT的主要特点"><a href="#1-4-BERT的主要特点" class="headerlink" title="1.4 BERT的主要特点"></a>1.4 BERT的主要特点</h2><p>Ø  使用Transformer作为特征提取器</p>
 <p>Ø  双向语言模型</p>
 <font color="red">由于BERT是基于Transformer模型的，而Transformer模型主要基于Attention机制，因此先需要了解下Attention机制。</font>
 
@@ -698,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Transformer的优势"><span class="nav-number">1.</span> <span class="nav-text">Transformer的优势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-BERT的双向Encoder表示"><span class="nav-number"></span> <span class="nav-text">4. BERT的双向Encoder表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Task1：Masked语言模型（masked-LM，即完形填空式预测）"><span class="nav-number">1.</span> <span class="nav-text">Task1：Masked语言模型（masked LM，即完形填空式预测）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-BERT-vs-GPT-vs-ELMo"><span class="nav-number"></span> <span class="nav-text">5. BERT vs. GPT vs. ELMo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-BERT的应用"><span class="nav-number"></span> <span class="nav-text">6. BERT的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pre-train参数"><span class="nav-number">1.</span> <span class="nav-text">Pre-train参数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-BERT简介"><span class="nav-number">1.</span> <span class="nav-text">1. BERT简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-BERT"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 BERT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-语料库"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 语料库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-预训练模型及参数"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 预训练模型及参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-BERT的主要特点"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 BERT的主要特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Transformer的优势"><span class="nav-number">1.4.1.</span> <span class="nav-text">Transformer的优势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-BERT的双向Encoder表示"><span class="nav-number">2.</span> <span class="nav-text">4. BERT的双向Encoder表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Task1：Masked语言模型（masked-LM，即完形填空式预测）"><span class="nav-number">2.0.1.</span> <span class="nav-text">Task1：Masked语言模型（masked LM，即完形填空式预测）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-BERT-vs-GPT-vs-ELMo"><span class="nav-number">3.</span> <span class="nav-text">5. BERT vs. GPT vs. ELMo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-BERT的应用"><span class="nav-number">4.</span> <span class="nav-text">6. BERT的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pre-train参数"><span class="nav-number">4.0.1.</span> <span class="nav-text">Pre-train参数</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
