@@ -368,25 +368,28 @@
         
           
             <p>最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。</p>
-<p>##1. BERT简介</p>
-<p>###BERT</p>
+<p>#1. BERT简介</p>
+<p>##1.1 BERT</p>
 <p>BERT（<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentation from <strong>T</strong>ransformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项NLP任务均获得了相当不错的结果，文章于2018年10月发表，并提供了开源地址（ <a href="https://github.com/google-research/bert" target="_blank" rel="noopener">https://github.com/google-research/bert</a> ），致谢👏👏👏。</p>
-<p>###语料库</p>
+<p>##1.2 语料库</p>
 <p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words). </p>
-<p>###预训练模型及参数</p>
+<p>##1.3 预训练模型及参数</p>
 <p>可参考GitHub详细文档。</p>
-<p>###BERT的主要特点</p>
+<p>##1.4 BERT的主要特点</p>
 <p>Ø  使用Transformer作为特征提取器</p>
 <p>Ø  双向语言模型</p>
 <font color="red">由于BERT是基于Transformer模型的，而Transformer模型主要基于Attention机制，因此先需要了解下Attention机制。</font>
 
 <p>​      ======我是分割线======</p>
-<h1 id="2-Attention机制"><a href="#2-Attention机制" class="headerlink" title="2. Attention机制"></a>2. Attention机制</h1><h3 id="Attention机制的提出"><a href="#Attention机制的提出" class="headerlink" title="Attention机制的提出"></a>Attention机制的提出</h3><p>Ø 早在Seq2seq基础上提出attention机制，现在提到的Seq2seq均指加入attention机制的模型 </p>
+<p>#2. Attention机制</p>
+<p>##2.1 Attention机制的提出</p>
+<p>Ø 早在Seq2seq基础上提出attention机制，现在提到的Seq2seq均指加入attention机制的模型 </p>
 <p>Ø Seq2seq模型：Encoder将整个输入压缩成固定长度的context vector</p>
 <p>Ø Attention机制：输入针对不同时刻的输出，有着不同的重要程度（即生成多个context vector）</p>
 <p>Ø 重点： <strong>如何计算context vector？</strong></p>
 <p><img src="/2019/01/26/BERT原理和使用/image-20190126221118180.png" alt="image-20190126221118180"></p>
-<h3 id="Attention机制的原理"><a href="#Attention机制的原理" class="headerlink" title="Attention机制的原理"></a>Attention机制的原理</h3><p>Attention机制主要用于计算输入对不同时刻输出的差异重要程度。</p>
+<p>##2.2 Attention机制的原理</p>
+<p>Attention机制主要用于计算输入对不同时刻输出的差异重要程度。</p>
 <blockquote>
 <p>1）对于当前时刻T的输出yt，除了需要计算上一时刻状态St-1之外，还需要知道Encoder对yt的贡献程度Ct；</p>
 <p>2）分别计算Encoder不同时刻输入的隐藏层状态hj={h1,h2,…,hT}与Decoder 上一时刻的隐藏层状态St-1的相关性，来获取不同时刻hj的权重，即<strong>aij</strong>。</p>
@@ -394,14 +397,17 @@
 <p>4）针对不同时刻输出，Ct的内容是不相同的，也即反应了输入对不同时刻输出的差异性。</p>
 </blockquote>
 <p><img src="/2019/01/26/BERT原理和使用/image-20190126222616736.png" alt="image-20190126222616736"></p>
-<h3 id="Attention机制的种类"><a href="#Attention机制的种类" class="headerlink" title="Attention机制的种类"></a>Attention机制的种类</h3><p>主要分为以下3种：</p>
+<p>##2.3 Attention机制的种类</p>
+<p>主要分为以下3种：</p>
 <p>1.Context-attention（即Encoder-Decoder Attention）</p>
 <p>2.Self-attention（Encoder内部 OR Decoder内部）</p>
 <p>3.Multi-head attention（可以是基于Context-attention的，也可以是基于Self-attention的）</p>
 <font color="red">基于对Attention机制的理解，我们来看看Transformer模型是什么东东。</font>
 
 <p>​      </p>
-<h1 id="3-Transformer模型"><a href="#3-Transformer模型" class="headerlink" title="3. Transformer模型"></a>3. Transformer模型</h1><h3 id="Transformer模型简介"><a href="#Transformer模型简介" class="headerlink" title="Transformer模型简介"></a>Transformer模型简介</h3><p>Transformer 是个叠加的“自注意力机制（Self Attention）”，是目前 NLP 里最强的特征提取器。具体来说，Transformer是一个升级版的seq2seq，也由一个encoder和一个decoder组成的，但是encoder和decoder过程都不用RNN，而且换成了多个attention机制模型。</p>
+<p>#3. Transformer模型</p>
+<p>##3.1 Transformer模型简介</p>
+<p>Transformer 是个叠加的“自注意力机制（Self Attention）”，是目前 NLP 里最强的特征提取器。具体来说，Transformer是一个升级版的seq2seq，也由一个encoder和一个decoder组成的，但是encoder和decoder过程都不用RNN，而且换成了多个attention机制模型。</p>
 <p>Ø Encoder：一共有N=6次循环，每次循环包含 2 个layers, 分别是：</p>
 <blockquote>
 <p>One multi-head self-attention mechanism（为输入句子向量的每个词学习一个权重）</p>
@@ -414,12 +420,13 @@
 <p>One position-wise fully connected feed-forward network</p>
 </blockquote>
 <p>Ø 每个layer后面都跟了一个add&amp;norm，即添加residual connections + layer norm</p>
-<h3 id="Transformer模型结构"><a href="#Transformer模型结构" class="headerlink" title="Transformer模型结构"></a>Transformer模型结构</h3><p><img src="/2019/01/26/BERT原理和使用/image-20190126230757455.png" alt="image-20190126230757455"></p>
-<p><strong>1）Encoder部分</strong></p>
+<p>##3.2 Transformer模型结构</p>
+<p><img src="/2019/01/26/BERT原理和使用/image-20190126230757455.png" alt="image-20190126230757455"></p>
+<p>###3.2.1 Encoder部分</p>
 <p><img src="/2019/01/26/BERT原理和使用/image-20190126231024950.png" alt="image-20190126231024950"></p>
-<p><strong>2）Query+Key+Value</strong></p>
+<p>###3.2.2 Query+Key+Value</p>
 <p><img src="/2019/01/26/BERT原理和使用/image-20190126231201787.png" alt="image-20190126231201787"></p>
-<p><strong>3）Self-attention</strong></p>
+<p>###3.2.3 Self-attention</p>
 <p><img src="/2019/01/26/BERT原理和使用/image-20190126231306422.png" alt="image-20190126231306422"></p>
 <p><strong>4）Multi-Head Attention</strong></p>
 <p><img src="/2019/01/26/BERT原理和使用/image-20190126231441517.png" alt="image-20190126231441517"></p>
