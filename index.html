@@ -370,16 +370,13 @@
             <p>最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。</p>
 <h1 id="1-BERT简介"><a href="#1-BERT简介" class="headerlink" title="1. BERT简介"></a>1. BERT简介</h1><p>##BERT</p>
 <p>BERT（<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentation from <strong>T</strong>ransformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项NLP任务均获得了相当不错的结果，文章于2018年10月发表，并提供了开源地址（ <a href="https://github.com/google-research/bert" target="_blank" rel="noopener">https://github.com/google-research/bert</a> ），致谢👏👏👏。</p>
-<p>##语料库</p>
-<p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words). </p>
-<p>##预训练模型及参数</p>
-<p>可参考GitHub详细文档。</p>
-<p>##BERT的主要特点</p>
-<p>Ø  使用Transformer作为特征提取器</p>
+<h2 id="语料库"><a href="#语料库" class="headerlink" title="语料库"></a>语料库</h2><p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words). </p>
+<h2 id="预训练模型及参数"><a href="#预训练模型及参数" class="headerlink" title="预训练模型及参数"></a>预训练模型及参数</h2><p>可参考GitHub详细文档。</p>
+<h2 id="BERT的主要特点"><a href="#BERT的主要特点" class="headerlink" title="BERT的主要特点"></a>BERT的主要特点</h2><p>Ø  使用Transformer作为特征提取器</p>
 <p>Ø  双向语言模型</p>
 <font color="red">由于BERT是基于Transformer模型的，而Transformer模型主要基于Attention机制，因此先需要了解下Attention机制。</font>
 
-<p>​      </p>
+<p>​      ======我是分割线======</p>
 <h1 id="2-Attention机制"><a href="#2-Attention机制" class="headerlink" title="2. Attention机制"></a>2. Attention机制</h1><h3 id="Attention机制的提出"><a href="#Attention机制的提出" class="headerlink" title="Attention机制的提出"></a>Attention机制的提出</h3><p>Ø 早在Seq2seq基础上提出attention机制，现在提到的Seq2seq均指加入attention机制的模型 </p>
 <p>Ø Seq2seq模型：Encoder将整个输入压缩成固定长度的context vector</p>
 <p>Ø Attention机制：输入针对不同时刻的输出，有着不同的重要程度（即生成多个context vector）</p>
