@@ -268,6 +268,179 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2019/07/20/决策树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AprilSpring">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/07/20/决策树/" itemprop="url">
+                  决策树
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T10:22:10+08:00">
+                2019-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MachineLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">MachineLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>决策树是一颗依托决策而建立起来的树。</p>
+<h3 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h3><p>首先，针对当前的集合，计算每个特征的信息增益；</p>
+<p>然后，选择<strong>信息增益最大</strong>的特征作为当前节点的决策特征；</p>
+<p>根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。</p>
+<p><img src="/2019/07/20/决策树/image-20190818155213911.png" alt="image-20190818155213911"></p>
+<h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><p>它是ID3的一个改进算法，使用<strong>信息增益比</strong>来进行属性的选择。</p>
+<p><img src="/2019/07/20/决策树/image-20190818155236554.png" alt="image-20190818155236554"></p>
+<p>优缺点：准确率高，但是子构造树的过程中需要进行多次的扫描和排序，所以它的运算效率较低。</p>
+<h3 id="CART"><a href="#CART" class="headerlink" title="CART"></a>CART</h3><p>分类回归树(Classification And Regression Tree，CART)是一个决策二叉树，在通过递归的方式建立，每个节点在分裂的时候都是希望通过最好的方式将剩余的样本划分成两类，分类指标：</p>
+<p>1)     分类树：基尼指数最小化。</p>
+<p>基尼指数（基尼不纯度）：表示在样本集合中一个随机选中的样本被分错的概率。其中，Gini指数越小表示集合中被选中的样本被分错的概率越小，也就是说集合的纯度越高，反之，集合越不纯。</p>
+<p><img src="/2019/07/20/决策树/image-20190818155300010.png" alt="image-20190818155300010"></p>
+<p>2)     回归树：平方误差最小化</p>
+<p><strong>优缺点</strong></p>
+<p>优点：计算量简单，可解释性强，比较适合处理有缺失属性值的样本，能够处理不相关的特征；</p>
+<p>缺点：单颗决策树分类能力弱，并且对连续值变量难以处理；容易过拟合（后续出现了随机森林，减小了过拟合现象）。</p>
+<p><strong>停止条件</strong></p>
+<p>1)     直到每个叶子节点都只有一种类型的记录时停止（这种方式很容易过拟合）</p>
+<p>2)     另一种时当叶子节点的记录树小于一定的阈值或者节点的信息增益小于一定的阈值时停止</p>
+<p><strong>决策树的分类与回归</strong></p>
+<p>1） 分类树：输出叶子节点中所属类别最多的那一类</p>
+<p>2）回归树：输出叶子节点中各个样本值的平均值</p>
+<h3 id="ID3、C4-5和CART的应用"><a href="#ID3、C4-5和CART的应用" class="headerlink" title="ID3、C4.5和CART的应用"></a>ID3、C4.5和CART的应用</h3><p>1)     ID3只适用于处理离散变量，而C4.5和CART可以处理连续型变量；</p>
+<p>2)     ID3和C4.5只适用于分类任务，而CART可以应用于回归类任务；</p>
+<p>3)     ID3对缺失值比较敏感，而C4.5和CART可以对缺失值进行不同方式的处理；</p>
+<p>4)     CART只有2个分支，是一颗二叉树；</p>
+<p>5)     ID3和C4.5通过剪枝来衡量模型的准确率与泛化能力，而CART直接利用全部数据发现所有可能的树结构进行对比。</p>
+<h3 id="如何对决策树进行剪枝？"><a href="#如何对决策树进行剪枝？" class="headerlink" title="如何对决策树进行剪枝？"></a>如何对决策树进行剪枝？</h3><p>1)     剪枝前置剪枝：在分裂节点的时候设计比较苛刻的条件，如不满足则直接停止分裂（这样干决策树无法到最优，也无法得到比较好的效果）</p>
+<p>2)     后置剪枝：在树建立完之后，用单个节点代替子树，节点的分类采用子树中主要的分类（这种方法比较浪费前面的建立过程）</p>
+<h3 id="信息增益，信息增益比和基尼系数的公式"><a href="#信息增益，信息增益比和基尼系数的公式" class="headerlink" title="信息增益，信息增益比和基尼系数的公式"></a>信息增益，信息增益比和基尼系数的公式</h3><p><img src="/2019/07/20/决策树/image-20190818155030957.png" alt="image-20190818155030957"></p>
+<p>   应用：在决策树算法中，ID3使用信息增益、C4.5使用信息增益比、CART算法使用基尼系数。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2019/06/28/分布式计算框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -481,8 +654,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MachineLearning/" itemprop="url" rel="index">
-                    <span itemprop="name">MachineLearning</span>
+                  <a href="/categories/nlp/" itemprop="url" rel="index">
+                    <span itemprop="name">nlp</span>
                   </a>
                 </span>
 
@@ -630,8 +803,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MachineLearning/" itemprop="url" rel="index">
-                    <span itemprop="name">MachineLearning</span>
+                  <a href="/categories/nlp/" itemprop="url" rel="index">
+                    <span itemprop="name">nlp</span>
                   </a>
                 </span>
 
@@ -785,8 +958,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MachineLearning/" itemprop="url" rel="index">
-                    <span itemprop="name">MachineLearning</span>
+                  <a href="/categories/nlp/" itemprop="url" rel="index">
+                    <span itemprop="name">nlp</span>
                   </a>
                 </span>
 
@@ -1627,153 +1800,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2017/07/28/Python-常用函数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="April">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AprilSpring">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/28/Python-常用函数/" itemprop="url">
-                  Python-常用函数
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-28T13:56:17+08:00">
-                2017-07-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Python的常用函数"><a href="#Python的常用函数" class="headerlink" title="Python的常用函数"></a>Python的常用函数</h1><h2 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h2><p>功能：给字典中的某个键对应的值赋予新值。<br>key：字典中要查找的键<br>default：当指定键不存在时，返回{key:default}。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict.get(key, default=None)</span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/28/Python-常用函数/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1823,7 +1849,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1834,7 +1860,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1845,7 +1871,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
