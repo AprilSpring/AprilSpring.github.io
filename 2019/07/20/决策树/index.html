@@ -87,22 +87,22 @@
 
 
 
-<meta name="description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。  C4.5它是ID3的一个改进算法，使用信息增益比来进行属性的选择。  优缺点：准确率高，但是子构造树的过程中需要">
+<meta name="description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。">
 <meta name="keywords" content="machinelearning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="决策树">
 <meta property="og:url" content="https://aprilspring.github.io/2019/07/20/决策树/index.html">
 <meta property="og:site_name" content="AprilSpring">
-<meta property="og:description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。  C4.5它是ID3的一个改进算法，使用信息增益比来进行属性的选择。  优缺点：准确率高，但是子构造树的过程中需要">
+<meta property="og:description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155213911.png">
 <meta property="og:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155236554.png">
 <meta property="og:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155300010.png">
 <meta property="og:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155030957.png">
-<meta property="og:updated_time" content="2019-08-18T07:53:58.622Z">
+<meta property="og:updated_time" content="2019-08-18T07:58:21.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树">
-<meta name="twitter:description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。  C4.5它是ID3的一个改进算法，使用信息增益比来进行属性的选择。  优缺点：准确率高，但是子构造树的过程中需要">
+<meta name="twitter:description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。">
 <meta name="twitter:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155213911.png">
 
 
@@ -375,6 +375,7 @@
 <p>然后，选择<strong>信息增益最大</strong>的特征作为当前节点的决策特征；</p>
 <p>根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。</p>
 <p><img src="/2019/07/20/决策树/image-20190818155213911.png" alt="image-20190818155213911"></p>
+ <a id="more"></a>
 <h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><p>它是ID3的一个改进算法，使用<strong>信息增益比</strong>来进行属性的选择。</p>
 <p><img src="/2019/07/20/决策树/image-20190818155236554.png" alt="image-20190818155236554"></p>
 <p>优缺点：准确率高，但是子构造树的过程中需要进行多次的扫描和排序，所以它的运算效率较低。</p>
@@ -453,6 +454,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/20/梯度下降算法/" rel="prev" title="梯度下降算法">
+                梯度下降算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -523,7 +528,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -534,7 +539,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -545,7 +550,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
