@@ -366,27 +366,16 @@
 
       
         
-          
-            <h2 id="极大似然算法"><a href="#极大似然算法" class="headerlink" title="极大似然算法"></a>极大似然算法</h2><p>极大似然算法的思想：知道结果，反推条件θ</p>
+          <h2 id="极大似然算法"><a href="#极大似然算法" class="headerlink" title="极大似然算法"></a>极大似然算法</h2><p>极大似然算法的思想：知道结果，反推条件θ</p>
 <p>如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。</p>
 <p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。</p>
-<h3 id="求极大似然函数估计值的一般步骤"><a href="#求极大似然函数估计值的一般步骤" class="headerlink" title="求极大似然函数估计值的一般步骤"></a>求极大似然函数估计值的一般步骤</h3><p>a)   写出似然函数；</p>
-<p>b)  对似然函数取对数，并整理；</p>
-<p>c)   求导数，令导数为0，得到似然方程；</p>
-<p>d)  解似然方程，得到的参数即为所求；</p>
-<p>e)   如果是n个参数，则计算每个参数的偏导数=0，最后解n方程组，就是似然函数的极值点了。</p>
-<h3 id="对数似然函数"><a href="#对数似然函数" class="headerlink" title="对数似然函数"></a>对数似然函数</h3><p><img src="/2019/08/05/最大期望算法/image-20190818164240654.png" alt="image-20190818164240654"></p>
-<h2 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h2><p>最大期望算法（Expectation-maximization algorithm，EM），是在概率模型中寻找参数最大似然估计或者最大后验估计的算法，其中概率模型依赖于无法观测的隐性变量。</p>
-<h3 id="隐变量"><a href="#隐变量" class="headerlink" title="隐变量"></a>隐变量</h3><p>EM算法与极大似然算法的区别是，<strong>EM算法中包含隐变量。</strong></p>
-<p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮不知道当前抛的是A硬币还是B硬币（即隐性变量），记录正面还是反面的次数，然后估计A正面朝上的概率、B正面朝上的概率。由于其中包含隐变量，已知隐变量时，则转化为极大似然算法，而未知隐变量时，则采取EM算法。</p>
-<h3 id="EM的2个步骤"><a href="#EM的2个步骤" class="headerlink" title="EM的2个步骤"></a>EM的2个步骤</h3><p>第一步是计算期望（E），先参数初始化，而后计算隐藏变量的当前估计值；</p>
-<p>第二步是最大化（M），基于E步骤的隐变量估计值，计算似然函数的最大似然值，获取新的参数估计值。</p>
-<p>M步上找到的新的参数估计值，被用于下一个E步计算中重新计算隐变量估计值，这个过程不断交替进行，直至参数不再变化，模型收敛。</p>
-<p><strong>参考：</strong></p>
-<p><a href="https://www.julyedu.com/question/big/kp_id/23/ques_id/1006" target="_blank" rel="noopener">https://www.julyedu.com/question/big/kp_id/23/ques_id/1006</a> </p>
-<p><a href="https://www.julyedu.com/question/big/kp_id/23/ques_id/1007" target="_blank" rel="noopener">https://www.julyedu.com/question/big/kp_id/23/ques_id/1007</a>  </p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/05/最大期望算法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

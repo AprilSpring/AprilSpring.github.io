@@ -87,19 +87,19 @@
 
 
 
-<meta name="description" content="极大似然算法极大似然算法的思想：知道结果，反推条件θ 如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。 举例：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。 求极大似然函数估计值的一般步骤a)   写出似然函数； b)  对似然函数取对数，并整理； c)   求导数，令导数为0，得到似然方程； d)  解似然方程，得到的参数即为">
+<meta name="description" content="极大似然算法极大似然算法的思想：知道结果，反推条件θ 如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。 举例：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。">
 <meta name="keywords" content="machinelearning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="最大期望算法">
 <meta property="og:url" content="https://aprilspring.github.io/2019/08/05/最大期望算法/index.html">
 <meta property="og:site_name" content="AprilSpring">
-<meta property="og:description" content="极大似然算法极大似然算法的思想：知道结果，反推条件θ 如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。 举例：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。 求极大似然函数估计值的一般步骤a)   写出似然函数； b)  对似然函数取对数，并整理； c)   求导数，令导数为0，得到似然方程； d)  解似然方程，得到的参数即为">
+<meta property="og:description" content="极大似然算法极大似然算法的思想：知道结果，反推条件θ 如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。 举例：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://aprilspring.github.io/2019/08/05/最大期望算法/image-20190818164240654.png">
-<meta property="og:updated_time" content="2019-08-18T08:47:24.902Z">
+<meta property="og:updated_time" content="2019-08-18T08:49:02.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最大期望算法">
-<meta name="twitter:description" content="极大似然算法极大似然算法的思想：知道结果，反推条件θ 如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。 举例：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。 求极大似然函数估计值的一般步骤a)   写出似然函数； b)  对似然函数取对数，并整理； c)   求导数，令导数为0，得到似然方程； d)  解似然方程，得到的参数即为">
+<meta name="twitter:description" content="极大似然算法极大似然算法的思想：知道结果，反推条件θ 如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。 举例：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。">
 <meta name="twitter:image" content="https://aprilspring.github.io/2019/08/05/最大期望算法/image-20190818164240654.png">
 
 
@@ -370,6 +370,7 @@
         <h2 id="极大似然算法"><a href="#极大似然算法" class="headerlink" title="极大似然算法"></a>极大似然算法</h2><p>极大似然算法的思想：知道结果，反推条件θ</p>
 <p>如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。</p>
 <p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。</p>
+<a id="more"></a>
 <h3 id="求极大似然函数估计值的一般步骤"><a href="#求极大似然函数估计值的一般步骤" class="headerlink" title="求极大似然函数估计值的一般步骤"></a>求极大似然函数估计值的一般步骤</h3><p>a)   写出似然函数；</p>
 <p>b)  对似然函数取对数，并整理；</p>
 <p>c)   求导数，令导数为0，得到似然方程；</p>
