@@ -1,0 +1,803 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="machinelearning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="随机森林是有很多随机得决策树构成，它们之间没有关联。得到RF以后，在预测时分别对每一个决策树进行判断，最后使用Bagging的思想进行结果的输出（也就是投票的思想）。 学习过程简介现在有N个训练样本，每个样本的特征为M个，需要建K颗树 从N个训练样本中有放回的取N个样本作为一组训练集（其余未取到的样本作为预测分类，评估其误差） 从M个特征中取m个特征左右子集特征(m&amp;lt;&amp;lt;M) 对采样的数">
+<meta name="keywords" content="machinelearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机森林">
+<meta property="og:url" content="https://aprilspring.github.io/2019/07/22/随机森林/index.html">
+<meta property="og:site_name" content="AprilSpring">
+<meta property="og:description" content="随机森林是有很多随机得决策树构成，它们之间没有关联。得到RF以后，在预测时分别对每一个决策树进行判断，最后使用Bagging的思想进行结果的输出（也就是投票的思想）。 学习过程简介现在有N个训练样本，每个样本的特征为M个，需要建K颗树 从N个训练样本中有放回的取N个样本作为一组训练集（其余未取到的样本作为预测分类，评估其误差） 从M个特征中取m个特征左右子集特征(m&amp;lt;&amp;lt;M) 对采样的数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/22/随机森林/image-20190818161401891.png">
+<meta property="og:updated_time" content="2019-08-18T08:23:08.832Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随机森林">
+<meta name="twitter:description" content="随机森林是有很多随机得决策树构成，它们之间没有关联。得到RF以后，在预测时分别对每一个决策树进行判断，最后使用Bagging的思想进行结果的输出（也就是投票的思想）。 学习过程简介现在有N个训练样本，每个样本的特征为M个，需要建K颗树 从N个训练样本中有放回的取N个样本作为一组训练集（其余未取到的样本作为预测分类，评估其误差） 从M个特征中取m个特征左右子集特征(m&amp;lt;&amp;lt;M) 对采样的数">
+<meta name="twitter:image" content="https://aprilspring.github.io/2019/07/22/随机森林/image-20190818161401891.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://aprilspring.github.io/2019/07/22/随机森林/"/>
+
+
+
+
+
+  <title> 随机森林 | AprilSpring </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AprilSpring</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I believe</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2019/07/22/随机森林/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AprilSpring">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                随机森林
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-22T13:22:10+08:00">
+                2019-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MachineLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">MachineLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>随机森林是有很多随机得决策树构成，它们之间没有关联。得到RF以后，在预测时分别对每一个决策树进行判断，最后使用Bagging的思想进行结果的输出（也就是投票的思想）。</p>
+<h2 id="学习过程简介"><a href="#学习过程简介" class="headerlink" title="学习过程简介"></a>学习过程简介</h2><p>现在有N个训练样本，每个样本的特征为M个，需要建K颗树</p>
+<p>从N个训练样本中有放回的取N个样本作为一组训练集（其余未取到的样本作为预测分类，评估其误差）</p>
+<p>从M个特征中取m个特征左右子集特征(m&lt;&lt;M)</p>
+<p>对采样的数据使用完全分裂的方式来建立决策树，这样的决策树每个节点要么无法分裂，要么所有的样本都指向同一个分类</p>
+<p>重复2的过程K次，即可建立森林</p>
+<a id="more"></a>
+<h2 id="预测过程"><a href="#预测过程" class="headerlink" title="预测过程"></a>预测过程</h2><p>1）将预测样本输入到K颗树分别进行预测</p>
+<p>2）如果是分类问题，直接使用投票的方式选择分类频次最高的类别</p>
+<p>3）如果是回归问题，使用分类之后的均值作为结果</p>
+<h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><p>1）这里的一般取m=sqrt(M)</p>
+<p>2）关于树的个数K，一般都需要成百上千，但是也有具体的样本有关（比如特征数量）</p>
+<p>3）树的最大深度，（太深可能可能导致过拟合？？）</p>
+<p>4）节点上的最小样本数、最小信息增益</p>
+<p><img src="/2019/07/22/随机森林/image-20190818161401891.png" alt="image-20190818161401891">     </p>
+<h2 id="泛化误差估计"><a href="#泛化误差估计" class="headerlink" title="泛化误差估计"></a>泛化误差估计</h2><p>使用oob（out-of-bag）进行泛化误差的估计，将各个树的未采样样本作为预测样本（大约有36.8%），使用已经建立好的森林对各个预测样本进行预测，预测完之后最后统计误判样本占总预测样本的比率作为RF的<strong>oob误分率</strong>。</p>
+<h2 id="学习算法"><a href="#学习算法" class="headerlink" title="学习算法"></a>学习算法</h2><p>1） ID3算法：处理离散值的量</p>
+<p>2） C45算法：处理连续值的量</p>
+<p>3）Cart算法：离散和连续 两者都合适？</p>
+<p>关于CART：Cart可以通过特征的选择迭代建立一颗分类树，使得每次的分类平面能最好的将剩余数据分为两类 gini=1-sigma(pi^2)，表示每个类别出现的概率和与1的差值。分类问题：argmax（Gini-GiniLeft-GiniRight），回归问题argmax(Var-VarLeft-VarRight)，查找最佳特征f已经最佳属性阈值th 小于th的在左边，大于th的在右边子树。</p>
+<h2 id="随机森林特点"><a href="#随机森林特点" class="headerlink" title="随机森林特点"></a>随机森林特点</h2><p>1）能够处理大量特征的分类，并且还不用做特征选择</p>
+<p>2）在训练完成之后能给出哪些feature的比较重要</p>
+<p>3）训练速度很快</p>
+<p>4）很容易并行</p>
+<p>5）实现相对来说较为简单</p>
+<h2 id="具体学习过程"><a href="#具体学习过程" class="headerlink" title="具体学习过程"></a>具体学习过程</h2><h3 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h3><p>1)     给定训练集S，测试集T，特征维数F。</p>
+<p>2)     确定参数：使用到的CART的数量为t，每棵树的深度d，每个节点使用到的特征数量f，终止条件：节点上最少样本数s，节点上最少的信息增益m。</p>
+<p>3)     对于第t-1棵树，i=t-1: 从S中有放回的抽取大小和S一样的训练集S(i)，作为根节点的样本，从根节点开始训练（随机样本）。</p>
+<p>4)     如果当前节点上达到终止条件，则设置当前节点为叶子节点，如果是分类问题，该叶子节点的预测输出为当前节点样本集合中数量最多的哪一类c(j)，概率p为c(j)占当前样本集的比例；如果是回归问题，预测输出为当前节点样本集各个样本值的平均值。然后继续训练其他节点。</p>
+<p>5)     如果当前节点没有达到终止条件，则从F维特征中无放回的随机选取f维度特征。利用这f维特征，寻找分类效果最好的一维特征k及其阈值th，当前节点上样本第k维特征小于th的样本被划分到左节点，其余被划分到右节点。继续训练其他节点（随机特征）。</p>
+<p>6)     重复(3)(4) (5)直到所有节点都训练过了或者被标记为叶子节点。</p>
+<p>7)     重复(3)(4) (5)直到所有CART都被训练过。</p>
+<h3 id="预测过程-1"><a href="#预测过程-1" class="headerlink" title="预测过程"></a>预测过程</h3><p>对于第t-1棵树，i=t-1;</p>
+<p>1)     从当前树的根节点开始，根据当前节点的阈值th，判断是进入左节点(&lt;th)还是进入右节点(&gt;=th)，直到到达某个叶子节点，并输出预测值。</p>
+<p>2)     重复执行(1)直到所有t棵树都输出了预测值。如果是分类问题，则输出为所有树种预测概率总和最大的那一个类，即对每个c(j)的p进行累计；如果是回归问题，则输出为所有树的输出的平均值。</p>
+<p>影响分类性能的主要因素</p>
+<p>1)     森林中单棵树的分类强度：每棵树的分类强度越大，则随机森林的分类性能越好。</p>
+<p>2)     森林中树之间的相关度：树之间的相关度越大，则随机森林的分类性能越差。</p>
+<h2 id="随机森林的优缺点"><a href="#随机森林的优缺点" class="headerlink" title="随机森林的优缺点"></a>随机森林的优缺点</h2><p>随机森林，指的是利用多棵树对样本进行训练并预测的一种分类器。</p>
+<p>①样本随机性：对于每棵树，它们使用的训练集是从总的训练集中有放回采样出来的。这意味着，总的训练集中的有些样本可能多次出现在一棵树的训练集中，也可能从未出现在一棵树的训练集中。</p>
+<p>②特征随机性：在训练每棵树的节点时，使用的特征是从所有特征中按照一定比例随机地无放回抽取的，根据Leo Breiman的建议，假设总的特征数量为M，这个比例可以是sqrt(M)，1/2sqrt(M)，2sqrt(M)。</p>
+<p>优点：</p>
+<p>1)     两个随机性的引入，使得随机森林不容易陷入过拟合，并且具有很好的抗噪能力。</p>
+<p>2)     它能够处理很高维度的数据，并且不用做特征选择，由于模型可以自动得出变量重要性排序（基于OOB误分率的增加量和基于分裂时的GINI下降量）。</p>
+<p>3)     对数据集的适应能力强：既能处理离散型数据，也能处理连续型数据，数据集无需规范化。</p>
+<p>4)     训练速度快，训练时树与树之间是相互独立的，容易做成并行化方法。</p>
+<p>5)     在训练过程中，能够检测到feature间的互相影响。可生成一个Proximities=(pij)矩阵，用于度量样本之间的相似性：pij=aij/N，aji表示样本i和j出现在随机森林中同一个叶子结点的次数，N表示随机森林中树的棵树。</p>
+<p>6)     对于不平衡的数据集来说，它可以平衡误差。</p>
+<p>7)     如果有很大一部分的特征遗失，仍可以维持准确度。</p>
+<p>缺点：</p>
+<p>1)     随机森林已经被证明在某些噪音较大的分类或回归问题上会过拟。</p>
+<p>2)     对于有不同取值的属性的数据，取值划分较多的属性会对随机森林产生更大的影响，所以随机森林在这种数据上产出的属性权值是不可信的。</p>
+<h2 id="随机森林的特征选择方法"><a href="#随机森林的特征选择方法" class="headerlink" title="随机森林的特征选择方法"></a>随机森林的特征选择方法</h2><p>1）平均不纯度减少（mean decrease impurity）</p>
+<p>利用不纯度可以确定划分的最优节点。对于分类问题，通常采用基尼不纯度或者信息增益，对于回归问题，通常采用的是方差或者最小二乘拟合。当训练决策树的时候，可以计算出每个特征减少了多少树的不纯度。对于一个决策树森林来说，可以算出每个特征平均减少了多少不纯度，并把它平均减少的不纯度作为特征选择的值。</p>
+<p>值得注意：1、这种方法存在偏向，对具有更多类别的变量会更有利（ID3）；2、对于存在关联的多个特征，其中任意一个都可以作为指示器（优秀的特征），并且一旦某个特征被选择之后，其他特征的重要度就会急剧下降，因为不纯度已经被选中的那个特征降下来了，其他的特征就很难再降低那么多不纯度了，这样一来，只有先被选中的那个特征重要度很高，其他的关联特征重要度往往较低。在理解数据时，这就会造成误解，导致错误的认为先被选中的特征是很重要的，而其余的特征是不重要的，但实际上这些特征对响应变量的作用确实非常接近的。</p>
+<p>2）平均精确率减少（Mean decrease accuracy）</p>
+<p>直接度量每个特征对模型精确率的影响。主要思路是打乱每个特征的特征值顺序（也即打乱划分节点的优先级顺序），并且度量顺序变动对模型的精确率的影响。很明显，对于不重要的变量来说，打乱顺序对模型的精确率影响不会太大，但是对于重要的变量来说，打乱顺序就会降低模型的精确率。</p>
+<p><strong>鸣谢</strong></p>
+<p><a href="http://blog.csdn.net/keepreder/article/details/47277517" target="_blank" rel="noopener">http://blog.csdn.net/keepreder/article/details/47277517</a></p>
+<p><a href="http://blog.csdn.net/u012102306/article/details/52228516" target="_blank" rel="noopener">http://blog.csdn.net/u012102306/article/details/52228516</a> </p>
+<p><a href="https://www.cnblogs.com/amberdata/p/7203632.html" target="_blank" rel="noopener">https://www.cnblogs.com/amberdata/p/7203632.html</a> </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machinelearning/" rel="tag"># machinelearning</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/20/决策树/" rel="next" title="决策树">
+                <i class="fa fa-chevron-left"></i> 决策树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/25/梯度下降算法/" rel="prev" title="梯度下降算法">
+                梯度下降算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="April" />
+          <p class="site-author-name" itemprop="name">April</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习过程简介"><span class="nav-number">1.</span> <span class="nav-text">学习过程简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测过程"><span class="nav-number">2.</span> <span class="nav-text">预测过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数说明"><span class="nav-number">3.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛化误差估计"><span class="nav-number">4.</span> <span class="nav-text">泛化误差估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习算法"><span class="nav-number">5.</span> <span class="nav-text">学习算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林特点"><span class="nav-number">6.</span> <span class="nav-text">随机森林特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体学习过程"><span class="nav-number">7.</span> <span class="nav-text">具体学习过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#训练过程"><span class="nav-number">7.1.</span> <span class="nav-text">训练过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预测过程-1"><span class="nav-number">7.2.</span> <span class="nav-text">预测过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林的优缺点"><span class="nav-number">8.</span> <span class="nav-text">随机森林的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林的特征选择方法"><span class="nav-number">9.</span> <span class="nav-text">随机森林的特征选择方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">April</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
