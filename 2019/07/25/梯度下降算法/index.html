@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="machinelearning," />
+  <meta name="keywords" content="deeplearning," />
 
 
 
@@ -87,23 +87,24 @@
 
 
 
-<meta name="description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。">
-<meta name="keywords" content="machinelearning">
+<meta name="keywords" content="deeplearning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="决策树">
-<meta property="og:url" content="https://aprilspring.github.io/2019/07/20/决策树/index.html">
+<meta property="og:title" content="梯度下降算法">
+<meta property="og:url" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/index.html">
 <meta property="og:site_name" content="AprilSpring">
-<meta property="og:description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155213911.png">
-<meta property="og:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155236554.png">
-<meta property="og:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155300010.png">
-<meta property="og:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155030957.png">
-<meta property="og:updated_time" content="2019-08-18T07:58:21.491Z">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160041143.png">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160103929.png">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160243765.png">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160301080.png">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160344938.png">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160424840.png">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160442505.png">
+<meta property="og:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160529970.png">
+<meta property="og:updated_time" content="2019-08-18T08:10:01.844Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="决策树">
-<meta name="twitter:description" content="决策树是一颗依托决策而建立起来的树。 ID3首先，针对当前的集合，计算每个特征的信息增益； 然后，选择信息增益最大的特征作为当前节点的决策特征； 根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。">
-<meta name="twitter:image" content="https://aprilspring.github.io/2019/07/20/决策树/image-20190818155213911.png">
+<meta name="twitter:title" content="梯度下降算法">
+<meta name="twitter:image" content="https://aprilspring.github.io/2019/07/25/梯度下降算法/image-20190818160041143.png">
 
 
 
@@ -131,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://aprilspring.github.io/2019/07/20/决策树/"/>
+  <link rel="canonical" href="https://aprilspring.github.io/2019/07/25/梯度下降算法/"/>
 
 
 
 
 
-  <title> 决策树 | AprilSpring </title>
+  <title> 梯度下降算法 | AprilSpring </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -276,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2019/07/20/决策树/">
+    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2019/07/25/梯度下降算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="April">
@@ -297,7 +298,7 @@
             
             
               
-                决策树
+                梯度下降算法
               
             
           </h1>
@@ -312,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T10:22:10+08:00">
-                2019-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T15:12:15+08:00">
+                2019-07-25
               </time>
             
 
@@ -335,8 +336,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MachineLearning/" itemprop="url" rel="index">
-                    <span itemprop="name">MachineLearning</span>
+                  <a href="/categories/DeepLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">DeepLearning</span>
                   </a>
                 </span>
 
@@ -370,38 +371,27 @@
       
 
       
-        <p>决策树是一颗依托决策而建立起来的树。</p>
-<h3 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h3><p>首先，针对当前的集合，计算每个特征的信息增益；</p>
-<p>然后，选择<strong>信息增益最大</strong>的特征作为当前节点的决策特征；</p>
-<p>根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。</p>
-<p><img src="/2019/07/20/决策树/image-20190818155213911.png" alt="image-20190818155213911"></p>
- <a id="more"></a>
-<h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><p>它是ID3的一个改进算法，使用<strong>信息增益比</strong>来进行属性的选择。</p>
-<p><img src="/2019/07/20/决策树/image-20190818155236554.png" alt="image-20190818155236554"></p>
-<p>优缺点：准确率高，但是子构造树的过程中需要进行多次的扫描和排序，所以它的运算效率较低。</p>
-<h3 id="CART"><a href="#CART" class="headerlink" title="CART"></a>CART</h3><p>分类回归树(Classification And Regression Tree，CART)是一个决策二叉树，在通过递归的方式建立，每个节点在分裂的时候都是希望通过最好的方式将剩余的样本划分成两类，分类指标：</p>
-<p>1)     分类树：基尼指数最小化。</p>
-<p>基尼指数（基尼不纯度）：表示在样本集合中一个随机选中的样本被分错的概率。其中，Gini指数越小表示集合中被选中的样本被分错的概率越小，也就是说集合的纯度越高，反之，集合越不纯。</p>
-<p><img src="/2019/07/20/决策树/image-20190818155300010.png" alt="image-20190818155300010"></p>
-<p>2)     回归树：平方误差最小化</p>
-<p><strong>优缺点</strong></p>
-<p>优点：计算量简单，可解释性强，比较适合处理有缺失属性值的样本，能够处理不相关的特征；</p>
-<p>缺点：单颗决策树分类能力弱，并且对连续值变量难以处理；容易过拟合（后续出现了随机森林，减小了过拟合现象）。</p>
-<p><strong>停止条件</strong></p>
-<p>1)     直到每个叶子节点都只有一种类型的记录时停止（这种方式很容易过拟合）</p>
-<p>2)     另一种时当叶子节点的记录树小于一定的阈值或者节点的信息增益小于一定的阈值时停止</p>
-<p><strong>决策树的分类与回归</strong></p>
-<p>1） 分类树：输出叶子节点中所属类别最多的那一类</p>
-<p>2）回归树：输出叶子节点中各个样本值的平均值</p>
-<h3 id="ID3、C4-5和CART的应用"><a href="#ID3、C4-5和CART的应用" class="headerlink" title="ID3、C4.5和CART的应用"></a>ID3、C4.5和CART的应用</h3><p>1)     ID3只适用于处理离散变量，而C4.5和CART可以处理连续型变量；</p>
-<p>2)     ID3和C4.5只适用于分类任务，而CART可以应用于回归类任务；</p>
-<p>3)     ID3对缺失值比较敏感，而C4.5和CART可以对缺失值进行不同方式的处理；</p>
-<p>4)     CART只有2个分支，是一颗二叉树；</p>
-<p>5)     ID3和C4.5通过剪枝来衡量模型的准确率与泛化能力，而CART直接利用全部数据发现所有可能的树结构进行对比。</p>
-<h3 id="如何对决策树进行剪枝？"><a href="#如何对决策树进行剪枝？" class="headerlink" title="如何对决策树进行剪枝？"></a>如何对决策树进行剪枝？</h3><p>1)     剪枝前置剪枝：在分裂节点的时候设计比较苛刻的条件，如不满足则直接停止分裂（这样干决策树无法到最优，也无法得到比较好的效果）</p>
-<p>2)     后置剪枝：在树建立完之后，用单个节点代替子树，节点的分类采用子树中主要的分类（这种方法比较浪费前面的建立过程）</p>
-<h3 id="信息增益，信息增益比和基尼系数的公式"><a href="#信息增益，信息增益比和基尼系数的公式" class="headerlink" title="信息增益，信息增益比和基尼系数的公式"></a>信息增益，信息增益比和基尼系数的公式</h3><p><img src="/2019/07/20/决策树/image-20190818155030957.png" alt="image-20190818155030957"></p>
-<p>   应用：在决策树算法中，ID3使用信息增益、C4.5使用信息增益比、CART算法使用基尼系数。</p>
+        <p><img src="/2019/07/25/梯度下降算法/image-20190818160041143.png" alt="image-20190818160041143"></p>
+<a id="more"></a>
+<p><img src="/2019/07/25/梯度下降算法/image-20190818160103929.png" alt="image-20190818160103929"></p>
+<p><img src="/2019/07/25/梯度下降算法/image-20190818160243765.png" alt="image-20190818160243765"></p>
+<p><img src="/2019/07/25/梯度下降算法/image-20190818160301080.png" alt="image-20190818160301080"></p>
+<p><img src="/2019/07/25/梯度下降算法/image-20190818160344938.png" alt="image-20190818160344938"></p>
+<p><img src="/2019/07/25/梯度下降算法/image-20190818160424840.png" alt="image-20190818160424840"></p>
+<p><img src="/2019/07/25/梯度下降算法/image-20190818160442505.png" alt="image-20190818160442505"></p>
+<p><strong>Adam优点</strong>：</p>
+<p>1）实现简单，计算高效，对内存需求少</p>
+<p>2）参数的更新不受梯度的伸缩变换影响</p>
+<p>3）超参数具有很好的解释性，且通常无需调整或仅需很少的微调</p>
+<p>4）更新的步长能够被限制在大致的范围内（初始学习率）</p>
+<p>5）能自然地实现步长退火过程（自动调整学习率）</p>
+<p>6） 很适合应用于大规模的数据及参数的场景</p>
+<p>7）适用于不稳定目标函数</p>
+<p>8）适用于梯度稀疏或梯度存在很大噪声的问题</p>
+<p><img src="/2019/07/25/梯度下降算法/image-20190818160529970.png" alt="image-20190818160529970"></p>
+<p>参考：<a href="https://cloud.tencent.com/developer/article/1428819" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1428819</a> </p>
+<p><a href="https://blog.csdn.net/weixin_42398658/article/details/84525917" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42398658/article/details/84525917</a></p>
+<p><a href="https://www.jianshu.com/p/aebcaf8af76e" target="_blank" rel="noopener">https://www.jianshu.com/p/aebcaf8af76e</a> </p>
 
       
     </div>
@@ -431,7 +421,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/machinelearning/" rel="tag"># machinelearning</a>
+            <a href="/tags/deeplearning/" rel="tag"># deeplearning</a>
           
         </div>
       
@@ -444,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/28/分布式计算框架/" rel="next" title="分布式计算框架">
-                <i class="fa fa-chevron-left"></i> 分布式计算框架
+              <a href="/2019/07/20/决策树/" rel="next" title="决策树">
+                <i class="fa fa-chevron-left"></i> 决策树
               </a>
             
           </div>
@@ -453,10 +443,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/25/梯度下降算法/" rel="prev" title="梯度下降算法">
-                梯度下降算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -503,17 +489,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -575,22 +552,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ID3"><span class="nav-number">1.</span> <span class="nav-text">ID3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C4-5"><span class="nav-number">2.</span> <span class="nav-text">C4.5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CART"><span class="nav-number">3.</span> <span class="nav-text">CART</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ID3、C4-5和CART的应用"><span class="nav-number">4.</span> <span class="nav-text">ID3、C4.5和CART的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何对决策树进行剪枝？"><span class="nav-number">5.</span> <span class="nav-text">如何对决策树进行剪枝？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信息增益，信息增益比和基尼系数的公式"><span class="nav-number">6.</span> <span class="nav-text">信息增益，信息增益比和基尼系数的公式</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
