@@ -1,0 +1,880 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nlp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Word2vec是一种词嵌入模型。  句子需要先进行分词，而后将每词表示成一个固定长度的向量。假设词库大小为N，词向量长度为L，则通过语料库学习到这个W=N*L矩阵的内容，也就是该预料库下每个词的向量表示。  Word2vec考虑词之间共出现的概率，但是未考虑语义信息。有了词的向量表示，后续就可以衔接其他分类模型，解决文本分类或其他问题了。  在学习该词向量矩阵W时，有2种模式：CBOW（填空式）">
+<meta name="keywords" content="nlp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="word2vec">
+<meta property="og:url" content="https://aprilspring.github.io/2020/01/06/word2vec/index.html">
+<meta property="og:site_name" content="AprilSpring">
+<meta property="og:description" content="Word2vec是一种词嵌入模型。  句子需要先进行分词，而后将每词表示成一个固定长度的向量。假设词库大小为N，词向量长度为L，则通过语料库学习到这个W=N*L矩阵的内容，也就是该预料库下每个词的向量表示。  Word2vec考虑词之间共出现的概率，但是未考虑语义信息。有了词的向量表示，后续就可以衔接其他分类模型，解决文本分类或其他问题了。  在学习该词向量矩阵W时，有2种模式：CBOW（填空式）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/06/word2vec/image-20200112135247131.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/06/word2vec/image-20200112135510076.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/06/word2vec/image-20200112135641522.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/06/word2vec/image-20200112135750118.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/06/word2vec/image-20200112140007709.png">
+<meta property="og:updated_time" content="2020-01-12T07:42:50.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="word2vec">
+<meta name="twitter:description" content="Word2vec是一种词嵌入模型。  句子需要先进行分词，而后将每词表示成一个固定长度的向量。假设词库大小为N，词向量长度为L，则通过语料库学习到这个W=N*L矩阵的内容，也就是该预料库下每个词的向量表示。  Word2vec考虑词之间共出现的概率，但是未考虑语义信息。有了词的向量表示，后续就可以衔接其他分类模型，解决文本分类或其他问题了。  在学习该词向量矩阵W时，有2种模式：CBOW（填空式）">
+<meta name="twitter:image" content="https://aprilspring.github.io/2020/01/06/word2vec/image-20200112135247131.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://aprilspring.github.io/2020/01/06/word2vec/"/>
+
+
+
+
+
+  <title> word2vec | AprilSpring </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AprilSpring</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I believe</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2020/01/06/word2vec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AprilSpring">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                word2vec
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-06T14:19:15+08:00">
+                2020-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Word2vec是一种<strong>词嵌入模型</strong>。</p>
+<blockquote>
+<p>句子需要先进行分词，而后将每词表示成一个固定长度的向量。假设词库大小为N，词向量长度为L，则通过语料库学习到这个W=N*L矩阵的内容，也就是该预料库下每个词的向量表示。</p>
+<p> Word2vec考虑词之间共出现的概率，但是未考虑语义信息。有了词的向量表示，后续就可以衔接其他分类模型，解决文本分类或其他问题了。</p>
+</blockquote>
+<p>在学习该词向量矩阵W时，有2种模式：CBOW（填空式）、skip-gram（造句式），如下：</p>
+<p><img src="/2020/01/06/word2vec/image-20200112135247131.png" alt="image-20200112135247131"></p>
+<a id="more"></a>
+<h1 id="CBOW词向量学习方法"><a href="#CBOW词向量学习方法" class="headerlink" title="CBOW词向量学习方法"></a>CBOW词向量学习方法</h1><p>1) 将预料库进行分词，而后构建所有词语的向量矩阵W，行为词库大小V，列为词向量长度N，W需进行随机初始化</p>
+<p>2) 针对词库中每一条数据（分词后）进行CBOW或Skip-gram任务，比如以窗口划分的方式，使用周围几个词预测某个词出现的概率</p>
+<p>3) 从词向量矩阵W中查找到该条数据所有相关的词向量（one-hot方式），假设有s个词向量，将这s个词向量进行汇总操作（加和/平均），使其合并为一个向量，s大小变为1*N</p>
+<p>4) 隐藏层矩阵是W’，再使用s<em>W’，获得1</em>V的向量，再经过softmax，即预测词库中所有词的概率，出现最大概率的词，即为当前预测的词</p>
+<p>5) 经过多个迭代的反向传播，计算W和W’矩阵，W即为具备语料库信息的词向量矩阵</p>
+<p>6) 而后，可以从W中提取相关向量，进行文本分类等其他操作</p>
+<p><img src="/2020/01/06/word2vec/image-20200112135510076.png" alt="image-20200112135510076"></p>
+<h1 id="Skip-gram词向量学习方法"><a href="#Skip-gram词向量学习方法" class="headerlink" title="Skip-gram词向量学习方法"></a>Skip-gram词向量学习方法</h1><p>与CBOW类似，但softmax之后取topn的预测结果，n为预测当前词上下文窗口长度内词的个数。</p>
+<p><img src="/2020/01/06/word2vec/image-20200112135641522.png" alt="image-20200112135641522"></p>
+<h1 id="CBOW与Skip-gram比较"><a href="#CBOW与Skip-gram比较" class="headerlink" title="CBOW与Skip-gram比较"></a>CBOW与Skip-gram比较</h1><p>简单的来说，cbow会将context word 加起来，在遇到生僻词是，预测效果将会大大降低，而skip-gram则会预测生僻字的使用环境。因此，cbow比skip-gram训练快，skip-gram比cbow更好地处理生僻字（出现频率低的字）。</p>
+<p>具体如下：</p>
+<p>1) CBOW是用周围词预测中心词，训练过程中其实是在从output的loss学习周围词的信息，也就是embedding，由于中间层进行average，一共预测V(vocab size)次就够了。</p>
+<p>2) skipgram是用中心词预测周围词，预测的时候是一对word pair，等于对每一个中心词都有K个词作为output，对于一个词的预测有K次，所以能够更有效的从context中学习信息，但是总共预测K*V词。</p>
+<p>因此，skip gram的训练时间更长，但是对于一些低频词，在CBOW中的学习效果就不如skipgram。</p>
+<h1 id="Word2vec的优化"><a href="#Word2vec的优化" class="headerlink" title="Word2vec的优化"></a>Word2vec的优化</h1><p>在经过softmax时，如果词库量比较大，可以采取2种方式加快训练速度：</p>
+<h2 id="层次softmax"><a href="#层次softmax" class="headerlink" title="层次softmax"></a>层次softmax</h2><p>基于哈夫曼树，将原始N分类问题，转化成log(N)个二分类问题，树中每个节点表示一个softmax（即一个权值），树中每个分支的所有节点概率乘积，用于计算某个词的概率，越是出现频率高的词，路径越短。</p>
+<p>Softmax计算过程中，预测每个词出现概率的时间复杂度为N，层次softmax把N个样本构建成二叉树后，使得时间复杂度变为树的深度log(N)</p>
+<p>2^k-1=N，即节点数目k=log2(N)+1，即计算的时间复杂度由N变为log(N)</p>
+<h2 id="高频词抽样-负采样"><a href="#高频词抽样-负采样" class="headerlink" title="高频词抽样+负采样"></a>高频词抽样+负采样</h2><p>主旨：去除长尾词、针对语料库高频词进行降采样</p>
+<h3 id="高频词抽样"><a href="#高频词抽样" class="headerlink" title="高频词抽样"></a>高频词抽样</h3><p>少训练没有区分度的高频词，即基于语料库中的词频，进行抽样，越是高频词，抽样概率越小。计算高频词抽样率P(w)时，有个认为设定的阈值t（即为gensim中的“sample=0.001”），t越大，不同频率词的采样差异越大。</p>
+<p><img src="/2020/01/06/word2vec/image-20200112135750118.png" alt="image-20200112135750118"></p>
+<h3 id="负采样"><a href="#负采样" class="headerlink" title="负采样"></a>负采样</h3><p>word2vec中，对于每个词的预测，都会更新全体词对应的W参数矩阵，计算量很大，如果改为与目标词周围的词（即正样本）和少数无关词（即负样本）对应的参数进行更新，则可大大降低参数计算，选取的负样本数量即为参数negative=5。</p>
+<p>负样本选择：基于词表中出现的概率，出现概率越高，被选作负样本的概率越高（与高频词抽样相反），负样本抽样率P(w)如下：</p>
+<p><img src="/2020/01/06/word2vec/image-20200112140007709.png" alt="image-20200112140007709"></p>
+<h1 id="Gensim中word2vec参数"><a href="#Gensim中word2vec参数" class="headerlink" title="Gensim中word2vec参数"></a>Gensim中word2vec参数</h1><p>默认用了CBOW模型，采用“<strong>高频词抽样+ 负采样</strong>”进行优化，参数如下：</p>
+<blockquote>
+<p>上下文窗口大小：window=5</p>
+<p>忽略低频次term：min_count=5</p>
+<p>语言模型是用CBOW还是skip-gram？ sg=0 是CBOW</p>
+<p>优化方法是用层次softmax还是负采样？ hs=0 是负采样</p>
+<p>负采样样本数: negative=5 (一般设为5-20)</p>
+<p>负采样采样概率的平滑指数：ns_exponent=0.75</p>
+<p>高频词抽样的阈值 sample=0.001</p>
+</blockquote>
+<p><strong>参数表</strong></p>
+<blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">sentences：可以是一个list，对于大语料集，建议使用BrownCorpus,Text8Corpus或LineSentence构建。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">sg： 用于设置训练算法，默认为0，对应CBOW算法(填空)；sg=1则采用skip-gram算法(造句)。</td>
+</tr>
+<tr>
+<td style="text-align:left">size：是指特征向量的维度，默认为100。大的size需要更多的训练数据,但是效果会更好. 推荐值为几十到几百。</td>
+</tr>
+<tr>
+<td style="text-align:left">window：表示当前词与预测词在一个句子中的最大距离是多少</td>
+</tr>
+<tr>
+<td style="text-align:left">alpha: 是学习速率</td>
+</tr>
+<tr>
+<td style="text-align:left">seed：用于随机数发生器。与初始化词向量有关。</td>
+</tr>
+<tr>
+<td style="text-align:left">min_count: 可以对字典做截断. 词频少于min_count次数的单词会被丢弃掉, 默认值为5</td>
+</tr>
+<tr>
+<td style="text-align:left">max_vocab_size:   设置词向量构建期间的RAM限制。如果所有独立单词个数超过这个，则就消除掉其中最不频繁的一个。每一千万个单词需要大约1GB的RAM。设置成None则没有限制。</td>
+</tr>
+<tr>
+<td style="text-align:left">sample: 高频词汇的随机降采样的配置阈值，默认为1e-3，范围是(0,1e-5)</td>
+</tr>
+<tr>
+<td style="text-align:left">workers: 参数控制训练的并行数。</td>
+</tr>
+<tr>
+<td style="text-align:left">hs: 如果为1则会采用hierarchical softmax技巧。如果设置为0（defaut），则negative sampling会被使用。</td>
+</tr>
+<tr>
+<td style="text-align:left">negative: 如果&gt;0,则会采用negativesamping，用于设置多少个noise words</td>
+</tr>
+<tr>
+<td style="text-align:left">cbow_mean: 如果为0，则采用上下文词向量的和，如果为1（defaut）则采用均值。只有使用CBOW的时候才起作用。</td>
+</tr>
+<tr>
+<td style="text-align:left">hashfxn： hash函数来初始化权重。默认使用python的hash函数</td>
+</tr>
+<tr>
+<td style="text-align:left">iter： 迭代次数，默认为5</td>
+</tr>
+<tr>
+<td style="text-align:left">trim_rule： 用于设置词汇表的整理规则，指定那些单词要留下，哪些要被删除。可以设置为None（min_count会被使用）或者一个接受()并返回RU·E_DISCARD,uti·s.RU·E_KEEP或者uti·s.RU·E_DEFAU·T的函数。</td>
+</tr>
+<tr>
+<td style="text-align:left">sorted_vocab： 如果为1（defaut），则在分配word index 的时候会先对单词基于频率降序排序。</td>
+</tr>
+<tr>
+<td style="text-align:left">batch_words：每一批的传递给线程的单词的数量，默认为10000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+<p><strong>参考：</strong></p>
+<p><a href="https://blog.csdn.net/weixin_41843918/article/details/90312339" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41843918/article/details/90312339</a></p>
+<p><a href="https://www.cnblogs.com/liyuxia713/p/11185028.html" target="_blank" rel="noopener">https://www.cnblogs.com/liyuxia713/p/11185028.html</a> </p>
+<p><a href="http://qiancy.com/2016/08/17/word2vec-hierarchical-softmax/" target="_blank" rel="noopener">http://qiancy.com/2016/08/17/word2vec-hierarchical-softmax/</a></p>
+<p><a href="https://blog.csdn.net/chinwuforwork/article/details/85180138" target="_blank" rel="noopener">https://blog.csdn.net/chinwuforwork/article/details/85180138</a> </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nlp/" rel="tag"># nlp</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/05/最大期望算法/" rel="next" title="最大期望算法">
+                <i class="fa fa-chevron-left"></i> 最大期望算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/07/TextCNN/" rel="prev" title="TextCNN">
+                TextCNN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="April" />
+          <p class="site-author-name" itemprop="name">April</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CBOW词向量学习方法"><span class="nav-number">1.</span> <span class="nav-text">CBOW词向量学习方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Skip-gram词向量学习方法"><span class="nav-number">2.</span> <span class="nav-text">Skip-gram词向量学习方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CBOW与Skip-gram比较"><span class="nav-number">3.</span> <span class="nav-text">CBOW与Skip-gram比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word2vec的优化"><span class="nav-number">4.</span> <span class="nav-text">Word2vec的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#层次softmax"><span class="nav-number">4.1.</span> <span class="nav-text">层次softmax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高频词抽样-负采样"><span class="nav-number">4.2.</span> <span class="nav-text">高频词抽样+负采样</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高频词抽样"><span class="nav-number">4.2.1.</span> <span class="nav-text">高频词抽样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负采样"><span class="nav-number">4.2.2.</span> <span class="nav-text">负采样</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gensim中word2vec参数"><span class="nav-number">5.</span> <span class="nav-text">Gensim中word2vec参数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">April</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

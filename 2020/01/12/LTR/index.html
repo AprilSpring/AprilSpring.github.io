@@ -1,0 +1,843 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ltr," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="三种技术变迁和比较常见的排序算法LTR（Learning to rank）,将学习任务分为三种策略，即pointwise，pairwise，Listwise三类其  pointwise将其转化为多类分类或者回归问题 pairwise将其转化为pair分类问题 Listwise为对查询下的一整个候选集作为学习目标，三者的区别在于loss不同。">
+<meta name="keywords" content="ltr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learning to rank">
+<meta property="og:url" content="https://aprilspring.github.io/2020/01/12/LTR/index.html">
+<meta property="og:site_name" content="AprilSpring">
+<meta property="og:description" content="三种技术变迁和比较常见的排序算法LTR（Learning to rank）,将学习任务分为三种策略，即pointwise，pairwise，Listwise三类其  pointwise将其转化为多类分类或者回归问题 pairwise将其转化为pair分类问题 Listwise为对查询下的一整个候选集作为学习目标，三者的区别在于loss不同。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112151956877.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112152030806.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112152157447.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112152250330.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112152558015.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112153023188.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112153212516.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112153337279.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112153409240.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112153510345.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112153539809.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112153615146.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112153635362.png">
+<meta property="og:updated_time" content="2020-01-12T07:42:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learning to rank">
+<meta name="twitter:description" content="三种技术变迁和比较常见的排序算法LTR（Learning to rank）,将学习任务分为三种策略，即pointwise，pairwise，Listwise三类其  pointwise将其转化为多类分类或者回归问题 pairwise将其转化为pair分类问题 Listwise为对查询下的一整个候选集作为学习目标，三者的区别在于loss不同。">
+<meta name="twitter:image" content="https://aprilspring.github.io/2020/01/12/LTR/image-20200112151956877.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://aprilspring.github.io/2020/01/12/LTR/"/>
+
+
+
+
+
+  <title> Learning to rank | AprilSpring </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AprilSpring</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I believe</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2020/01/12/LTR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AprilSpring">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Learning to rank
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-12T18:38:13+08:00">
+                2020-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LRT/" itemprop="url" rel="index">
+                    <span itemprop="name">LRT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="三种技术变迁和比较"><a href="#三种技术变迁和比较" class="headerlink" title="三种技术变迁和比较"></a>三种技术变迁和比较</h1><p>常见的排序算法LTR（Learning to rank）,将学习任务分为三种策略，即pointwise，pairwise，Listwise三类其</p>
+<blockquote>
+<p>pointwise将其转化为多类分类或者回归问题</p>
+<p>pairwise将其转化为pair分类问题</p>
+<p>Listwise为对查询下的一整个候选集作为学习目标，三者的区别在于loss不同。</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="/2020/01/12/LTR/image-20200112151956877.png" alt="image-20200112151956877"></p>
+<p><img src="/2020/01/12/LTR/image-20200112152030806.png" alt="image-20200112152030806"></p>
+<h2 id="Pointwise"><a href="#Pointwise" class="headerlink" title="Pointwise"></a>Pointwise</h2><p>将训练集里每一个文档当做一个训练实例，直接预测query与doc之间的相关程度（或几档不同相关程度），即使用传统的机器学习方法对给定查询下反馈结果的相关度进行学习，学习的是全局的相关性，并不对先后顺序的优劣做惩罚，比如LR、GBDT、xgboost。其中，CTR预估相关策略也属于Pointwise的一种。</p>
+<p><img src="/2020/01/12/LTR/image-20200112152157447.png" alt="image-20200112152157447"></p>
+<h2 id="Pairwise"><a href="#Pairwise" class="headerlink" title="Pairwise"></a>Pairwise</h2><p>将同一个査询的搜索结果里任意两个文档对作为一个训练实例，如果列表先后排序为a,b,c，但其中只有b被点击了，则a&gt;b这一对会被构建成负样本，b&gt;c这一对会被构建成正样本，即学习的是不同查询结果对的前后顺序。常用方法：SVM Rank、<strong>RankNet(2007)</strong>、RankBoost(2003) 。</p>
+<p><img src="/2020/01/12/LTR/image-20200112152250330.png" alt="image-20200112152250330"></p>
+<p>缺陷：</p>
+<blockquote>
+<p>文档对方法考虑了两个文档对的相对先后顺序，却没有考虑文档出现在搜索列表中的位置，排在搜索结果前面的文档更为重要，如果靠前的文档出现判断错误，代价明显高于排在后面的文档（比如LambdaRank中使用DCG解决）</p>
+<p>同时不同的査询，其相关文档数量差异很大，所以转换为文档对之后，有的查询对能有几百个对应的文档对，而有的查询只有十几个对应的文档对，这对机器学习系统的效果评价造成困难（比如LambdaRank中使用NDCG解决）</p>
+</blockquote>
+<h2 id="Listwise"><a href="#Listwise" class="headerlink" title="Listwise"></a>Listwise</h2><p>Pointwise方法将训练集里每一个文档当做一个训练实例，Pairwise方法将同一个査询的搜索结果里任意两个文档对作为一个训练实例，Listwise方法与上述两种方法都不同，Listwise方法直接考虑整体序列，将每一个查询对应的所有搜索结果列表整体作为一个训练实例，针对Ranking评价指标进行优化，比如常用的MAP, NDCG。常用的ListWise方法有：<strong>LambdaRank</strong>、AdaRank、SoftRank、<strong>LambdaMART</strong>。</p>
+<h1 id="几种典型LRT算法"><a href="#几种典型LRT算法" class="headerlink" title="几种典型LRT算法"></a>几种典型LRT算法</h1><h2 id="RankNet"><a href="#RankNet" class="headerlink" title="RankNet"></a>RankNet</h2><p>RankNet是一种经典的Pairwise的排序学习方法，是典型的前向神经网络排序模型。</p>
+<p>假设文档A, B的特征分别为x<sub>i</sub>, x<sub>j</sub>，RankNet使用神经网络来训练模型，f(x<sub>i</sub>)是神经网络的输出，另o<sub>i</sub>=f(x<sub>i</sub>)，o<sub>j</sub>=f(x<sub>j</sub>)，则o<sub>ij</sub>=o<sub>i</sub>-o<sub>j</sub>，文档对<a, b="">的RankNet预测概率为：</a,></p>
+<p><img src="/2020/01/12/LTR/image-20200112152558015.png" alt="image-20200112152558015"></p>
+<p>如果文档A比文档B和查询q更加相关, 则目标概率P<sub>AB</sub>=1，如果文档B比文档A更相关, 目标概率P<sub>AB</sub>=0，如果A和B同样相关, 则P<sub>AB</sub>=0.5，有了模型输出的概率P<sub>ij</sub>和目标概率P<sub>AB</sub>，我们使用交叉熵来作为训练的损失函数（如下），并梯度下降来优化损失函数。</p>
+<p><img src="/2020/01/12/LTR/image-20200112153023188.png" alt="image-20200112153023188"></p>
+<p><strong>Pair-wise error</strong>：表示一个排列中，随机抽查任意两个item，一共有 C<sub>n</sub>2 种可能的组合，如果这两个item的之间的相对排序错误，error值加1，并没有考虑位置的权重（比如排序靠前的错了会比排序靠后的错了，有更大的error），RankNet交叉熵优化的目标也是类似的，没有考虑位置权重。例如，对某个Query，和它相关的文章有两个，记为 (Q,[D1,D2])：</p>
+<blockquote>
+<p>如果模型 f(⋅) 对此Query返回的n条结果中，D1,D2 分别位于前两位，则pair-wise error就为0；</p>
+<p>如果模型 f(⋅) 对此Query返回的n条结果中，D1,D2 分别位于第1位和第n位，则pair-wise error为n-2；</p>
+<p>如果模型 f(⋅) 对此Query返回的n条结果中，D1,D2 分别位于第2和第3位，则pair-wise error为2；</p>
+</blockquote>
+<p>因此，针对如下排序情形，左边pair-wise error=15-2=13，右边pair-wise error=(4-1)+(10-2)=11，因此目标会朝着右边的趋势进行优化，损失虽然减少了，但右边并不是我们期望的排序优化趋势（黑色箭头），我们希望排序靠前的依然保持靠前，排序靠后的逐渐向上提升（红色箭头），因此提出了LambdaRank方法。</p>
+<p><img src="/2020/01/12/LTR/image-20200112153212516.png" alt="image-20200112153212516"></p>
+<h2 id="LambdaRank"><a href="#LambdaRank" class="headerlink" title="LambdaRank"></a>LambdaRank</h2><p>LambdaRank是Listwise的排序方法，是在RankNet模型的基础上改进而来，更关注位置靠前的优质查询结果排序位置的提升。一个查询得到的结果文档列表作为一条样本输入到网络中，替换RankCost为LambdaCost层，其他结构与RankNet相同。</p>
+<p>LambdaCost层 :直接定义的了损失函数的梯度λ，也就是Lambda梯度。</p>
+<p><strong>Lambda梯度</strong>由两部分相乘得到：</p>
+<blockquote>
+<p>(1) RankNet中交叉熵概率损失函数的梯度（即交叉熵损失函数的一阶导数）；</p>
+<p>(2) 交换Ui，Uj位置后IR评价指标Z的差值，Z可以是NDCG、ERR、MRR、MAP等IR评价指标。</p>
+</blockquote>
+<p>损失函数的梯度代表了文档下一次迭代优化的方向和强度，由于引入了IR评价指标，Lambda梯度更关注位置靠前的优质文档的排序位置的提升，有效的避免了下调位置靠前优质文档的位置这种情况的发生。LambdaRank相比RankNet的优势在于考虑了评价指标，直接对问题求解，所以效果更好。</p>
+<p><img src="/2020/01/12/LTR/image-20200112153337279.png" alt="image-20200112153337279"></p>
+<h2 id="NDCG评价指标"><a href="#NDCG评价指标" class="headerlink" title="NDCG评价指标"></a>NDCG评价指标</h2><p><strong>累计增益（Cumulative Gain，CG）</strong></p>
+<p><img src="/2020/01/12/LTR/image-20200112153409240.png" alt="image-20200112153409240"></p>
+<p>rel<sub>i</sub>代表i这个位置上的相关度。举例：假设搜索“篮球”结果，最理想的结果是：B1、B2、B3，而出现的结果是 B3、B1、B2的话，CG的值是没有变化的，因此需要下面的DCG。</p>
+<p><strong>折损累计增益（Discounted Cumulative Gain，DCG）</strong></p>
+<p>就是在每一个CG的结果上处以一个折损值，目的让<strong>排名越靠前的结果越能影响最后的结果</strong>。假设排序越往后，价值越低，到第i个位置的时候，它的价值是 1/log<sub>2</sub>(i+1)，那么第i个结果产生的效益就是 rel<sub>i</sub> * 1/log<sub>2</sub>(i+1)，所以：</p>
+<p><img src="/2020/01/12/LTR/image-20200112153510345.png" alt="image-20200112153510345"></p>
+<p><strong>归一化折损累计增益（Normalized Discounted Cumulative Gain，NDCG）</strong></p>
+<p>由于搜索结果随着检索词的不同，返回的数量是不一致的，而DCG是一个累加的值，没法针对两个不同的搜索结果进行比较，因此需要归一化处理，这里是除以IDCG（IDCG为理想排序下的最大DCG值）。</p>
+<p><img src="/2020/01/12/LTR/image-20200112153539809.png" alt="image-20200112153539809"></p>
+<p>主要体现2个思想：</p>
+<blockquote>
+<p>高关联度的结果比一般关联度的结果更影响最终的指标得分</p>
+<p>有高关联度的结果出现在更靠前的位置的时候，指标会越高</p>
+</blockquote>
+<p><strong>NDCG举例：</strong></p>
+<p>假设搜索出6个结果，其相关性分数分别是 3、2、3、0、1、2，那么 CG = 3+2+3+0+1+2=11，可以看到CG只是对相关的分数进行了一个关联的打分，并没有召回的所在位置对排序结果评分对影响。</p>
+<p>而DCG = 3+1.26+1.5+0+0.38+0.71 = 6.86，考虑了排名前后的位置重要性。</p>
+<p><img src="/2020/01/12/LTR/image-20200112153615146.png" alt="image-20200112153615146"></p>
+<p>计算NDCG，需要先计算IDCG，假如我们实际召回了8个物品，除了上面的6个，还有两个结果，假设第7个相关性为3，第8个相关性为0。那么在理想情况下的相关性分数排序应该是：3、3、3、2、2、1、0、0。计算IDCG@6，如下：</p>
+<p><img src="/2020/01/12/LTR/image-20200112153635362.png" alt="image-20200112153635362"></p>
+<p>所以，IDCG = 3+1.89+1.5+0.86+0.77+0.35 = 8.37</p>
+<p>最终， NDCG@6 = 6.86/8.37 = 81.96%，也即搜索出的6个结果排名的NDCG得分为81.96%。</p>
+<h2 id="LambdaRank-1"><a href="#LambdaRank-1" class="headerlink" title="LambdaRank"></a>LambdaRank</h2><p>LambdaRank也是Listwise的排序方法，只是在GBDT的过程中做了一个很小的修改（MART也就是GBDT），即将原始GBDT通过「残差」最小化计算梯度的方式，直接修改为使用Lambda梯度，Lambda梯度的物理含义是一个待排序文档下一次迭代应该排序的方向。</p>
+<h2 id="RankLib实现"><a href="#RankLib实现" class="headerlink" title="RankLib实现"></a>RankLib实现</h2><p>是一套优秀的LTR领域的开源实现，包括Pointwise、Pairwise以及Listwise的模型实现。</p>
+<p><strong>参考：</strong></p>
+<p><a href="https://www.cnblogs.com/by-dream/p/9403984.html" target="_blank" rel="noopener">https://www.cnblogs.com/by-dream/p/9403984.html</a> </p>
+<p><a href="https://www.jianshu.com/p/aab1bf1307fd" target="_blank" rel="noopener">https://www.jianshu.com/p/aab1bf1307fd</a> </p>
+<p><a href="https://www.jianshu.com/p/3c5c1ea7d836" target="_blank" rel="noopener">https://www.jianshu.com/p/3c5c1ea7d836</a> </p>
+<from ranknet="" to="" lambdarank="" lambdamart:="" anoverview="">
+
+</from>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ltr/" rel="tag"># ltr</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/11/BERT衍生模型/" rel="next" title="BERT衍生模型">
+                <i class="fa fa-chevron-left"></i> BERT衍生模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="April" />
+          <p class="site-author-name" itemprop="name">April</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三种技术变迁和比较"><span class="nav-number">1.</span> <span class="nav-text">三种技术变迁和比较</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointwise"><span class="nav-number">1.1.</span> <span class="nav-text">Pointwise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pairwise"><span class="nav-number">1.2.</span> <span class="nav-text">Pairwise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Listwise"><span class="nav-number">1.3.</span> <span class="nav-text">Listwise</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几种典型LRT算法"><span class="nav-number">2.</span> <span class="nav-text">几种典型LRT算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RankNet"><span class="nav-number">2.1.</span> <span class="nav-text">RankNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LambdaRank"><span class="nav-number">2.2.</span> <span class="nav-text">LambdaRank</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NDCG评价指标"><span class="nav-number">2.3.</span> <span class="nav-text">NDCG评价指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LambdaRank-1"><span class="nav-number">2.4.</span> <span class="nav-text">LambdaRank</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RankLib实现"><span class="nav-number">2.5.</span> <span class="nav-text">RankLib实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">April</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

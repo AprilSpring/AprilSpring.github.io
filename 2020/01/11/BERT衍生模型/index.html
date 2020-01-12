@@ -1,0 +1,867 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nlp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="结合网络大牛的总结（致谢大牛！），目前存在一些针对BERT进行优化的衍生模型。 主要优化方向：  性能（ALBERT） 增加图谱实体（ERINE, K-BERT） 多样的Attention方式（XLNet, UNILM） 新增训练任务（MT-DNN） 兼容生成式任务（MASS, UNILM）等">
+<meta name="keywords" content="nlp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BERT衍生模型">
+<meta property="og:url" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/index.html">
+<meta property="og:site_name" content="AprilSpring">
+<meta property="og:description" content="结合网络大牛的总结（致谢大牛！），目前存在一些针对BERT进行优化的衍生模型。 主要优化方向：  性能（ALBERT） 增加图谱实体（ERINE, K-BERT） 多样的Attention方式（XLNet, UNILM） 新增训练任务（MT-DNN） 兼容生成式任务（MASS, UNILM）等">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112150118393.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112150259066.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112145526363.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112145706026.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112145720512.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112145817514.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112145006362.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112145127866.png">
+<meta property="og:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112145320297.png">
+<meta property="og:updated_time" content="2020-01-12T07:43:15.632Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BERT衍生模型">
+<meta name="twitter:description" content="结合网络大牛的总结（致谢大牛！），目前存在一些针对BERT进行优化的衍生模型。 主要优化方向：  性能（ALBERT） 增加图谱实体（ERINE, K-BERT） 多样的Attention方式（XLNet, UNILM） 新增训练任务（MT-DNN） 兼容生成式任务（MASS, UNILM）等">
+<meta name="twitter:image" content="https://aprilspring.github.io/2020/01/11/BERT衍生模型/image-20200112150118393.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://aprilspring.github.io/2020/01/11/BERT衍生模型/"/>
+
+
+
+
+
+  <title> BERT衍生模型 | AprilSpring </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AprilSpring</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">I believe</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://aprilspring.github.io/2020/01/11/BERT衍生模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AprilSpring">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                BERT衍生模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-11T09:29:10+08:00">
+                2020-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>结合网络大牛的总结（致谢大牛！），目前存在一些针对BERT进行优化的衍生模型。</p>
+<p>主要优化方向：</p>
+<blockquote>
+<p>性能（ALBERT）</p>
+<p>增加图谱实体（ERINE, K-BERT）</p>
+<p>多样的Attention方式（XLNet, UNILM）</p>
+<p>新增训练任务（MT-DNN）</p>
+<p>兼容生成式任务（MASS, UNILM）等</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="ALBERT"><a href="#ALBERT" class="headerlink" title="ALBERT"></a>ALBERT</h1><p>Ref: ALBERT: A LITE BERT FOR SELF-SUPERVISED LEARNING OF LANGUAGE REPRESENTATIONS</p>
+<p>轻量级BERT模型（减少参数量、但未减少计算量）：</p>
+<blockquote>
+<p>1) 跨层共享参数（Attention层共享、全连接层共享）</p>
+<p>2) 修改预测句子衔接的任务：负样本由“随机两个句子”改为“颠倒正样本的两个句子”</p>
+<p>3) 拆分Embedding向量维度和隐藏层向量维度，将E<sub>vm</sub>=A<sub>vk</sub> * B<sub>km</sub></p>
+</blockquote>
+<h1 id="ERNIE"><a href="#ERNIE" class="headerlink" title="ERNIE"></a>ERNIE</h1><p>Ref: ERNIE: Enhanced Representation through Knowledge Integration</p>
+<p>为百度开发模型，与BERT的主要差别是，在做mask任务时，mask的为一个实体，而非一个词。</p>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112150118393.png" alt="image-20200112150118393"></p>
+<h1 id="MT-DNN"><a href="#MT-DNN" class="headerlink" title="MT-DNN"></a>MT-DNN</h1><p>Ref: Multi-Task Deep Neural Networks for Natural Language Understanding</p>
+<p>为微软开发模型，与BERT的主要区别是，额外增加了自定义的multi-task进行训练。</p>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112150259066.png" alt="image-20200112150259066"></p>
+<h1 id="XLNet"><a href="#XLNet" class="headerlink" title="XLNet"></a>XLNet</h1><p>Ref: XLNet：Generalized Autoregressive Pretraining for Language Understanding</p>
+<p><strong>主要特点</strong> </p>
+<blockquote>
+<p>1) 在自回归LM模式下，采用<strong>掩码双流自注意力</strong>（Masked Two-Stream Self-Attention），实现双向语言模型</p>
+<p>2) 引入了Transformer-XL的主要思路：相对位置编码（relative encoding scheme）以及分段递归机制（segment recurrence mechanism），有利于长文档任务</p>
+<p>3) 加大增加了预训练阶段使用的数据规模</p>
+</blockquote>
+<p><strong>出发点</strong></p>
+<p>1）融合自回归LM和DAE LM两者的优点。</p>
+<blockquote>
+<p>如果站在自回归LM的角度，如何引入和双向语言模型等价的效果？</p>
+<p>如果站在DAE LM的角度看，它本身是融入双向语言模型的，如何抛掉表面的那个[Mask]标记，让预训练和Fine-tuning保持一致？</p>
+</blockquote>
+<p>2）Bert被Mask单词之间相互独立的问题</p>
+<blockquote>
+<p>Bert 在第一个预训练阶段，假设句子中多个单词被Mask掉，这些被Mask掉的单词之间没有任何关系，是条件独立的，而有时候这些单词之间是有关系的，XLNet则考虑了这种关系。</p>
+</blockquote>
+<p><strong>解决方法</strong></p>
+<p>1）排序语言模型</p>
+<p>XLNet通过对句子中单词的排列组合，把一部分Ti下文的单词排到Ti的上文位置中，于是，就看到了上文和下文，但是形式上看上去仍然是从左到右在预测后一个单词。</p>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112145526363.png" alt="image-20200112145526363"></p>
+<p>2）Attention掩码的机制</p>
+<p>但是直接对单词排列组合会导致句子语义混乱，因此，预训练阶段的输入部分，看上去仍然是原始的语句顺序，但是可以在Transformer部分做些工作。XLNet采取了Attention掩码的机制，实现Permutation Language Model，PLM。</p>
+<blockquote>
+<p>假设当前的输入句子是X，要预测的单词Ti是第i个单词，一般情况下，只有前面1到i-1个单词，用于Ti的预测，但是在Transformer内部，通过Attention掩码，从X的输入单词里面，也就是Ti的上文和下文单词中，随机选择i-1个，用于Ti的预测（想象中放在Ti的上文位置），把其它单词的输入通过Attention掩码隐藏掉，不让它们在预测单词Ti的时候发生作用，就能够达成我们期望的目标。</p>
+<p>排序语言模型的目标函数</p>
+<blockquote>
+<p>理想状态下，针对每一种排列方式，计算每一个词出现的联合概率</p>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112145706026.png" alt="image-20200112145706026"></p>
+<p>实际情况下，仅预测每个词的概率（XLNet maximizes the expected log likelihood of a sequence w.r.t. all possible permutations of the factorization order）</p>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112145720512.png" alt="image-20200112145720512"></p>
+</blockquote>
+</blockquote>
+<p>3）双流自注意力模型（masked two-stream attention）</p>
+<p>具体的，XLNet采用“双流自注意力模型”实现上述目标。同时预测下一个位置的词（固定位置预测词，即预测下一个位置出现的词，Content流=内容+位置），及预测位置（固定词预测位置，即多种位置扰动后，某个词所在的位置是什么，Query流=位置，相当于BERT的[mask]功能）。主要包括：内容流自注意力（Content stream self-attention）和Query流自注意力（Query stream self-attention）。</p>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112145817514.png" alt="image-20200112145817514"></p>
+<p><strong>优势</strong></p>
+<p>XLNet就是Bert、GPT 2.0和Transformer XL的综合体变身。</p>
+<blockquote>
+<p>首先，它通过PLM预训练目标，吸收了Bert的双向语言模型；</p>
+<p>然后，吸收了GPT2.0的核心其实是更多更高质量的预训练数据；</p>
+<blockquote>
+<p>BERT语料库基础上（BooksCorpus + Wiki = ~13G），增加Giga5，ClueWeb以及Common Crawl数据，并去掉其中的一些低质量数据，大小分别是16G，19G和78G。</p>
+</blockquote>
+<p>最后，Transformer XL的主要思想也被吸收进来，因此解决了Transformer对于长文档NLP应用不够友好的问题；</p>
+<p>由于能够维持表面从左向右的生成过程，可能有利于生成式任务。</p>
+</blockquote>
+<h1 id="K-BERT"><a href="#K-BERT" class="headerlink" title="K-BERT"></a>K-BERT</h1><p>Ref: K-BERT: Enabling Language Representation with Knowledge Graph</p>
+<p>不同与百度的ERINE，K-BERT将实体间的关系融入到BERT模型中，融入实体关系后，可以体现出除字面意思外的先验知识。</p>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112145006362.png" alt="image-20200112145006362"></p>
+<p>具体如下：</p>
+<blockquote>
+<p>1) 输入语句首先经过知识层（即知识图谱体现的三元组关系），获取到相关的实体</p>
+<p>2) 结合相关实体，将输入句子转换成树结构</p>
+<p>3) 将具有树结构的句子进行软编码（soft-position，红色编码所示）和硬编码（hard-position，黑色所示）</p>
+<p>4) 计算可见矩阵（Visible matrix），为0/1值矩阵，决定了self-attention时，哪些词可以跟哪些词是可见的，是可以进行attention的，这里通过图谱连接的实体关系，与原输入文本的其他词是不可见的，即一个词的词嵌入只来源于其同一个枝干的上下文，而不同枝干的词之间相互不影响，例如visiting(6) 与 <a href="0">CLS</a>, Tim(1), Cook(2), is(5), Beijing(7), now(12)均是可见的，与Beijing(7)相关的图谱实体capital(8), China(9), is_a(10), City(11)均是不可见的。</p>
+<p>5)  计算mask self-attention，即将可见矩阵加入到Self-attention计算时的softmax中，使得不可见的词之间产生的权重为0，可见词之间的权重计算无影响</p>
+<p>6) 针对既定任务，进行与BERT相同的fine-tune训练</p>
+</blockquote>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112145127866.png" alt="image-20200112145127866"></p>
+<p>优势：K-BERT除了软位置和可见矩阵，其余结构均与 Google BERT 保持一致，这就给 K-BERT 带来了一个很好的特性——兼容 BERT 类的模型参数。K-BERT 可以直接加载 Google BERT、Baidu ERNIE、Facebook RoBERTa 等市面上公开的已预训练好的 BERT 类模型，无需自行再次预训练，给使用者节约了很大一笔计算资源。</p>
+<h1 id="MASS"><a href="#MASS" class="headerlink" title="MASS"></a>MASS</h1><p>Ref: MASS: Masked Sequence to Sequence Pre-training for Language Generation</p>
+<p>MASS 分别用 BERT 类似的 Transformer 模型来做 encoder 和 decoder，它的主要贡献就是提供了一种 Seq2Seq 思想的预训练方案。</p>
+<h1 id="UNILM"><a href="#UNILM" class="headerlink" title="UNILM"></a>UNILM</h1><p>Ref: Unified Language Model Pre-training for Natural Language Understanding and Generation</p>
+<p>可用于生成式任务，UNILM提供了一种优雅的方式，能够让我们直接用<strong>单个 BERT 模型就可以做 Seq2Seq 任务，而不用区分 encoder 和 decoder</strong>，而实现这一点几乎不费吹灰之力——只需要一个特别的 Mask，简单的来讲，1）通过乱序mask使得attention是双向的（即encoder模式），2）通过顺序mask使得attention是单向的（即decoder模式），3）针对2个句子，对第一个句子使用乱序mask，对第二个句子使用顺序mask，即第一个句子 Attention 是双向的，第二个句子 Attention 是单向（即seq2seq模式）。</p>
+<p><img src="/2020/01/11/BERT衍生模型/image-20200112145320297.png" alt="image-20200112145320297"></p>
+<p>优点：这便是 UNILM 里边提供的用单个 BERT 模型就可以完成 Seq2Seq 任务的思路，只要添加上述形状的 Mask，而不需要修改模型架构，并且还可以直接沿用 BERT 的 Masked Language Model 预训练权重，收敛更快。</p>
+<p><strong>参考：</strong></p>
+<p><a href="https://mp.weixin.qq.com/s/29y2bg4KE-HNwsimD3aauw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/29y2bg4KE-HNwsimD3aauw</a></p>
+<p><a href="https://arxiv.org/pdf/1906.08237.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1906.08237.pdf</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/101302240" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/101302240</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/84157931" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84157931</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nlp/" rel="tag"># nlp</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/08/隐语义模型/" rel="next" title="隐语义模型">
+                <i class="fa fa-chevron-left"></i> 隐语义模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/12/LTR/" rel="prev" title="Learning to rank">
+                Learning to rank <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="April" />
+          <p class="site-author-name" itemprop="name">April</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ALBERT"><span class="nav-number">1.</span> <span class="nav-text">ALBERT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ERNIE"><span class="nav-number">2.</span> <span class="nav-text">ERNIE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MT-DNN"><span class="nav-number">3.</span> <span class="nav-text">MT-DNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XLNet"><span class="nav-number">4.</span> <span class="nav-text">XLNet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-BERT"><span class="nav-number">5.</span> <span class="nav-text">K-BERT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MASS"><span class="nav-number">6.</span> <span class="nav-text">MASS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UNILM"><span class="nav-number">7.</span> <span class="nav-text">UNILM</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">April</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
