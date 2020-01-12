@@ -400,7 +400,7 @@
 <p>6)     重复(3)(4) (5)直到所有节点都训练过了或者被标记为叶子节点。</p>
 <p>7)     重复(3)(4) (5)直到所有CART都被训练过。</p>
 <h3 id="预测过程-1"><a href="#预测过程-1" class="headerlink" title="预测过程"></a>预测过程</h3><p>对于第t-1棵树，i=t-1;</p>
-<p>1)     从当前树的根节点开始，根据当前节点的阈值th，判断是进入左节点(&lt;th)还是进入右节点(&gt;=th)，直到到达某个叶子节点，并输出预测值。</p>
+<p>1)     从当前树的根节点开始，根据当前节点的阈值th，判断是进入左节点(<th)还是进入右节点(>=th)，直到到达某个叶子节点，并输出预测值。</th)还是进入右节点(></p>
 <p>2)     重复执行(1)直到所有t棵树都输出了预测值。如果是分类问题，则输出为所有树种预测概率总和最大的那一个类，即对每个c(j)的p进行累计；如果是回归问题，则输出为所有树的输出的平均值。</p>
 <p>影响分类性能的主要因素</p>
 <p>1)     森林中单棵树的分类强度：每棵树的分类强度越大，则随机森林的分类性能越好。</p>
@@ -794,6 +794,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

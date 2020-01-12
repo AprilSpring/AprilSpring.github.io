@@ -421,6 +421,7 @@
 </li>
 </ol>
 <h2 id="图形标记"><a href="#图形标记" class="headerlink" title="图形标记"></a>图形标记</h2><p>*1. 线条类型</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -438,7 +439,7 @@
 <td>虚线</td>
 </tr>
 <tr>
-<td>‘–’</td>
+<td>‘—‘</td>
 <td>破折线</td>
 <td>‘-.’</td>
 <td>点划线</td>
@@ -449,7 +450,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>*2. 线条标记</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -528,7 +531,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>*3. 颜色标记</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -565,6 +570,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://matplotlib.org/contents.html" target="_blank" rel="noopener">https://matplotlib.org/contents.html</a></p>
 
       
@@ -932,6 +938,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
