@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>AIS 2020论文报告会 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">AIS 2020论文报告会</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2020-10-29</span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <h1 id="ais-2020论文报告会">AIS 2020论文报告会</h1>
+<h2 id="一-session1ais-2020研究趋势">一、Session1：AIS 2020研究趋势</h2>
+<h3 id="1-acl-2020研究趋势车万翔-哈尔滨工业大学">1. ACL 2020研究趋势（车万翔 哈尔滨工业大学）</h3>
+<p>Focus on 自然语言处理</p>
+<p>1）对话</p>
+<p>2）机器学习：预训练模型、压缩、精调、Transformer改进、提升模型rubust</p>
+<p>3）文本生成 强势上升：VAE vs. Pre-training、基于句法的生成</p>
+<p>4）问答系统 绝地反击</p>
+<p>5）机器翻译 有所衰落</p>
+<p>6）句法分析 逐渐式微：预训练模型中蕴含句法分析、用于增强语言模型</p>
+<p>7）语义分析：词级别昙花一现（word2vec）、句级别语义无规律</p>
+<p>8）其它维度：多语言、多模态、图神经网络、小样本/零样本、</p>
+<h3 id="2-ijcai-2020研究趋势贾珈-清华大学">2. IJCAI 2020研究趋势（贾珈 清华大学）</h3>
+<p>9 highlight for NLP：</p>
+<p>1）Unsupervised pre-training：性能优化（EviLBert、AdaBERT）和任务导向（BERTint）</p>
+<p>2）Multilingual Learning（跨语言学习）：无监督跨语言（UniTrans、DomainAdaption）、监督跨语言、机器翻译方向</p>
+<p>3）Meta leanring or.few-shot learning：QA via meta-learning</p>
+<p>4）Transfer leaning（迁移学习）：Pretrain &amp; Fine-tune、Transfer learning Framework（阅读理解层面的迁移、文本风格迁移）、Domain Adaption</p>
+<p>5）Bias in NLP：文本Embedding中存在的性别歧视/种族歧视等，歧视消除</p>
+<p>6）Knowlege fusion（知识融合）：eg., ERNIE、方向：使用知识图谱增强任务理解、构建和补全生成新知识（Mucko、BERT-int 知识对齐）</p>
+<p>7）QA：simple QA vs. complex QA、多跳推理、multitask、</p>
+<p>8）Natural language generation：NLG in different domains</p>
+<p>9）multi-modal（多模态）：Visual QA、</p>
+<h3 id="3-sigir-2020研究趋势兰艳艳-中科院计算所">3. SIGIR 2020研究趋势（兰艳艳 中科院计算所）</h3>
+<p>Focus on 信息检索，也逐渐开放到其它领域</p>
+<p>Traditional IR task</p>
+<p>Neural + IR</p>
+<h2 id="二-session3和4知识与推理">二、Session3和4：知识与推理</h2>
+<p>基于网络邻居的实体对齐：邻居数据差别大、常见实体对中心实体的对齐贡献小、</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/tensorflow20-chang-yong-han-shu/">
+              <h3 class="post-title">
+                下一篇：Tensorflow2.0-常用函数
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

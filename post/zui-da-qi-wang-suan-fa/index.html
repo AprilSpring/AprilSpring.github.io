@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>最大期望算法 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">最大期望算法</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2019-08-05</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                    MachineLearning
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <h2 id="极大似然算法">极大似然算法</h2>
+<p>极大似然算法的思想：知道结果，反推条件θ</p>
+<p>如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。</p>
+<p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。</p>
+<!--more-->
+<h3 id="求极大似然函数估计值的一般步骤">求极大似然函数估计值的一般步骤</h3>
+<p>a)   写出似然函数；</p>
+<p>b)  对似然函数取对数，并整理；</p>
+<p>c)   求导数，令导数为0，得到似然方程；</p>
+<p>d)  解似然方程，得到的参数即为所求；</p>
+<p>e)   如果是n个参数，则计算每个参数的偏导数=0，最后解n方程组，就是似然函数的极值点了。</p>
+<h3 id="对数似然函数">对数似然函数</h3>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667021632220.png" alt="" loading="lazy"></figure>
+<h2 id="em算法">EM算法</h2>
+<p>最大期望算法（Expectation-maximization algorithm，EM），是在概率模型中寻找参数最大似然估计或者最大后验估计的算法，其中概率模型依赖于无法观测的隐性变量。</p>
+<h3 id="隐变量">隐变量</h3>
+<p>EM算法与极大似然算法的区别是，<strong>EM算法中包含隐变量。</strong></p>
+<p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮不知道当前抛的是A硬币还是B硬币（即隐性变量），记录正面还是反面的次数，然后估计A正面朝上的概率、B正面朝上的概率。由于其中包含隐变量，已知隐变量时，则转化为极大似然算法，而未知隐变量时，则采取EM算法。</p>
+<h3 id="em的2个步骤">EM的2个步骤</h3>
+<p>第一步是计算期望（E），先参数初始化，而后计算隐藏变量的当前估计值；</p>
+<p>第二步是最大化（M），基于E步骤的隐变量估计值，计算似然函数的最大似然值，获取新的参数估计值。</p>
+<p>M步上找到的新的参数估计值，被用于下一个E步计算中重新计算隐变量估计值，这个过程不断交替进行，直至参数不再变化，模型收敛。</p>
+<p><strong>参考：</strong></p>
+<p><a href="https://www.julyedu.com/question/big/kp_id/23/ques_id/1006">https://www.julyedu.com/question/big/kp_id/23/ques_id/1006</a></p>
+<p><a href="https://www.julyedu.com/question/big/kp_id/23/ques_id/1007">https://www.julyedu.com/question/big/kp_id/23/ques_id/1007</a></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/you-hua-suan-fa/">
+              <h3 class="post-title">
+                下一篇：优化算法
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

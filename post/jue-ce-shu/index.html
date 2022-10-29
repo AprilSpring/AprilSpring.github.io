@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>决策树 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">决策树</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2019-07-20</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                    MachineLearning
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <p>决策树是一颗依托决策而建立起来的树。</p>
+<h3 id="id3">ID3</h3>
+<p>首先，针对当前的集合，计算每个特征的信息增益；</p>
+<p>然后，选择<strong>信息增益最大</strong>的特征作为当前节点的决策特征；</p>
+<p>根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667022177386.png" alt="" loading="lazy"></figure>
+<h3 id="c45">C4.5</h3>
+<p>它是ID3的一个改进算法，使用<strong>信息增益比</strong>来进行属性的选择。</p>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667022186564.png" alt="" loading="lazy"></figure>
+<p>优缺点：准确率高，但是子构造树的过程中需要进行多次的扫描和排序，所以它的运算效率较低。</p>
+<h3 id="cart">CART</h3>
+<p>分类回归树(Classification And Regression Tree，CART)是一个决策二叉树，在通过递归的方式建立，每个节点在分裂的时候都是希望通过最好的方式将剩余的样本划分成两类，分类指标：</p>
+<ol>
+<li>
+<pre><code>分类树：基尼指数最小化。
+</code></pre>
+</li>
+</ol>
+<p>基尼指数（基尼不纯度）：表示在样本集合中一个随机选中的样本被分错的概率。其中，Gini指数越小表示集合中被选中的样本被分错的概率越小，也就是说集合的纯度越高，反之，集合越不纯。</p>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667022199507.png" alt="" loading="lazy"></figure>
+<ol>
+<li>
+<pre><code>回归树：平方误差最小化
+</code></pre>
+</li>
+</ol>
+<p><strong>优缺点</strong></p>
+<p>优点：计算量简单，可解释性强，比较适合处理有缺失属性值的样本，能够处理不相关的特征；</p>
+<p>缺点：单颗决策树分类能力弱，并且对连续值变量难以处理；容易过拟合（后续出现了随机森林，减小了过拟合现象）。</p>
+<p><strong>停止条件</strong></p>
+<ol>
+<li>
+<pre><code>直到每个叶子节点都只有一种类型的记录时停止（这种方式很容易过拟合）
+</code></pre>
+</li>
+<li>
+<pre><code>另一种时当叶子节点的记录树小于一定的阈值或者节点的信息增益小于一定的阈值时停止
+</code></pre>
+</li>
+</ol>
+<p><strong>决策树的分类与回归</strong></p>
+<p>1） 分类树：输出叶子节点中所属类别最多的那一类</p>
+<p>2）回归树：输出叶子节点中各个样本值的平均值</p>
+<h3 id="id3-c45和cart的应用">ID3、C4.5和CART的应用</h3>
+<ol>
+<li>
+<pre><code>ID3只适用于处理离散变量，而C4.5和CART可以处理连续型变量；
+</code></pre>
+</li>
+<li>
+<pre><code>ID3和C4.5只适用于分类任务，而CART可以应用于回归类任务；
+</code></pre>
+</li>
+<li>
+<pre><code>ID3对缺失值比较敏感，而C4.5和CART可以对缺失值进行不同方式的处理；
+</code></pre>
+</li>
+<li>
+<pre><code>CART只有2个分支，是一颗二叉树；
+</code></pre>
+</li>
+<li>
+<pre><code>ID3和C4.5通过剪枝来衡量模型的准确率与泛化能力，而CART直接利用全部数据发现所有可能的树结构进行对比。
+</code></pre>
+</li>
+</ol>
+<h3 id="如何对决策树进行剪枝">如何对决策树进行剪枝？</h3>
+<ol>
+<li>
+<pre><code>剪枝前置剪枝：在分裂节点的时候设计比较苛刻的条件，如不满足则直接停止分裂（这样干决策树无法到最优，也无法得到比较好的效果）
+</code></pre>
+</li>
+<li>
+<pre><code>后置剪枝：在树建立完之后，用单个节点代替子树，节点的分类采用子树中主要的分类（这种方法比较浪费前面的建立过程）
+</code></pre>
+</li>
+</ol>
+<h3 id="信息增益信息增益比和基尼系数的公式">信息增益，信息增益比和基尼系数的公式</h3>
+<p><img src="https://aprilspring.github.io/post-images/1667022211118.png" alt="" loading="lazy"><br>
+应用：在决策树算法中，ID3使用信息增益、C4.5使用信息增益比、CART算法使用基尼系数。</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/fen-bu-shi-xun-lian-2/">
+              <h3 class="post-title">
+                下一篇：分布式训练
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

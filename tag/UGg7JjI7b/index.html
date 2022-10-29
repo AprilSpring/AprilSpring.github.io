@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>NLP | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+
+        <div class="current-tag-container">
+          <h2 class="title">
+            <i class="icon icon-pricetags-outline"></i> NLP
+          </h2> 
+        </div>
+
+        
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/word2vec/">
+        <h2 class="post-title">word2vec</h2>
+      </a>
+      <div class="post-abstract">
+        <p>Word2vec是一种<strong>词嵌入模型</strong>。</p>
+<blockquote>
+<p>句子需要先进行分词，而后将每词表示成一个固定长度的向量。假设词库大小为N，词向量长度为L，则通过语料库学习到这个W=N*L矩阵的内容，也就是该预料库下每个词的向量表示。</p>
+</blockquote>
+<blockquote>
+<p>Word2vec考虑词之间共出现的概率，但是未考虑语义信息。有了词的向量表示，后续就可以衔接其他分类模型，解决文本分类或其他问题了。</p>
+</blockquote>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-01-12</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+      <a href="https://aprilspring.github.io/post/word2vec/">
+        <div class="feature-container" style="background-image: url('https://aprilspring.github.io/post-images/word2vec.png')">
+        </div>
+      </a>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/bert-yan-sheng-mo-xing/">
+        <h2 class="post-title">BERT衍生模型</h2>
+      </a>
+      <div class="post-abstract">
+        <p>结合网络大牛的总结（致谢大牛！），目前存在一些针对BERT进行优化的衍生模型。</p>
+<p>主要优化方向：</p>
+<blockquote>
+<p>性能（ALBERT）</p>
+<p>增加图谱实体（ERINE, K-BERT）</p>
+<p>多样的Attention方式（XLNet, UNILM）</p>
+<p>新增训练任务（MT-DNN）</p>
+<p>兼容生成式任务（MASS, UNILM）等</p>
+</blockquote>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-01-11</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/yin-yu-yi-mo-xing/">
+        <h2 class="post-title">隐语义模型</h2>
+      </a>
+      <div class="post-abstract">
+        <h1 id="lsa">LSA</h1>
+<p>LSA即潜语义分析（或主题模型，主题即为潜在的语义信息），认为“<strong>一篇文章是通过一定的概率选择了某个主题，并从这个主题中以一定概率选择某个词语</strong>”这样一个过程得到的。</p>
+<p>目标是：通过对“文档-单词”矩阵进行分解，得到“文档-主题”和“主题-单词”两个概率分布，即根据给定的一篇文档，推测其主题分布。</p>
+<p>主要有2种主要方法：<strong>奇异值分解SVD、非负矩阵分解NMF</strong>。</p>
+<p><strong>单词集合W</strong>={w1, w2, …, wm}</p>
+<p><strong>文档集合D</strong>={d1, d2, …, dn}</p>
+<p><strong>单词向量空间X<sub>m*n</sub></strong>：单词-文本矩阵，每个单词在文档中出现的频率(行-单词，列-文档)</p>
+<p><strong>话题向量空间T<sub>m*k</sub></strong>：单词-话题矩阵，每个单词在话题中出现的频率(行-单词，列-话题)，T是X的一个子集</p>
+<p><strong>文本在话题空间的向量表示Y<sub>k*n</sub></strong>： X<sub>mn </sub>= T<sub>mk </sub> * Y<sub>kn</sub>，Y<sub>kn</sub> 就是我们需要求得的隐变量，即每个文本对应每个话题的权重，可将每个文本标记为权重较大的话题上。</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-01-08</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/textcnn/">
+        <h2 class="post-title">TextCNN</h2>
+      </a>
+      <div class="post-abstract">
+        <p><strong>用途</strong>：一般用于文本分类，主要包括输入层、卷积层、max-pooling层、全连接+softmax层</p>
+<p><strong>输入</strong>：文本向量矩阵（行：每个词、列：每个词的向量表示-word2vec or glove），如果输入有多个channel，则针对每个词使用了多个不同的向量化表示</p>
+<p><strong>卷积核</strong>：卷积核的“宽度”通常与输入矩阵的宽度相同，高度或区域大小可以变化，一般为2-5个单词的窗口</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-01-07</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/bert-yuan-ma-jie-xi/">
+        <h2 class="post-title">BERT源码解析</h2>
+      </a>
+      <div class="post-abstract">
+        <h1 id="源码整体框架">源码整体框架</h1>
+<p>地址：https://github.com/google-research/bert</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-01-29</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/bert-yuan-li-he-shi-yong/">
+        <h2 class="post-title">BERT原理和使用</h2>
+      </a>
+      <div class="post-abstract">
+        <p>最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。</p>
+<h1 id="bert简介">BERT简介</h1>
+<h2 id="bert">BERT</h2>
+<p>BERT（<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentation from <strong>T</strong>ransformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项NLP任务均获得了相当不错的结果，文章于2018年10月发表，并提供了开源地址（ https://github.com/google-research/bert ），致谢👏👏👏。</p>
+<h2 id="语料库">语料库</h2>
+<p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words).</p>
+<h2 id="预训练模型及参数">预训练模型及参数</h2>
+<p>可参考GitHub详细文档。</p>
+<h2 id="bert的主要特点">BERT的主要特点</h2>
+<p>Ø  使用Transformer作为特征提取器</p>
+<p>Ø  双向语言模型</p>
+<p><font color=red>由于BERT是基于Transformer模型的，而Transformer模型主要基于Attention机制，因此先需要了解下Attention机制。</font></p>
+<p>​</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-01-26</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/zi-ran-yu-yan-chu-li/">
+        <h2 class="post-title">自然语言处理</h2>
+      </a>
+      <div class="post-abstract">
+        <p>根据这一阵子对文本分析的研究，做了一些整理，可供参考。<br>
+有不对之处，恳请大家指正。</p>
+<h2 id="预料库">预料库</h2>
+<blockquote>
+<p>1）直接下载现成的语料库<br>
+2）爬虫方法获取语料库<br>
+3）当前分析的所有文本形成语料库</p>
+</blockquote>
+<h2 id="文本预处理">文本预处理</h2>
+<blockquote>
+<p>主要包括：<br>
+1）文本删除（文本去重复、机械压缩去词、短句删除、去除无效标签等）<br>
+2）编码转换<br>
+3）拼写检查（针对英文）<br>
+4）大小写统一（针对英文）<br>
+5）分词<br>
+6）去停用词（网上提供1208个停用词：https://pan.baidu.com/s/1gfMXMl9）</p>
+</blockquote>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2018-07-12</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+
+<div class="pagination-container">
+  
+  
+</div>
+
+
+      </div>
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>BERT原理和使用 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">BERT原理和使用</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2019-01-26</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                    NLP
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <p>最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。</p>
+<h1 id="bert简介">BERT简介</h1>
+<h2 id="bert">BERT</h2>
+<p>BERT（<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentation from <strong>T</strong>ransformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项NLP任务均获得了相当不错的结果，文章于2018年10月发表，并提供了开源地址（ https://github.com/google-research/bert ），致谢👏👏👏。</p>
+<h2 id="语料库">语料库</h2>
+<p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words).</p>
+<h2 id="预训练模型及参数">预训练模型及参数</h2>
+<p>可参考GitHub详细文档。</p>
+<h2 id="bert的主要特点">BERT的主要特点</h2>
+<p>Ø  使用Transformer作为特征提取器</p>
+<p>Ø  双向语言模型</p>
+<p><font color=red>由于BERT是基于Transformer模型的，而Transformer模型主要基于Attention机制，因此先需要了解下Attention机制。</font></p>
+<p>​</p>
+<!--more-->
+<h1 id="attention机制">Attention机制</h1>
+<h2 id="attention机制的提出">Attention机制的提出</h2>
+<p>Ø 早在Seq2seq基础上提出attention机制，现在提到的Seq2seq均指加入attention机制的模型</p>
+<p>Ø Seq2seq模型：Encoder将整个输入压缩成固定长度的context vector</p>
+<p>Ø Attention机制：输入针对不同时刻的输出，有着不同的重要程度（即生成多个context vector）</p>
+<p>Ø 重点： <strong>如何计算context vector？</strong><br>
+<img src="https://aprilspring.github.io/post-images/1667020593472.png" alt="" loading="lazy"></p>
+<h2 id="attention机制的原理">Attention机制的原理</h2>
+<p>Attention机制主要用于计算输入对不同时刻输出的差异重要程度。</p>
+<blockquote>
+<p>1）对于当前时刻T的输出yt，除了需要计算上一时刻状态St-1之外，还需要知道Encoder对yt的贡献程度Ct；</p>
+<p>2）分别计算Encoder不同时刻输入的隐藏层状态hj={h1,h2,…,hT}与Decoder 上一时刻的隐藏层状态St-1的相关性，来获取不同时刻hj的权重，即<strong>aij</strong>。</p>
+<p>3）使用aij与hj对应相乘，再加和，得到整体输入对当前时刻输出的贡献，即<strong>Ct</strong>。</p>
+<p>4）针对不同时刻输出，Ct的内容是不相同的，也即反应了输入对不同时刻输出的差异性。</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667020610538.png" alt="" loading="lazy"></figure>
+<h2 id="attention机制的种类">Attention机制的种类</h2>
+<p>主要分为以下3种：</p>
+<p>1.Context-attention（即Encoder-Decoder Attention）</p>
+<p>2.Self-attention（Encoder内部 OR Decoder内部）</p>
+<p>3.Multi-head attention（可以是基于Context-attention的，也可以是基于Self-attention的）</p>
+<p><font color=red>基于对Attention机制的理解，我们来看看Transformer模型是什么东东。</font></p>
+<p>​</p>
+<h1 id="transformer模型">Transformer模型</h1>
+<h2 id="transformer模型简介">Transformer模型简介</h2>
+<p>Transformer 是个叠加的“自注意力机制（Self Attention）”，是目前 NLP 里最强的特征提取器。具体来说，Transformer是一个升级版的seq2seq，也由一个encoder和一个decoder组成的，但是encoder和decoder过程都不用RNN，而且换成了多个attention机制模型。</p>
+<p>Ø Encoder：一共有N=6次循环，每次循环包含 2 个layers, 分别是：</p>
+<blockquote>
+<p>One multi-head self-attention mechanism（为输入句子向量的每个词学习一个权重）</p>
+<p>One position-wise fully connected feed-forward network</p>
+</blockquote>
+<p>Ø Decoder（right）：一共有N=6次循环，每次循环包含3个layers，分别是：</p>
+<blockquote>
+<p>One multi-head self-attention mechanism（当前翻译词与已翻译前文的关系）</p>
+<p>One multi-head context-attention mechanism（当前翻译词与编码特征向量的关系）</p>
+<p>One position-wise fully connected feed-forward network</p>
+</blockquote>
+<p>Ø 每个layer后面都跟了一个add&amp;norm，即添加residual connections + layer norm</p>
+<h2 id="transformer模型结构">Transformer模型结构</h2>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667020622708.png" alt="" loading="lazy"></figure>
+<h3 id="encoder部分">Encoder部分</h3>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667020632892.png" alt="" loading="lazy"></figure>
+<h3 id="querykeyvalue">Query+Key+Value</h3>
+<figure data-type="image" tabindex="4"><img src="https://aprilspring.github.io/post-images/1667020647927.png" alt="" loading="lazy"></figure>
+<h3 id="self-attention">Self-attention</h3>
+<figure data-type="image" tabindex="5"><img src="https://aprilspring.github.io/post-images/1667020657378.png" alt="" loading="lazy"></figure>
+<h3 id="multi-head-attention">Multi-Head Attention</h3>
+<figure data-type="image" tabindex="6"><img src="https://aprilspring.github.io/post-images/1667020670414.png" alt="" loading="lazy"></figure>
+<h3 id="heads-数目影响">Heads 数目影响</h3>
+<figure data-type="image" tabindex="7"><img src="https://aprilspring.github.io/post-images/1667020690466.png" alt="" loading="lazy"></figure>
+<h3 id="position-embedding">Position embedding</h3>
+<figure data-type="image" tabindex="8"><img src="https://aprilspring.github.io/post-images/1667020702984.png" alt="" loading="lazy"></figure>
+<h3 id="residual-connections-and-layer-norm">Residual connections and Layer norm</h3>
+<figure data-type="image" tabindex="9"><img src="https://aprilspring.github.io/post-images/1667020722805.png" alt="" loading="lazy"></figure>
+<h3 id="position-wise-feed-forwardnetwork">Position-wise feed-forwardnetwork</h3>
+<p>是一个全连接网络，对每个位置过两个线性层，并使用ReLU作为激活函数。</p>
+<figure data-type="image" tabindex="10"><img src="https://aprilspring.github.io/post-images/1667020768964.png" alt="" loading="lazy"></figure>
+<h3 id="decoder部分">Decoder部分</h3>
+<figure data-type="image" tabindex="11"><img src="https://aprilspring.github.io/post-images/1667020781847.gif" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="12"><img src="https://aprilspring.github.io/post-images/1667020793382.gif" alt="" loading="lazy"></figure>
+<h3 id="masked机制">Masked机制</h3>
+<p>Transformer模型中涉及2种mask：</p>
+<p>1.Padding mask用在所有的scaled dot-product attention</p>
+<blockquote>
+<p>由于每次输入的句子长度不一样，需要对输入序列进行对齐，也就是给较短的序列后面填充0。由于填充序列没有什么意义，attention机制不应该把注意力放在这些位置，因此需要进行如下处理：把这些位置的值加上一个非常大的负数(可以是负无穷)，这样的话，经过softmax，这些位置的概率就会接近0。</p>
+</blockquote>
+<p>2.Sequence mask用在decoder的self-attention</p>
+<blockquote>
+<p>为了使得Decoder不能看见未来的信息，也就是针对一个序列，在t时刻的解码输出只能依赖于t时刻之前的输出，而不能依赖t时刻之后的输出，因此需要进行一些处理，将t时刻之后的信息隐藏起来。</p>
+</blockquote>
+<figure data-type="image" tabindex="13"><img src="https://aprilspring.github.io/post-images/1667020826238.png" alt="" loading="lazy"></figure>
+<h3 id="final-linear-and-softmax-layer">Final Linear and Softmax Layer</h3>
+<p>Decoder当前输出，经线性变换和softmax ，获得预测概率最大的词，作为输出结果。</p>
+<figure data-type="image" tabindex="14"><img src="https://aprilspring.github.io/post-images/1667020839223.png" alt="" loading="lazy"></figure>
+<h2 id="transformer的优势">Transformer的优势</h2>
+<ol>
+<li>并行计算, 提高训练速度</li>
+</ol>
+<blockquote>
+<p>Transformer用attention代替了原本的RNN；而RNN在训练的时候, 当前step的计算要依赖于上一个step的hidden state的，而Transformer不用RNN，所有的计算都可以并行进行，从而提高的训练的速度。</p>
+</blockquote>
+<ol start="2">
+<li>捕获长距离特征</li>
+</ol>
+<blockquote>
+<p>原本的RNN里，如果第一帧要和第十帧建立依赖，那么第一帧的数据要依次经过第二三四五...九帧传给第十帧，进而产生二者的计算；而在这个传递的过程中，可能第一帧的数据已经产生了biased，因此这个交互的速度和准确性都没有保障。而在Transformer中，由于有self attention的存在，任意两帧之间都有直接的交互，从而建立了直接的依赖，无论二者距离多远。</p>
+</blockquote>
+<h1 id="bert的双向encoder表示">BERT的双向Encoder表示</h1>
+<p>BERT是multi-task语言模型，它的双向语言表示主要是基于以下2个task完成的。</p>
+<h2 id="task1masked语言模型masked-lm即完形填空式预测">Task1：Masked语言模型（masked LM，即完形填空式预测）</h2>
+<figure data-type="image" tabindex="15"><img src="https://aprilspring.github.io/post-images/1667020857910.png" alt="" loading="lazy"></figure>
+<h2 id="task2next-sentence-prediction句子关系预测">Task2：Next Sentence Prediction（句子关系预测）</h2>
+<figure data-type="image" tabindex="16"><img src="https://aprilspring.github.io/post-images/1667020874979.png" alt="" loading="lazy"></figure>
+<h2 id="multi-task-learning的损失函数">Multi-task Learning的损失函数</h2>
+<figure data-type="image" tabindex="17"><img src="https://aprilspring.github.io/post-images/1667020891282.png" alt="" loading="lazy"></figure>
+<h1 id="bert-vs-gpt-vs-elmo">BERT vs. GPT vs. ELMo</h1>
+<p>BERT与GPT和ELMo的相同和差异，如下：</p>
+<figure data-type="image" tabindex="18"><img src="https://aprilspring.github.io/post-images/1667020914070.png" alt="" loading="lazy"></figure>
+<h1 id="bert的应用">BERT的应用</h1>
+<h2 id="sequence-level">Sequence-level</h2>
+<p>1）成对句子分类：如MNLI，用于预测第二个句子与第一个句子是承接关系，矛盾关系，还是中立关系？（三分类输出，脚本run_classifier.py）</p>
+<p>2）单个句子分类：如CoLA，用于判定给定英语句子的语言可接受性与否？（二分类输出，run_classifier.py）。</p>
+<h2 id="token-level">Token-level</h2>
+<p>1）智能问答：如SQuAD v1.1（The Standford Question Answering Dataset），语料为来自Wikipedia的问题和包含答案的段落，用于从段落中预测对应答案的文本跨度（即文本跨度预测问题span prediction task，输出为答案的Start+End+Span，脚本run_classifier.py）；</p>
+<p>2）命名实体识别：如CoNLL-2003 NER（实体类别Person, Organization, Location, Miscellaneous, or Other (non-named entity)），用于（即token tagging task，输出：，脚本extract_features.py）。</p>
+<figure data-type="image" tabindex="19"><img src="https://aprilspring.github.io/post-images/1667020929322.png" alt="" loading="lazy"></figure>
+<h2 id="sentence-encodingembedding">Sentence Encoding/Embedding</h2>
+<p>使用预训练好的模型，生成句向量（mapping a variable-length sentence to a fixed-length vector）。</p>
+<p><a href="https://github.com/hanxiao/bert-as-service">https://github.com/hanxiao/bert-as-service</a></p>
+<h2 id="基于pytorch的bert应用">基于pytorch的Bert应用</h2>
+<p><a href="https://github.com/codertimo/BERT-pytorch">https://github.com/codertimo/BERT-pytorch</a></p>
+<h2 id="pre-train-domain-pre-train-and-fine-tune">Pre-train, domain-pre-train and fine-tune</h2>
+<figure data-type="image" tabindex="20"><img src="https://aprilspring.github.io/post-images/1667020945124.png" alt="" loading="lazy"></figure>
+<h2 id="pre-train参数">Pre-train参数</h2>
+<p>We train with <strong>batch size of 256 sequences</strong> (256 sequences * 512 tokens = 128,000 tokens/batch) for 1,000,000 steps, which is approximately <strong>40 epochs</strong> over the <strong>3.3 billion word corpus</strong>. We use Adam with <strong>learning rate of 1e-4</strong>, β1 = 0.9, β2 = 0.999, L2 weight decay of 0.01, learning rate warmup over the first 10,000 steps, and linear decay of the learning rate. We use a <strong>dropout probability of 0.1</strong> on all layers. We use a <strong>gelu activation</strong> (Hendrycks and Gimpel, 2016) rather than the standard relu, following OpenAI GPT.</p>
+<figure data-type="image" tabindex="21"><img src="https://aprilspring.github.io/post-images/1667021145045.png" alt="" loading="lazy"></figure>
+<h2 id="fine-tune参数">Fine-tune参数</h2>
+<p>For fine-tuning, most model hyperparameters are the same as in pre-training, with the <strong>exception of the batch size, learning rate, and number of training epochs</strong>. The dropout probability was always kept at 0.1.</p>
+<p>!image-20190127000516938](BERT原理和使用/image-20190127000516938.png)</p>
+<figure data-type="image" tabindex="22"><img src="https://aprilspring.github.io/post-images/1667021056288.png" alt="" loading="lazy"></figure>
+<p>​</p>
+<h1 id="特别鸣谢">特别鸣谢</h1>
+<p>https://github.com/google-research/bert</p>
+<p>http://nlp.seas.harvard.edu/2018/04/03/attention.html</p>
+<p>https://zhuanlan.zhihu.com/p/46833276</p>
+<p>https://shimo.im/docs/gmRW4WV2mjoXzKA1/</p>
+<p>http://www.52nlp.cn/tag/transformer</p>
+<p>https://blog.csdn.net/zuanfengxiao/article/details/78722171</p>
+<p>https://yq.aliyun.com/articles/342508</p>
+<p>https://www.cnblogs.com/hellcat/p/6925757.html#_label2</p>
+<p>https://zhuanlan.zhihu.com/p/38485843</p>
+<p>http://jalammar.github.io/illustrated-transformer/</p>
+<p>https://zhuanlan.zhihu.com/p/48508221</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/zi-ran-yu-yan-chu-li/">
+              <h3 class="post-title">
+                下一篇：自然语言处理
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

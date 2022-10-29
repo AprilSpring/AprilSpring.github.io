@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Python-常用函数 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Python-常用函数</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2017-07-28</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/jVciP1z0t/">
+                    Python
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <!-- more -->
+<h1 id="python的常用函数">Python的常用函数</h1>
+<h2 id="get">get()</h2>
+<p>功能：给字典中的某个键对应的值赋予新值。<br>
+key：字典中要查找的键<br>
+default：当指定键不存在时，返回{key:default}。</p>
+<pre><code>dict.get(key, default=None)
+</code></pre>
+<h2 id="operatoritemgetter">operator.itemgetter()</h2>
+<p>功能：用于提取指定索引对应的值。</p>
+<pre><code>import operator
+a = [1,2,3] 
+&gt;&gt;&gt; b=operator.itemgetter(1)   #用于提取索引为{1}的操作
+&gt;&gt;&gt; b(a) 
+2 
+&gt;&gt;&gt; b=operator.itemgetter(1,0) #用于提取索引为{1,0}的操作
+&gt;&gt;&gt; b(a) 
+(2,1) 
+</code></pre>
+<h2 id="items和iteritems">items()和iteritems()</h2>
+<p>dict.items():返回一个字典(键,值)对应的列表。<br>
+dict.iteritems():返回一个字典(键,值)对应的迭代器<br>
+(Note: iteritems() was removed in python3, so you can't use this method anymore.)。</p>
+<pre><code>dict={1:'one',2:'two',3:'three'}
+&gt;&gt;&gt; for k,v in dict.items():
+...     print(&quot;dict[%s] is %s&quot; % (k,v))
+...
+dict[1] is one
+dict[2] is two
+dict[3] is three
+</code></pre>
+<h2 id="对文件文件夹的操作os模块和shutil模块">对文件/文件夹的操作(os模块和shutil模块)</h2>
+<p>得到当前工作目录: os.getcwd()<br>
+更改当前工作目录：os.chdir()<br>
+返回指定目录下的所有文件和目录名：os.listdir(&quot;c：\python&quot;)<br>
+删除一个文件：os.remove()<br>
+删除多个目录：os.removedirs(r&quot;c：\python&quot;)<br>
+判断是否是一个文件：os.path.isfile()<br>
+判断是否是一个目录：os.path.isdir()<br>
+判断是否是绝对路径：os.path.isabs()<br>
+判断给出的路径是否真存在:os.path.exists()<br>
+返回一个路径的目录名和文件名:os.path.split()</p>
+<pre><code>&gt;&gt;&gt; os.path.split('/home/swaroop/byte/code/poem.txt')
+('/home/swaroop/byte/code', 'poem.txt')
+</code></pre>
+<p>分离扩展名：os.path.splitext()<br>
+获取路径名：os.path.dirname()<br>
+获取文件名：os.path.basename()<br>
+获取文件大小：os.path.getsize(filename)<br>
+运行shell命令: os.system()<br>
+读取和设置环境变量：os.getenv()与os.putenv()<br>
+重命名：os.rename(old,new)<br>
+创建多级目录：os.makedirs(r&quot;c：\python\test&quot;)<br>
+创建单个目录：os.mkdir(&quot;test&quot;)<br>
+获取文件属性：os.stat(file)<br>
+修改文件权限与时间戳：os.chmod(file)<br>
+终止当前进程：os.exit()<br>
+复制文件：shutil.copyfile(&quot;oldfile&quot;,&quot;newfile&quot;) #oldfile和newfile都只能是文件<br>
+复制文件：shutil.copy(&quot;oldfile&quot;,&quot;newfile&quot;) #oldfile只能是文件夹，newfile可以是文件，也可以是目标目录<br>
+复制文件夹：shutil.copytree(&quot;olddir&quot;,&quot;newdir&quot;) olddir和newdir都只能是目录，且newdir必须不存在<br>
+删除目录：shutil.rmtree(&quot;dir&quot;) #空目录、有内容的目录都可以删</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/python-matplotlib/">
+              <h3 class="post-title">
+                下一篇：Python-matplotlib
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

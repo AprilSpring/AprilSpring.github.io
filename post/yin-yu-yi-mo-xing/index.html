@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>隐语义模型 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">隐语义模型</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2020-01-08</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                    NLP
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <h1 id="lsa">LSA</h1>
+<p>LSA即潜语义分析（或主题模型，主题即为潜在的语义信息），认为“<strong>一篇文章是通过一定的概率选择了某个主题，并从这个主题中以一定概率选择某个词语</strong>”这样一个过程得到的。</p>
+<p>目标是：通过对“文档-单词”矩阵进行分解，得到“文档-主题”和“主题-单词”两个概率分布，即根据给定的一篇文档，推测其主题分布。</p>
+<p>主要有2种主要方法：<strong>奇异值分解SVD、非负矩阵分解NMF</strong>。</p>
+<p><strong>单词集合W</strong>={w1, w2, …, wm}</p>
+<p><strong>文档集合D</strong>={d1, d2, …, dn}</p>
+<p><strong>单词向量空间X<sub>m*n</sub></strong>：单词-文本矩阵，每个单词在文档中出现的频率(行-单词，列-文档)</p>
+<p><strong>话题向量空间T<sub>m*k</sub></strong>：单词-话题矩阵，每个单词在话题中出现的频率(行-单词，列-话题)，T是X的一个子集</p>
+<p><strong>文本在话题空间的向量表示Y<sub>k*n</sub></strong>： X<sub>mn </sub>= T<sub>mk </sub> * Y<sub>kn</sub>，Y<sub>kn</sub> 就是我们需要求得的隐变量，即每个文本对应每个话题的权重，可将每个文本标记为权重较大的话题上。</p>
+ <!--more-->
+<h2 id="截断-奇异值分解svd">[截断] 奇异值分解(SVD)</h2>
+<p><img src="https://aprilspring.github.io/post-images/1667021968291.png" alt="" loading="lazy"><br>
+因此，话题向量空间是   ，文本在话题空间的表示是   ，k为主题的数目（提前设定主题数目k，即截断SVD）。</p>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667021975168.png" alt="" loading="lazy"></figure>
+<h2 id="非负矩阵分解nmf">非负矩阵分解(NMF)</h2>
+<p>若一个矩阵的所有元素均为非负，则为非负矩阵。对于一个非负矩阵X<sub>mn</sub>，可以找到两个非负矩阵W<sub>mk</sub>和H<sub>kn</sub>，使得：</p>
+<p><img src="https://aprilspring.github.io/post-images/1667021982637.png" alt="" loading="lazy"><br>
+因此，话题向量空间是W，文本在话题空间的表示是H，k为主题的数目。</p>
+<h2 id="lsa的推荐应用">LSA的推荐应用</h2>
+<p>此时的隐语义，即通过用户-商品矩阵进行分解，得到的潜在<strong>用户兴趣</strong>。就是根据用户的当前偏好信息，得到用户的兴趣偏好，将该类兴趣对应的物品推荐给当前用户。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667021989055.png" alt="" loading="lazy"><br>
+<strong>缺点</strong>：隐语义模型训练耗时，不能因为用户行为的变化实时地调整推荐结果，来满足用户最近的行为。</p>
+<h1 id="plsa">pLSA</h1>
+<p>Probabilistic Latent Semantic Analysis, pLSA，基于概率的隐性语义分析。</p>
+<p>思想：单词已一定概率生成主题（单词分布p(w|z)），主题已一定概率生成文档（主题分布p(z|d)），因此在已知文档（d）和单词（w）的情况下，估计主题（z，即隐变量），由EM算法介绍可知，在<strong>含有隐变量</strong>时，使用<strong>EM算法</strong>求的概率模型的最优参数，即p(w|z)和p(z|d)。</p>
+<blockquote>
+<p>其中，D代表文档，Z代表隐含主题，W代表观察到的词，P(d)表示选中文档d的概率，P(z|d)表示给定文档d中主题z的概率，P(w|z)表示给定主题z、出现单词w的概率，P(d,w)表示文档d与单词w联合出现的概率，为唯一的已知概率。</p>
+</blockquote>
+<p>此外，pLSA使用EM估计参数，并且估计的参数是固定的（概率思想）。</p>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667021997139.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667022002790.png" alt="" loading="lazy"></figure>
+<h1 id="lda">LDA</h1>
+<p>Latent Dirichlet Allocation，LDA，基于贝叶斯。</p>
+<p>与pLSA不同的是，pLSA中认为P(z|d)和P(w|z)看成是确定的未知常数，并可以求解出来；而LDA认为待估计参数不再是一个固定的常数，而是服从狄利克雷分布的随机变量，</p>
+<p>该随机变量通过2个Dirichlet先验参数生成的。</p>
+<figure data-type="image" tabindex="4"><img src="https://aprilspring.github.io/post-images/1667022010757.png" alt="" loading="lazy"></figure>
+<p><strong>参考：</strong></p>
+<p><a href="https://blog.csdn.net/yangliuy/article/details/8330640">https://blog.csdn.net/yangliuy/article/details/8330640</a></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/textcnn/">
+              <h3 class="post-title">
+                下一篇：TextCNN
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

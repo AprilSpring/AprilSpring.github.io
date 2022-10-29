@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Tensorflow2.0-常用函数 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Tensorflow2.0-常用函数</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2020-02-08</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/CPNaFARCh/">
+                    tensorflow
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <p>最近学习了一些TensorFlow2.0的常用函数，大致如下：</p>
+<!-- more -->
+<h1 id="install">install</h1>
+<pre><code class="language-python">pip install tensorflow==2.0.0-beta1
+pip install tensorflow-gpu==2.0.0-beta0
+
+import tensorflow as tf
+
+tf.test.is_gpu_avialble()
+</code></pre>
+<h1 id="tfkeras">tf.keras</h1>
+<pre><code class="language-python">tf.keras.Sequential()
+tf.keras.Input()
+tf.keras.utils.to_categorial() #one-hot
+tf.keras.Model(inputs=inputs, outputs=[out1, out2])
+
+# tf.keras.layers
+tf.keras.layers.Flatten()
+tf.keras.layers.Dense()
+tf.keras.layers.concatenate()
+tf.keras.layers.Conv2D()
+tf.keras.layers.Batchnormalization()
+tf.keras.layers.MaxPooling2D()
+tf.keras.layers.Dropout()
+tf.keras.layers.GlobalAveragePooling2D()
+tf.keras.layers.Conv2DTranspose() #反卷积，用于FCN网络（图像语义分割）
+tf.keras.layers.LSTM()
+tf.keras.layers.GRU()
+
+# tf.keras.preprocessing
+tf.keras.preprocessing.sequence.pad_sequences() #文本长度填充
+tf.keras.preprocessing.image.array_to_img() #使用plt.imshow()显示图像
+
+# tf.keras.optimizers
+tf.keras.optimizers.Adam()
+
+# tf.keras.losses
+tf.keras.losses.SparseCategorialCrossentropy() #数字标签的多分类，返回一个方法，loss_func(y, y_)
+tf.keras.losses.sparse_categorial_crossentropy(y_true, y_pred, from_logits = False)
+tf.keras.losses.BinaryCrossentropy() #二分类
+
+# tf.keras.metrics
+tf.keras.metrics.Mean('train_loss')
+tf.keras.metrics.SparseCategoricalAccuracy('train_accuracy')
+
+# tf.keras.callbacks
+tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+tf.keras.calllbacks.LearningRateScheduler()
+tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                   moniter='val_loss',
+                                   save_best_only=False, #True,选择monitor最好的检查点进行保存
+                                   save_weights_only=True,
+                                   mode='auto',
+                                   save_freq='epoch',
+                                   verbose=0)
+# tf.keras.applications
+tf.keras.applications.xception.Xception(include_top=False,
+                                        weigths='imagenet',
+                                        input_shape=(224,224,3),
+                                        pooling='avg')
+tf.keras.applications.VGG16(include_top=False,
+                            weigths='imagenet',
+                            input_shape=(256,256,3))
+tf.keras.applications.MobileNetV2(include_top=False,
+                                  weigths=None, #仅使用MobileNetV2的架构，没有使用权重
+                                  input_shape=(224,224,3))
+</code></pre>
+<h1 id="model">model</h1>
+<pre><code class="language-python">model.add()
+model.summary()
+model.compile()
+model.fit()
+model.evaluate()
+model.predict()
+y_ = model(x) #函数式API调用
+model.trainable_variables #模型可训练参数
+</code></pre>
+<h1 id="model-save-and-reload">model save and reload</h1>
+<pre><code class="language-python"># 模型整体
+model.save('./my_model.h5')  #模型整体保存
+new_model = tf.keras.models.load_model('./my_model.h5') #加载模型
+
+# 模型结构
+json_config = model.to_json() #获取模型结构
+model = tf.keras.model.model_from_json(json_config) #加载模型结构
+
+# 模型权重
+weights = model.get_weights() #获取模型权重
+model.set_weights(weights) #加载模型权重
+model.save_weights('./my_weights.h5') #保存模型权重到磁盘
+model.load_weights('./my_weights.h5') #从磁盘加载模型权重
+
+# 检查点文件
+model = tf.keras.models.load_model(checkpoint_path) #加载检查点文件
+model.load_weights(checkpoint_path) #加载检查点文件中的权重%% 预训练模型
+</code></pre>
+<h1 id="checkpoint">checkpoint</h1>
+<pre><code class="language-python">checkpoint = tf.train.Checkpoint(optimizer=optimizer, model=model) #初始化检查点文件
+checkpoint.save(file_prefix=cp_prefix) #每个epoch保存一次检查点
+checkpoint.restore(tf.train.lastest_checkpoint(cp_dir)) #恢复最新的检查点文件
+</code></pre>
+<h1 id="pre-train">pre-train</h1>
+<pre><code class="language-python">pre_train_model.get_layer(layer_name).output
+pre_train_model.trainable = False
+</code></pre>
+<h1 id="modelfit">model.fit</h1>
+<pre><code class="language-python">history = model.fit(ds_train, 
+                    epochs=5, 
+                    steps_per_epoch=train_image.shape[0]//64,
+                    validation_data=ds_test, 
+                    validation_steps=test_image.shape[0]//64,
+                    callbacks=[my_callback])
+history.epoch
+history.history.get('acc')
+</code></pre>
+<h1 id="tfgradienttape">tf.GradientTape</h1>
+<pre><code class="language-python">with tf.GradientTape() as t:
+    predictions = model(images)
+    loss_step = tf.keras.losses.SparseCategorialCrossentropy(from_logits=False)(labels, predictions)
+
+grads = t.gradient(loss_step, model.trainable_variables)
+optimizer.apply_gradients(zip(grads, model.trainable_variables))
+
+train_loss = tf.keras.metrics.Mean('train_loss')
+train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy('train_accuracy')
+
+train_loss(loss_step)
+train_accuracy(labels, predictions) 
+
+train_loss.result()
+train_accuracy.result()
+
+train_loss.reset_states()
+train_accuracy.reset_states()
+</code></pre>
+<h1 id="tfdata">tf.data</h1>
+<pre><code class="language-python">tf.data.Dataset.from_tensor_slices()
+tf.data.Dataset.zip()
+AUTOTUNE = tf.data.experimental.AUTOTUNE
+</code></pre>
+<h1 id="datasets">datasets</h1>
+<pre><code class="language-python">dataset.shuffle()
+dataset.repeat()
+dataset.batch()
+dataset.map(func, num_parallel_calls=AUTOTUNE)
+dataset.skip()
+dataset.take()
+dataset.prefetch(AUTOTUNE)
+next(iter(dataset)) #按batch查看数据
+</code></pre>
+<h1 id="tfimage">tf.image</h1>
+<pre><code class="language-python">tf.image.decode_jpeg()
+tf.image.decode_png()
+tf.image.resize()
+tf.image.random_crop()
+tf.image.random_flip_left_right(image)
+tf.image.random_flip_up_down(image)
+tf.image.random_brigtness(image, 0.5)
+tf.image.random_contrast(image, 0, 1)
+tf.image.random_hue(image, max_delta=0.3)
+tf.image.random_saturation(image, lower=0.2, upper=1.0)
+</code></pre>
+<h1 id="tfsummary">tf.summary</h1>
+<pre><code class="language-python">train_writer = tf.summary.create_file_writer(train_log_dir)
+
+with train_writer.set_as_default():
+    tf.summary.scalar('loss', train_loss.result(), step=epoch)
+</code></pre>
+<h1 id="tfconfig">tf.config</h1>
+<pre><code class="language-python">tf.config.experimental.list_physical_devices()
+tf.config.experimental.set_visible_devices()
+tf.config.experimental.set_memory_growth()
+tf.config.experimental.set_virtual_device_configration()
+</code></pre>
+<h1 id="tf其他">tf.其他</h1>
+<pre><code class="language-python">tf.io.read_file(img_path)
+tf.cast()
+tf.expand_dims()
+tf.reshape()
+tf.argmax()
+</code></pre>
+<h1 id="plt">plt</h1>
+<pre><code class="language-python">plt.imshow(tf.keras.preprocessing.image.array_to_img(img[0]))
+plt.plot()
+plt.legend()
+</code></pre>
+<h1 id="display">display</h1>
+<pre><code class="language-python">import Ipython.display as display
+display.display(display.Image(image_path))
+</code></pre>
+<h1 id="pathlib">pathlib</h1>
+<pre><code class="language-python">data_root = pathlib.Path(data_dir)
+data_root.iterdir()
+list(data_root.glob('*/*'))
+sorted(item.name for item in data_root.glob('*/'))
+</code></pre>
+<h1 id="glob">glob</h1>
+<pre><code class="language-python">glob.glob('./test/*.jpg')
+</code></pre>
+<h1 id="etree">etree</h1>
+<pre><code class="language-python">from lxml import etree
+xml = open(path).read()
+sel = etree.HTML(xml)
+width = int(sel.xpath('//size/width/text()')[0])
+</code></pre>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/learning-to-rank/">
+              <h3 class="post-title">
+                下一篇：Learning to rank
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

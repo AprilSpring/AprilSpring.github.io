@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>初识Spark | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">初识Spark</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-01-20</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/Rh458seQG/">
+                    Spark
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <h1 id="浅谈spark与python">浅谈Spark与Python</h1>
+<!-- more -->
+<h2 id="spark是什么">Spark是什么？</h2>
+<p>参见：https://www.cnblogs.com/Vito2008/p/5216324.html</p>
+<p>Spark是分布式计算框架，可以将大量数据集的计算任务分配到多台计算机上，提供高效内存计算。</p>
+<p>分布式计算框架要解决两个问题：如何分发数据和如何分发计算？</p>
+<p>Hadoop使用HDFS(分布式文件系统)来解决分布式数据问题，MapReduce计算范式提供有效的分布式计算。</p>
+<p>而MapReduce要求每个步骤间的数据要序列化到磁盘，这意味着MapReduce作业的I/O成本很高，导致交互分析和迭代算法开销很大。</p>
+<p>Spark与Hadoop相似，拥有Hadoop MapReduce所具有的优点，但不同于MapReduce的是，Spark拥有多种语言的函数式编程API，提供了除map和reduce之外更多的运算符，这些操作是通过弹性分布式数据集RDD进行的，可以将Job的中间输出结果保存在内存中，从而不再需要读写HDFS，因此，Spark能更好地适用于数据挖掘与机器学习等需要迭代的MapReduce算法。</p>
+<h2 id="spark核心组件及功能">Spark核心组件及功能</h2>
+<p>Spark Core：包含Spark的基本功能；尤其是定义RDD的API、操作以及这两者上的动作。其他Spark的库都是构建在RDD和Spark Core之上的。<br>
+Spark SQL：提供通过Apache Hive的SQL变体Hive查询语言(HiveQL)与Spark进行交互的API。<br>
+Spark Streaming：允许对实时数据流进行处理和控制。<br>
+MLlib：常用机器学习算法库，包括分类、回归等需要对大量数据集进行迭代的操作。<br>
+GraphX：控制图、并行图操作和计算的一组算法和工具的集合。</p>
+<h2 id="spark本机安装">Spark本机安装</h2>
+<p>参见：http://coredumper.cn/index.php/2017/07/02/spark-run-environment-build/<br>
+下载地址：https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1-bin-hadoop2.7.tgz</p>
+<pre><code>cd spark-2.1.1-bin-hadoop2.7
+</code></pre>
+<h2 id="spark与python交互">Spark与Python交互</h2>
+<p>参见：https://www.cnblogs.com/yangzhang-home/p/6056133.html</p>
+<pre><code>./bin/pyspark
+
+val textFile = sc.textFile(&quot;README.md&quot;)
+textFile.count()
+textFile.first()
+val linesWithSpark = textFile.filter(line =&gt; line.contains(&quot;Spark&quot;))
+textFile.filter(line =&gt; line.contains(&quot;Spark&quot;)).count()
+</code></pre>
+<h2 id="python的map和reduce函数">Python的map和reduce函数</h2>
+<p>参见：<br>
+https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/00141861202544241651579c69d4399a9aa135afef28c44000</p>
+<pre><code>map(square,[1,2,3,4])
+map(f, [x1, x2, x3, x4]) = [f(x1),f(x2),f(x3),f(x4)]
+reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+</code></pre>
+<h2 id="弹性分布式数据集rdd是什么">弹性分布式数据集RDD是什么？</h2>
+<p>RDD(Resilient Distributed Dataset)支持两种类型的操作：actions和transformations<br>
+actions: 在数据集上运行计算后返回值，包括collect, reduce, count, save, lookupKey等。<br>
+transformations: 转换，从现有数据集创建一个新的数据集，包括map, flatMap, filter, union, sample, join, groupByKey, cogroup, ReduceByKey, cros, sortByKey, mapValues等。</p>
+<h2 id="创建rrd">创建RRD</h2>
+<pre><code>textFile = sc.textFile(&quot;README.md&quot;)
+textFile.count()
+textFile.first()
+linesWithSpark = textFile.filter(lambda line: &quot;Spark&quot; in line)
+textFile.filter(lambda line: &quot;Spark&quot; in line).count() 
+textFile.map(lambda line: len(line.split())).reduce(lambda a, b: a if (a&gt;b) else b)
+#or
+def max(a, b):
+	if a &gt; b:
+		return a
+	else:
+		return b
+textFile.map(lambda line: len(line.split())).reduce(max)
+wordCounts = textFile.flatMap(lambda line: line.split()).map(lambda word: (word, 1)).reduceByKey(lambda a, b: a+b)
+#flatMap(func)：与map相似，但是每个输入的item能够被map到0个或者更多的输出items上，也就是说func的返回值应当是一个Seq，而不是一个单独的item
+#reduceByKey(func)：可以作用于使用&quot;键-值&quot;(K, V)形式存储的数据集上，并返回一组新的数据集(K, V)
+wordCounts.collect()
+</code></pre>
+<h2 id="rrd缓存">RRD缓存</h2>
+<pre><code>linesWithSpark.cache()
+linesWithSpark.count()
+</code></pre>
+<h2 id="自含式应用程序self-contained-applications调用">自含式应用程序(self-contained applications)调用</h2>
+<pre><code>./bin/spark-submit --master local[4] python/pyspark/version.py
+#更多例子脚本见 examples\src\main\python
+</code></pre>
+<h2 id="spark执行过程">Spark执行过程</h2>
+<pre><code>text = sc.textFile(&quot;README.md&quot;)
+#print text
+
+from operator import add
+def tokenize(text):
+	return text.split()
+
+words = text.flatMap(tokenize)
+#print words
+
+wc = words.map(lambda x: (x,1))
+print wc.toDebugString()  #查看PipelinedRDD是怎么被转换的
+
+counts = wc.reduceByKey(add)
+counts.saveAsTextFile(&quot;wc&quot;)  #一旦我们最终调用了saveAsTextFile动作，这个分布式作业就开始执行了
+</code></pre>
+<pre><code>ls wc/  #退出pyspark，查看运行结果
+less wc/part-00000  #每个part文件表示并行进程计算得到的结果，最终被保存到磁盘上。
+#备注：结果未像Hadoop一样被排序，可以使用sort在结果写入磁盘前进行排序。
+</code></pre>
+<h2 id="参考信息">参考信息</h2>
+<p>https://www.cnblogs.com/Vito2008/p/5216324.html<br>
+http://coredumper.cn/index.php/2017/07/02/spark-run-environment-build/<br>
+https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/00141861202544241651579c69d4399a9aa135afef28c44000<br>
+https://www.zhihu.com/question/26568496</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/mysql-wen-ben-dao-ru/">
+              <h3 class="post-title">
+                下一篇：MySQL文本导入
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

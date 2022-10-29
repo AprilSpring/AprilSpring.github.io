@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>机器学习都需要懂啥？ | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">机器学习都需要懂啥？</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2018-04-08</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                    MachineLearning
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <h1 id="如何才能成为一名合格的机器学习算法工程师呢">如何才能成为一名合格的机器学习算法工程师呢？</h1>
+<p>这是一个探索了许久的问题，期间整了一些牛人的材料，希望可以有助于知识梳理。<br>
+身为跨行菜鸟，也迫切的感谢各位资深老鸟们可以给予一些建议。</p>
+<p>以下是若干必要不充分条件：</p>
+<h2 id="数据处理的编程语言">数据处理的编程语言</h2>
+<ol>
+<li>Python（必要）</li>
+<li>R（可选）</li>
+<li>SQL（必要）</li>
+<li>Shell（必要）</li>
+</ol>
+<!--more-->
+<h2 id="机器学习算法的基本理论和实践">机器学习算法的基本理论和实践</h2>
+<ol>
+<li>
+<p>有监督<br>
+回归：单变量线性回归、多变量线性回归<br>
+分类：k近邻、逻辑回归、贝叶斯、SVM、神经网络、决策树<br>
+分类集成算法：随机森林、AdaBoost、GBDT、xgboost、lightGBM</p>
+</li>
+<li>
+<p>无监督<br>
+聚类：k均值、dbscan<br>
+异常检测：基于高斯分布的异常检测<br>
+推荐系统：UserCF、ItemCF、LabelCF、ContextCF、NetworkCF<br>
+关联算法：Aprior、FP-growth<br>
+文本分析算法：TF-IDF、LDA、pLDA<br>
+降维：PCA、SVD、因子分析</p>
+</li>
+<li>
+<p>半监督<br>
+标签传播（基于网络算法）</p>
+</li>
+<li>
+<p>模型评估<br>
+方差（various）、偏差（bias）、过拟合、欠拟合、学习曲线、交叉验证、ROC与AUC、PR曲线、查全率（Recall）、查准率（Precision）、Sensitivity、Specificity、F-score等</p>
+</li>
+<li>
+<p>其他<br>
+梯度下降、正则化、</p>
+</li>
+<li>
+<p>进阶<br>
+强化学习、深度学习</p>
+</li>
+</ol>
+<h2 id="特征工程">特征工程</h2>
+<ol>
+<li>
+<p>特征生成和变换<br>
+缺失值、离群值、归一化、<br>
+特征平滑或离散<br>
+特征编码：one-hot编码</p>
+</li>
+<li>
+<p>特征重要性评估<br>
+回归模型、基于树的模型、通过随机或删除特征来评估</p>
+</li>
+<li>
+<p>数据集切分<br>
+训练集、交叉验证集、测试集<br>
+基于时序数据的切分</p>
+</li>
+<li>
+<p>具体业务理解<br>
+用户特征、商家特征、商品特征、用户行为特征等</p>
+</li>
+</ol>
+<h2 id="概率论与数理统计">概率论与数理统计</h2>
+<p>推荐浙江大学徐小湛的‘概率论与数理统计’教学视频</p>
+<h2 id="数据结构与算法">数据结构与算法</h2>
+<p>相关学习资料</p>
+<h2 id="分布式计算框架">分布式计算框架</h2>
+<p>Hadoop：Hive SQL<br>
+Spark：各种API</p>
+<h2 id="学习资料推荐">学习资料推荐</h2>
+<p>吴恩达机器学习视频教程<br>
+台大林轩田的机器学习基石视频教程<br>
+小甲鱼的零基础入门学习Python视频教程<br>
+小象学院的Python实践代码<br>
+《机器学习实战》<br>
+《机器学习实践应用》<br>
+《推荐系统实践》<br>
+《利用Python进行数据分析》<br>
+《python机器学习及实践--kaggle竞赛之路》<br>
+《Python学习手册》（第4版）</p>
+<h2 id="最重要一点参与实践">最重要一点：参与实践！</h2>
+<p>阿里天池、Kaggele</p>
+<hr>
+<p>看到这里，还想学咩？……</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/chu-shi-spark/">
+              <h3 class="post-title">
+                下一篇：初识Spark
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

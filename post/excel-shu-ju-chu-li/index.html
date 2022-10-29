@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Excel数据处理 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Excel数据处理</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2017-09-12</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/a-VDfidIN/">
+                    Excel
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <!-- more -->
+<h1 id="数据透视表">数据透视表</h1>
+<pre><code>http://www.excelhome.net/video/excel/pivottable/
+https://www.zhihu.com/question/22484899/answer/39933218
+</code></pre>
+<p>数据透视表的建立、数据计算、表中数据的处理、筛选、切片器使用、多透视表的切片器连动、数据透视图等。</p>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667020193248.png" alt="" loading="lazy"></figure>
+<p>数据来自知乎大侠，感谢。</p>
+<h1 id="vlookup函数">VLOOKUP函数</h1>
+<pre><code>VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])
+</code></pre>
+<p>其中，lookup_value表示新表要查询的数据；<br>
+table_array表示原表待搜索的数据范围；<br>
+col_index_num表示原表待返回的列；<br>
+range_lookup=false表示精确匹配。<br>
+详见：http://jingyan.baidu.com/article/73c3ce28db4da4e50243d95c.html</p>
+<h1 id="条件格式">条件格式</h1>
+<p>1、用于标记重复值<br>
+2、用于显示数据单元格的barplot或者其他标记。</p>
+<h1 id="mid函数">MID函数</h1>
+<pre><code>=MID(B2,7,8)  #B2列的身份证号码，从第7个数开始提取，连续提取了8个数字。
+=MID(B2,7,4)&amp;&quot;年&quot;&amp;MID(B2,11,2)&amp;&quot;月&quot;&amp;MID(B2,12,2)&amp;&quot;日&quot;  #XX年XX月XX日
+</code></pre>
+<p>其中，双引号输入时注意要切换成英文输入法状态。</p>
+<h1 id="countif函数">COUNTIF函数</h1>
+<p>计算某个区域给定所选条件单元格的数目。</p>
+<pre><code>=COUNTIF(range,criteria)
+</code></pre>
+<p>其中，range表示候选区域；criteria表示选择条件，形式可以是数字、表达式或文本，甚至可以使用通配符。<br>
+<img src="https://aprilspring.github.io/post-images/1667020208367.png" alt="" loading="lazy"></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/python-chang-yong-han-shu/">
+              <h3 class="post-title">
+                下一篇：Python-常用函数
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>MachineLearning | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+
+        <div class="current-tag-container">
+          <h2 class="title">
+            <i class="icon icon-pricetags-outline"></i> MachineLearning
+          </h2> 
+        </div>
+
+        
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/zui-da-qi-wang-suan-fa/">
+        <h2 class="post-title">最大期望算法</h2>
+      </a>
+      <div class="post-abstract">
+        <h2 id="极大似然算法">极大似然算法</h2>
+<p>极大似然算法的思想：知道结果，反推条件θ</p>
+<p>如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。</p>
+<p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-08-05</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                MachineLearning
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/sui-ji-sen-lin/">
+        <h2 class="post-title">随机森林</h2>
+      </a>
+      <div class="post-abstract">
+        <p>随机森林是有很多随机得决策树构成，它们之间没有关联。得到RF以后，在预测时分别对每一个决策树进行判断，最后使用Bagging的思想进行结果的输出（也就是投票的思想）。</p>
+<h2 id="学习过程简介">学习过程简介</h2>
+<p>现在有N个训练样本，每个样本的特征为M个，需要建K颗树</p>
+<p>从N个训练样本中有放回的取N个样本作为一组训练集（其余未取到的样本作为预测分类，评估其误差）</p>
+<p>从M个特征中取m个特征左右子集特征(m&lt;&lt;M)</p>
+<p>对采样的数据使用完全分裂的方式来建立决策树，这样的决策树每个节点要么无法分裂，要么所有的样本都指向同一个分类</p>
+<p>重复2的过程K次，即可建立森林</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-07-22</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                MachineLearning
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/jue-ce-shu/">
+        <h2 class="post-title">决策树</h2>
+      </a>
+      <div class="post-abstract">
+        <p>决策树是一颗依托决策而建立起来的树。</p>
+<h3 id="id3">ID3</h3>
+<p>首先，针对当前的集合，计算每个特征的信息增益；</p>
+<p>然后，选择<strong>信息增益最大</strong>的特征作为当前节点的决策特征；</p>
+<p>根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-07-20</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                MachineLearning
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/ji-qi-xue-xi-du-xu-yao-dong-sha/">
+        <h2 class="post-title">机器学习都需要懂啥？</h2>
+      </a>
+      <div class="post-abstract">
+        <h1 id="如何才能成为一名合格的机器学习算法工程师呢">如何才能成为一名合格的机器学习算法工程师呢？</h1>
+<p>这是一个探索了许久的问题，期间整了一些牛人的材料，希望可以有助于知识梳理。<br>
+身为跨行菜鸟，也迫切的感谢各位资深老鸟们可以给予一些建议。</p>
+<p>以下是若干必要不充分条件：</p>
+<h2 id="数据处理的编程语言">数据处理的编程语言</h2>
+<ol>
+<li>Python（必要）</li>
+<li>R（可选）</li>
+<li>SQL（必要）</li>
+<li>Shell（必要）</li>
+</ol>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2018-04-08</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                MachineLearning
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+
+<div class="pagination-container">
+  
+  
+</div>
+
+
+      </div>
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

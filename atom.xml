@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://aprilspring.github.io</id>
+    <title>书生海海</title>
+    <updated>2022-10-29T07:49:17.831Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://aprilspring.github.io"/>
+    <link rel="self" href="https://aprilspring.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://aprilspring.github.io/images/avatar.png</logo>
+    <icon>https://aprilspring.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, 书生海海</rights>
+    <entry>
+        <title type="html"><![CDATA[AIS 2020论文报告会]]></title>
+        <id>https://aprilspring.github.io/post/ais-2020-lun-wen-bao-gao-hui/</id>
+        <link href="https://aprilspring.github.io/post/ais-2020-lun-wen-bao-gao-hui/">
+        </link>
+        <updated>2020-10-29T05:32:28.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="ais-2020论文报告会">AIS 2020论文报告会</h1>
+<h2 id="一-session1ais-2020研究趋势">一、Session1：AIS 2020研究趋势</h2>
+<h3 id="1-acl-2020研究趋势车万翔-哈尔滨工业大学">1. ACL 2020研究趋势（车万翔 哈尔滨工业大学）</h3>
+<p>Focus on 自然语言处理</p>
+<p>1）对话</p>
+<p>2）机器学习：预训练模型、压缩、精调、Transformer改进、提升模型rubust</p>
+<p>3）文本生成 强势上升：VAE vs. Pre-training、基于句法的生成</p>
+<p>4）问答系统 绝地反击</p>
+<p>5）机器翻译 有所衰落</p>
+<p>6）句法分析 逐渐式微：预训练模型中蕴含句法分析、用于增强语言模型</p>
+<p>7）语义分析：词级别昙花一现（word2vec）、句级别语义无规律</p>
+<p>8）其它维度：多语言、多模态、图神经网络、小样本/零样本、</p>
+<h3 id="2-ijcai-2020研究趋势贾珈-清华大学">2. IJCAI 2020研究趋势（贾珈 清华大学）</h3>
+<p>9 highlight for NLP：</p>
+<p>1）Unsupervised pre-training：性能优化（EviLBert、AdaBERT）和任务导向（BERTint）</p>
+<p>2）Multilingual Learning（跨语言学习）：无监督跨语言（UniTrans、DomainAdaption）、监督跨语言、机器翻译方向</p>
+<p>3）Meta leanring or.few-shot learning：QA via meta-learning</p>
+<p>4）Transfer leaning（迁移学习）：Pretrain &amp; Fine-tune、Transfer learning Framework（阅读理解层面的迁移、文本风格迁移）、Domain Adaption</p>
+<p>5）Bias in NLP：文本Embedding中存在的性别歧视/种族歧视等，歧视消除</p>
+<p>6）Knowlege fusion（知识融合）：eg., ERNIE、方向：使用知识图谱增强任务理解、构建和补全生成新知识（Mucko、BERT-int 知识对齐）</p>
+<p>7）QA：simple QA vs. complex QA、多跳推理、multitask、</p>
+<p>8）Natural language generation：NLG in different domains</p>
+<p>9）multi-modal（多模态）：Visual QA、</p>
+<h3 id="3-sigir-2020研究趋势兰艳艳-中科院计算所">3. SIGIR 2020研究趋势（兰艳艳 中科院计算所）</h3>
+<p>Focus on 信息检索，也逐渐开放到其它领域</p>
+<p>Traditional IR task</p>
+<p>Neural + IR</p>
+<h2 id="二-session3和4知识与推理">二、Session3和4：知识与推理</h2>
+<p>基于网络邻居的实体对齐：邻居数据差别大、常见实体对中心实体的对齐贡献小、</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Tensorflow2.0-常用函数]]></title>
+        <id>https://aprilspring.github.io/post/tensorflow20-chang-yong-han-shu/</id>
+        <link href="https://aprilspring.github.io/post/tensorflow20-chang-yong-han-shu/">
+        </link>
+        <updated>2020-02-08T04:39:13.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近学习了一些TensorFlow2.0的常用函数，大致如下：</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近学习了一些TensorFlow2.0的常用函数，大致如下：</p>
+<!-- more -->
+<h1 id="install">install</h1>
+<pre><code class="language-python">pip install tensorflow==2.0.0-beta1
+pip install tensorflow-gpu==2.0.0-beta0
+
+import tensorflow as tf
+
+tf.test.is_gpu_avialble()
+</code></pre>
+<h1 id="tfkeras">tf.keras</h1>
+<pre><code class="language-python">tf.keras.Sequential()
+tf.keras.Input()
+tf.keras.utils.to_categorial() #one-hot
+tf.keras.Model(inputs=inputs, outputs=[out1, out2])
+
+# tf.keras.layers
+tf.keras.layers.Flatten()
+tf.keras.layers.Dense()
+tf.keras.layers.concatenate()
+tf.keras.layers.Conv2D()
+tf.keras.layers.Batchnormalization()
+tf.keras.layers.MaxPooling2D()
+tf.keras.layers.Dropout()
+tf.keras.layers.GlobalAveragePooling2D()
+tf.keras.layers.Conv2DTranspose() #反卷积，用于FCN网络（图像语义分割）
+tf.keras.layers.LSTM()
+tf.keras.layers.GRU()
+
+# tf.keras.preprocessing
+tf.keras.preprocessing.sequence.pad_sequences() #文本长度填充
+tf.keras.preprocessing.image.array_to_img() #使用plt.imshow()显示图像
+
+# tf.keras.optimizers
+tf.keras.optimizers.Adam()
+
+# tf.keras.losses
+tf.keras.losses.SparseCategorialCrossentropy() #数字标签的多分类，返回一个方法，loss_func(y, y_)
+tf.keras.losses.sparse_categorial_crossentropy(y_true, y_pred, from_logits = False)
+tf.keras.losses.BinaryCrossentropy() #二分类
+
+# tf.keras.metrics
+tf.keras.metrics.Mean('train_loss')
+tf.keras.metrics.SparseCategoricalAccuracy('train_accuracy')
+
+# tf.keras.callbacks
+tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+tf.keras.calllbacks.LearningRateScheduler()
+tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                   moniter='val_loss',
+                                   save_best_only=False, #True,选择monitor最好的检查点进行保存
+                                   save_weights_only=True,
+                                   mode='auto',
+                                   save_freq='epoch',
+                                   verbose=0)
+# tf.keras.applications
+tf.keras.applications.xception.Xception(include_top=False,
+                                        weigths='imagenet',
+                                        input_shape=(224,224,3),
+                                        pooling='avg')
+tf.keras.applications.VGG16(include_top=False,
+                            weigths='imagenet',
+                            input_shape=(256,256,3))
+tf.keras.applications.MobileNetV2(include_top=False,
+                                  weigths=None, #仅使用MobileNetV2的架构，没有使用权重
+                                  input_shape=(224,224,3))
+</code></pre>
+<h1 id="model">model</h1>
+<pre><code class="language-python">model.add()
+model.summary()
+model.compile()
+model.fit()
+model.evaluate()
+model.predict()
+y_ = model(x) #函数式API调用
+model.trainable_variables #模型可训练参数
+</code></pre>
+<h1 id="model-save-and-reload">model save and reload</h1>
+<pre><code class="language-python"># 模型整体
+model.save('./my_model.h5')  #模型整体保存
+new_model = tf.keras.models.load_model('./my_model.h5') #加载模型
+
+# 模型结构
+json_config = model.to_json() #获取模型结构
+model = tf.keras.model.model_from_json(json_config) #加载模型结构
+
+# 模型权重
+weights = model.get_weights() #获取模型权重
+model.set_weights(weights) #加载模型权重
+model.save_weights('./my_weights.h5') #保存模型权重到磁盘
+model.load_weights('./my_weights.h5') #从磁盘加载模型权重
+
+# 检查点文件
+model = tf.keras.models.load_model(checkpoint_path) #加载检查点文件
+model.load_weights(checkpoint_path) #加载检查点文件中的权重%% 预训练模型
+</code></pre>
+<h1 id="checkpoint">checkpoint</h1>
+<pre><code class="language-python">checkpoint = tf.train.Checkpoint(optimizer=optimizer, model=model) #初始化检查点文件
+checkpoint.save(file_prefix=cp_prefix) #每个epoch保存一次检查点
+checkpoint.restore(tf.train.lastest_checkpoint(cp_dir)) #恢复最新的检查点文件
+</code></pre>
+<h1 id="pre-train">pre-train</h1>
+<pre><code class="language-python">pre_train_model.get_layer(layer_name).output
+pre_train_model.trainable = False
+</code></pre>
+<h1 id="modelfit">model.fit</h1>
+<pre><code class="language-python">history = model.fit(ds_train, 
+                    epochs=5, 
+                    steps_per_epoch=train_image.shape[0]//64,
+                    validation_data=ds_test, 
+                    validation_steps=test_image.shape[0]//64,
+                    callbacks=[my_callback])
+history.epoch
+history.history.get('acc')
+</code></pre>
+<h1 id="tfgradienttape">tf.GradientTape</h1>
+<pre><code class="language-python">with tf.GradientTape() as t:
+    predictions = model(images)
+    loss_step = tf.keras.losses.SparseCategorialCrossentropy(from_logits=False)(labels, predictions)
+
+grads = t.gradient(loss_step, model.trainable_variables)
+optimizer.apply_gradients(zip(grads, model.trainable_variables))
+
+train_loss = tf.keras.metrics.Mean('train_loss')
+train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy('train_accuracy')
+
+train_loss(loss_step)
+train_accuracy(labels, predictions) 
+
+train_loss.result()
+train_accuracy.result()
+
+train_loss.reset_states()
+train_accuracy.reset_states()
+</code></pre>
+<h1 id="tfdata">tf.data</h1>
+<pre><code class="language-python">tf.data.Dataset.from_tensor_slices()
+tf.data.Dataset.zip()
+AUTOTUNE = tf.data.experimental.AUTOTUNE
+</code></pre>
+<h1 id="datasets">datasets</h1>
+<pre><code class="language-python">dataset.shuffle()
+dataset.repeat()
+dataset.batch()
+dataset.map(func, num_parallel_calls=AUTOTUNE)
+dataset.skip()
+dataset.take()
+dataset.prefetch(AUTOTUNE)
+next(iter(dataset)) #按batch查看数据
+</code></pre>
+<h1 id="tfimage">tf.image</h1>
+<pre><code class="language-python">tf.image.decode_jpeg()
+tf.image.decode_png()
+tf.image.resize()
+tf.image.random_crop()
+tf.image.random_flip_left_right(image)
+tf.image.random_flip_up_down(image)
+tf.image.random_brigtness(image, 0.5)
+tf.image.random_contrast(image, 0, 1)
+tf.image.random_hue(image, max_delta=0.3)
+tf.image.random_saturation(image, lower=0.2, upper=1.0)
+</code></pre>
+<h1 id="tfsummary">tf.summary</h1>
+<pre><code class="language-python">train_writer = tf.summary.create_file_writer(train_log_dir)
+
+with train_writer.set_as_default():
+    tf.summary.scalar('loss', train_loss.result(), step=epoch)
+</code></pre>
+<h1 id="tfconfig">tf.config</h1>
+<pre><code class="language-python">tf.config.experimental.list_physical_devices()
+tf.config.experimental.set_visible_devices()
+tf.config.experimental.set_memory_growth()
+tf.config.experimental.set_virtual_device_configration()
+</code></pre>
+<h1 id="tf其他">tf.其他</h1>
+<pre><code class="language-python">tf.io.read_file(img_path)
+tf.cast()
+tf.expand_dims()
+tf.reshape()
+tf.argmax()
+</code></pre>
+<h1 id="plt">plt</h1>
+<pre><code class="language-python">plt.imshow(tf.keras.preprocessing.image.array_to_img(img[0]))
+plt.plot()
+plt.legend()
+</code></pre>
+<h1 id="display">display</h1>
+<pre><code class="language-python">import Ipython.display as display
+display.display(display.Image(image_path))
+</code></pre>
+<h1 id="pathlib">pathlib</h1>
+<pre><code class="language-python">data_root = pathlib.Path(data_dir)
+data_root.iterdir()
+list(data_root.glob('*/*'))
+sorted(item.name for item in data_root.glob('*/'))
+</code></pre>
+<h1 id="glob">glob</h1>
+<pre><code class="language-python">glob.glob('./test/*.jpg')
+</code></pre>
+<h1 id="etree">etree</h1>
+<pre><code class="language-python">from lxml import etree
+xml = open(path).read()
+sel = etree.HTML(xml)
+width = int(sel.xpath('//size/width/text()')[0])
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Learning to rank]]></title>
+        <id>https://aprilspring.github.io/post/learning-to-rank/</id>
+        <link href="https://aprilspring.github.io/post/learning-to-rank/">
+        </link>
+        <updated>2020-01-12T10:38:13.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="三种技术变迁和比较">三种技术变迁和比较</h1>
+<p>常见的排序算法LTR（Learning to rank）,将学习任务分为三种策略，即pointwise，pairwise，Listwise三类其</p>
+<blockquote>
+<p>pointwise将其转化为多类分类或者回归问题</p>
+<p>pairwise将其转化为pair分类问题</p>
+<p>Listwise为对查询下的一整个候选集作为学习目标，三者的区别在于loss不同。</p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="三种技术变迁和比较">三种技术变迁和比较</h1>
+<p>常见的排序算法LTR（Learning to rank）,将学习任务分为三种策略，即pointwise，pairwise，Listwise三类其</p>
+<blockquote>
+<p>pointwise将其转化为多类分类或者回归问题</p>
+<p>pairwise将其转化为pair分类问题</p>
+<p>Listwise为对查询下的一整个候选集作为学习目标，三者的区别在于loss不同。</p>
+</blockquote>
+<!--more-->
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667022777332.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667022784232.png" alt="" loading="lazy"></figure>
+<h2 id="pointwise">Pointwise</h2>
+<p>将训练集里每一个文档当做一个训练实例，直接预测query与doc之间的相关程度（或几档不同相关程度），即使用传统的机器学习方法对给定查询下反馈结果的相关度进行学习，学习的是全局的相关性，并不对先后顺序的优劣做惩罚，比如LR、GBDT、xgboost。其中，CTR预估相关策略也属于Pointwise的一种。</p>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667022790148.png" alt="" loading="lazy"></figure>
+<h2 id="pairwise">Pairwise</h2>
+<p>将同一个査询的搜索结果里任意两个文档对作为一个训练实例，如果列表先后排序为a,b,c，但其中只有b被点击了，则a&gt;b这一对会被构建成负样本，b&gt;c这一对会被构建成正样本，即学习的是不同查询结果对的前后顺序。常用方法：SVM Rank、<strong>RankNet(2007)</strong>、RankBoost(2003) 。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667022795747.png" alt="" loading="lazy"><br>
+缺陷：</p>
+<blockquote>
+<p>文档对方法考虑了两个文档对的相对先后顺序，却没有考虑文档出现在搜索列表中的位置，排在搜索结果前面的文档更为重要，如果靠前的文档出现判断错误，代价明显高于排在后面的文档（比如LambdaRank中使用DCG解决）</p>
+<p>同时不同的査询，其相关文档数量差异很大，所以转换为文档对之后，有的查询对能有几百个对应的文档对，而有的查询只有十几个对应的文档对，这对机器学习系统的效果评价造成困难（比如LambdaRank中使用NDCG解决）</p>
+</blockquote>
+<h2 id="listwise">Listwise</h2>
+<p>Pointwise方法将训练集里每一个文档当做一个训练实例，Pairwise方法将同一个査询的搜索结果里任意两个文档对作为一个训练实例，Listwise方法与上述两种方法都不同，Listwise方法直接考虑整体序列，将每一个查询对应的所有搜索结果列表整体作为一个训练实例，针对Ranking评价指标进行优化，比如常用的MAP, NDCG。常用的ListWise方法有：<strong>LambdaRank</strong>、AdaRank、SoftRank、<strong>LambdaMART</strong>。</p>
+<h1 id="几种典型lrt算法">几种典型LRT算法</h1>
+<h2 id="ranknet">RankNet</h2>
+<p>RankNet是一种经典的Pairwise的排序学习方法，是典型的前向神经网络排序模型。</p>
+<p>假设文档A, B的特征分别为x<sub>i</sub>, x<sub>j</sub>，RankNet使用神经网络来训练模型，f(x<sub>i</sub>)是神经网络的输出，另o<sub>i</sub>=f(x<sub>i</sub>)，o<sub>j</sub>=f(x<sub>j</sub>)，则o<sub>ij</sub>=o<sub>i</sub>-o<sub>j</sub>，文档对&lt;A, B&gt;的RankNet预测概率为：</p>
+<p><img src="https://aprilspring.github.io/post-images/1667022802850.png" alt="" loading="lazy"><br>
+如果文档A比文档B和查询q更加相关, 则目标概率P<sub>AB</sub>=1，如果文档B比文档A更相关, 目标概率P<sub>AB</sub>=0，如果A和B同样相关, 则P<sub>AB</sub>=0.5，有了模型输出的概率P<sub>ij</sub>和目标概率P<sub>AB</sub>，我们使用交叉熵来作为训练的损失函数（如下），并梯度下降来优化损失函数。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667022808999.png" alt="" loading="lazy"><br>
+<strong>Pair-wise error</strong>：表示一个排列中，随机抽查任意两个item，一共有 C<sub>n</sub>2 种可能的组合，如果这两个item的之间的相对排序错误，error值加1，并没有考虑位置的权重（比如排序靠前的错了会比排序靠后的错了，有更大的error），RankNet交叉熵优化的目标也是类似的，没有考虑位置权重。例如，对某个Query，和它相关的文章有两个，记为 (Q,[D1,D2])：</p>
+<blockquote>
+<p>如果模型 f(⋅) 对此Query返回的n条结果中，D1,D2 分别位于前两位，则pair-wise error就为0；</p>
+<p>如果模型 f(⋅) 对此Query返回的n条结果中，D1,D2 分别位于第1位和第n位，则pair-wise error为n-2；</p>
+<p>如果模型 f(⋅) 对此Query返回的n条结果中，D1,D2 分别位于第2和第3位，则pair-wise error为2；</p>
+</blockquote>
+<p>因此，针对如下排序情形，左边pair-wise error=15-2=13，右边pair-wise error=(4-1)+(10-2)=11，因此目标会朝着右边的趋势进行优化，损失虽然减少了，但右边并不是我们期望的排序优化趋势（黑色箭头），我们希望排序靠前的依然保持靠前，排序靠后的逐渐向上提升（红色箭头），因此提出了LambdaRank方法。</p>
+<figure data-type="image" tabindex="4"><img src="https://aprilspring.github.io/post-images/1667022821401.png" alt="" loading="lazy"></figure>
+<h2 id="lambdarank">LambdaRank</h2>
+<p>LambdaRank是Listwise的排序方法，是在RankNet模型的基础上改进而来，更关注位置靠前的优质查询结果排序位置的提升。一个查询得到的结果文档列表作为一条样本输入到网络中，替换RankCost为LambdaCost层，其他结构与RankNet相同。</p>
+<p>LambdaCost层 :直接定义的了损失函数的梯度λ，也就是Lambda梯度。</p>
+<p><strong>Lambda梯度</strong>由两部分相乘得到：</p>
+<blockquote>
+<p>(1) RankNet中交叉熵概率损失函数的梯度（即交叉熵损失函数的一阶导数）；</p>
+<p>(2) 交换Ui，Uj位置后IR评价指标Z的差值，Z可以是NDCG、ERR、MRR、MAP等IR评价指标。</p>
+</blockquote>
+<p>损失函数的梯度代表了文档下一次迭代优化的方向和强度，由于引入了IR评价指标，Lambda梯度更关注位置靠前的优质文档的排序位置的提升，有效的避免了下调位置靠前优质文档的位置这种情况的发生。LambdaRank相比RankNet的优势在于考虑了评价指标，直接对问题求解，所以效果更好。</p>
+<figure data-type="image" tabindex="5"><img src="https://aprilspring.github.io/post-images/1667022828953.png" alt="" loading="lazy"></figure>
+<h2 id="ndcg评价指标">NDCG评价指标</h2>
+<p><strong>累计增益（Cumulative Gain，CG）</strong></p>
+<p><img src="https://aprilspring.github.io/post-images/1667022836148.png" alt="" loading="lazy"><br>
+rel<sub>i</sub>代表i这个位置上的相关度。举例：假设搜索“篮球”结果，最理想的结果是：B1、B2、B3，而出现的结果是 B3、B1、B2的话，CG的值是没有变化的，因此需要下面的DCG。</p>
+<p><strong>折损累计增益（Discounted Cumulative Gain，DCG）</strong></p>
+<p>就是在每一个CG的结果上处以一个折损值，目的让<strong>排名越靠前的结果越能影响最后的结果</strong>。假设排序越往后，价值越低，到第i个位置的时候，它的价值是 1/log<sub>2</sub>(i+1)，那么第i个结果产生的效益就是 rel<sub>i</sub> * 1/log<sub>2</sub>(i+1)，所以：</p>
+<p><img src="https://aprilspring.github.io/post-images/1667022842988.png" alt="" loading="lazy"><br>
+<strong>归一化折损累计增益（Normalized Discounted Cumulative Gain，NDCG）</strong></p>
+<p>由于搜索结果随着检索词的不同，返回的数量是不一致的，而DCG是一个累加的值，没法针对两个不同的搜索结果进行比较，因此需要归一化处理，这里是除以IDCG（IDCG为理想排序下的最大DCG值）。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667022849288.png" alt="" loading="lazy"><br>
+主要体现2个思想：</p>
+<blockquote>
+<p>高关联度的结果比一般关联度的结果更影响最终的指标得分</p>
+<p>有高关联度的结果出现在更靠前的位置的时候，指标会越高</p>
+</blockquote>
+<p><strong>NDCG举例：</strong></p>
+<p>假设搜索出6个结果，其相关性分数分别是 3、2、3、0、1、2，那么 CG = 3+2+3+0+1+2=11，可以看到CG只是对相关的分数进行了一个关联的打分，并没有召回的所在位置对排序结果评分对影响。</p>
+<p>而DCG = 3+1.26+1.5+0+0.38+0.71 = 6.86，考虑了排名前后的位置重要性。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667022857926.png" alt="" loading="lazy"><br>
+计算NDCG，需要先计算IDCG，假如我们实际召回了8个物品，除了上面的6个，还有两个结果，假设第7个相关性为3，第8个相关性为0。那么在理想情况下的相关性分数排序应该是：3、3、3、2、2、1、0、0。计算IDCG@6，如下：</p>
+<p><img src="https://aprilspring.github.io/post-images/1667022869358.png" alt="" loading="lazy"><br>
+所以，IDCG = 3+1.89+1.5+0.86+0.77+0.35 = 8.37</p>
+<p>最终， NDCG@6 = 6.86/8.37 = 81.96%，也即搜索出的6个结果排名的NDCG得分为81.96%。</p>
+<h2 id="lambdarank-2">LambdaRank</h2>
+<p>LambdaRank也是Listwise的排序方法，只是在GBDT的过程中做了一个很小的修改（MART也就是GBDT），即将原始GBDT通过「残差」最小化计算梯度的方式，直接修改为使用Lambda梯度，Lambda梯度的物理含义是一个待排序文档下一次迭代应该排序的方向。</p>
+<h2 id="ranklib实现">RankLib实现</h2>
+<p>是一套优秀的LTR领域的开源实现，包括Pointwise、Pairwise以及Listwise的模型实现。</p>
+<p><strong>参考：</strong></p>
+<p><a href="https://www.cnblogs.com/by-dream/p/9403984.html">https://www.cnblogs.com/by-dream/p/9403984.html</a></p>
+<p><a href="https://www.jianshu.com/p/aab1bf1307fd">https://www.jianshu.com/p/aab1bf1307fd</a></p>
+<p><a href="https://www.jianshu.com/p/3c5c1ea7d836">https://www.jianshu.com/p/3c5c1ea7d836</a></p>
+<From RankNet to LambdaRank to LambdaMART: AnOverview>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[word2vec]]></title>
+        <id>https://aprilspring.github.io/post/word2vec/</id>
+        <link href="https://aprilspring.github.io/post/word2vec/">
+        </link>
+        <updated>2020-01-12T02:13:33.000Z</updated>
+        <summary type="html"><![CDATA[<p>Word2vec是一种<strong>词嵌入模型</strong>。</p>
+<blockquote>
+<p>句子需要先进行分词，而后将每词表示成一个固定长度的向量。假设词库大小为N，词向量长度为L，则通过语料库学习到这个W=N*L矩阵的内容，也就是该预料库下每个词的向量表示。</p>
+</blockquote>
+<blockquote>
+<p>Word2vec考虑词之间共出现的概率，但是未考虑语义信息。有了词的向量表示，后续就可以衔接其他分类模型，解决文本分类或其他问题了。</p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<p>Word2vec是一种<strong>词嵌入模型</strong>。</p>
+<blockquote>
+<p>句子需要先进行分词，而后将每词表示成一个固定长度的向量。假设词库大小为N，词向量长度为L，则通过语料库学习到这个W=N*L矩阵的内容，也就是该预料库下每个词的向量表示。</p>
+</blockquote>
+<blockquote>
+<p>Word2vec考虑词之间共出现的概率，但是未考虑语义信息。有了词的向量表示，后续就可以衔接其他分类模型，解决文本分类或其他问题了。</p>
+</blockquote>
+<!-- more -->
+<p>在学习该词向量矩阵W时，有2种模式：CBOW（填空式）、skip-gram（造句式），如下：<br>
+<img src="https://aprilspring.github.io/post-images/1667009962019.png" alt="" loading="lazy"></p>
+<h1 id="cbow词向量学习方法">CBOW词向量学习方法</h1>
+<ol>
+<li>
+<p>将预料库进行分词，而后构建所有词语的向量矩阵W，行为词库大小V，列为词向量长度N，W需进行随机初始化</p>
+</li>
+<li>
+<p>针对词库中每一条数据（分词后）进行CBOW或Skip-gram任务，比如以窗口划分的方式，使用周围几个词预测某个词出现的概率</p>
+</li>
+<li>
+<p>从词向量矩阵W中查找到该条数据所有相关的词向量（one-hot方式），假设有s个词向量，将这s个词向量进行汇总操作（加和/平均），使其合并为一个向量，s大小变为1*N</p>
+</li>
+<li>
+<p>隐藏层矩阵是W’，再使用s<em>W’，获得1</em>V的向量，再经过softmax，即预测词库中所有词的概率，出现最大概率的词，即为当前预测的词</p>
+</li>
+<li>
+<p>经过多个迭代的反向传播，计算W和W’矩阵，W即为具备语料库信息的词向量矩阵</p>
+</li>
+<li>
+<p>而后，可以从W中提取相关向量，进行文本分类等其他操作</p>
+</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667009993330.png" alt="" loading="lazy"></figure>
+<h1 id="skip-gram词向量学习方法">Skip-gram词向量学习方法</h1>
+<p>与CBOW类似，但softmax之后取topn的预测结果，n为预测当前词上下文窗口长度内词的个数。</p>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667010002338.png" alt="" loading="lazy"></figure>
+<h1 id="cbow与skip-gram比较">CBOW与Skip-gram比较</h1>
+<p>简单的来说，cbow会将context word 加起来，在遇到生僻词是，预测效果将会大大降低，而skip-gram则会预测生僻字的使用环境。因此，cbow比skip-gram训练快，skip-gram比cbow更好地处理生僻字（出现频率低的字）。</p>
+<p>具体如下：</p>
+<ol>
+<li>
+<p>CBOW是用周围词预测中心词，训练过程中其实是在从output的loss学习周围词的信息，也就是embedding，由于中间层进行average，一共预测V(vocab size)次就够了。</p>
+</li>
+<li>
+<p>skipgram是用中心词预测周围词，预测的时候是一对word pair，等于对每一个中心词都有K个词作为output，对于一个词的预测有K次，所以能够更有效的从context中学习信息，但是总共预测K*V词。</p>
+</li>
+</ol>
+<p>因此，skip gram的训练时间更长，但是对于一些低频词，在CBOW中的学习效果就不如skipgram。</p>
+<h1 id="word2vec的优化">Word2vec的优化</h1>
+<p>在经过softmax时，如果词库量比较大，可以采取2种方式加快训练速度：</p>
+<h2 id="层次softmax">层次softmax</h2>
+<p>基于哈夫曼树，将原始N分类问题，转化成log(N)个二分类问题，树中每个节点表示一个softmax（即一个权值），树中每个分支的所有节点概率乘积，用于计算某个词的概率，越是出现频率高的词，路径越短。</p>
+<p>Softmax计算过程中，预测每个词出现概率的时间复杂度为N，层次softmax把N个样本构建成二叉树后，使得时间复杂度变为树的深度log(N)</p>
+<p>2^k-1=N，即节点数目k=log2(N)+1，即计算的时间复杂度由N变为log(N)</p>
+<h2 id="高频词抽样负采样">高频词抽样+负采样</h2>
+<p>主旨：去除长尾词、针对语料库高频词进行降采样</p>
+<h3 id="高频词抽样">高频词抽样</h3>
+<p>少训练没有区分度的高频词，即基于语料库中的词频，进行抽样，越是高频词，抽样概率越小。计算高频词抽样率P(w)时，有个认为设定的阈值t（即为gensim中的“sample=0.001”），t越大，不同频率词的采样差异越大。</p>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667010011989.png" alt="" loading="lazy"></figure>
+<h3 id="负采样">负采样</h3>
+<p>word2vec中，对于每个词的预测，都会更新全体词对应的W参数矩阵，计算量很大，如果改为与目标词周围的词（即正样本）和少数无关词（即负样本）对应的参数进行更新，则可大大降低参数计算，选取的负样本数量即为参数negative=5。</p>
+<p>负样本选择：基于词表中出现的概率，出现概率越高，被选作负样本的概率越高（与高频词抽样相反），负样本抽样率P(w)如下：</p>
+<figure data-type="image" tabindex="4"><img src="https://aprilspring.github.io/post-images/1667010020432.png" alt="" loading="lazy"></figure>
+<h1 id="gensim中word2vec参数">Gensim中word2vec参数</h1>
+<p>默认用了CBOW模型，采用“<strong>高频词抽样+ 负采样</strong>”进行优化，参数如下：</p>
+<blockquote>
+<p>上下文窗口大小：window=5</p>
+<p>忽略低频次term：min_count=5</p>
+<p>语言模型是用CBOW还是skip-gram？ sg=0 是CBOW</p>
+<p>优化方法是用层次softmax还是负采样？ hs=0 是负采样</p>
+<p>负采样样本数: negative=5 (一般设为5-20)</p>
+<p>负采样采样概率的平滑指数：ns_exponent=0.75</p>
+<p>高频词抽样的阈值 sample=0.001</p>
+</blockquote>
+<p><strong>参数表</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">sentences：可以是一个list，对于大语料集，建议使用BrownCorpus,Text8Corpus或LineSentence构建。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">sg： 用于设置训练算法，默认为0，对应CBOW算法(填空)；sg=1则采用skip-gram算法(造句)。</td>
+</tr>
+<tr>
+<td style="text-align:left">size：是指特征向量的维度，默认为100。大的size需要更多的训练数据,但是效果会更好. 推荐值为几十到几百。</td>
+</tr>
+<tr>
+<td style="text-align:left">window：表示当前词与预测词在一个句子中的最大距离是多少</td>
+</tr>
+<tr>
+<td style="text-align:left">alpha: 是学习速率</td>
+</tr>
+<tr>
+<td style="text-align:left">seed：用于随机数发生器。与初始化词向量有关。</td>
+</tr>
+<tr>
+<td style="text-align:left">min_count: 可以对字典做截断. 词频少于min_count次数的单词会被丢弃掉, 默认值为5</td>
+</tr>
+<tr>
+<td style="text-align:left">max_vocab_size:   设置词向量构建期间的RAM限制。如果所有独立单词个数超过这个，则就消除掉其中最不频繁的一个。每一千万个单词需要大约1GB的RAM。设置成None则没有限制。</td>
+</tr>
+<tr>
+<td style="text-align:left">sample: 高频词汇的随机降采样的配置阈值，默认为1e-3，范围是(0,1e-5)</td>
+</tr>
+<tr>
+<td style="text-align:left">workers: 参数控制训练的并行数。</td>
+</tr>
+<tr>
+<td style="text-align:left">hs: 如果为1则会采用hierarchical softmax技巧。如果设置为0（defaut），则negative sampling会被使用。</td>
+</tr>
+<tr>
+<td style="text-align:left">negative: 如果&gt;0,则会采用negativesamping，用于设置多少个noise words</td>
+</tr>
+<tr>
+<td style="text-align:left">cbow_mean: 如果为0，则采用上下文词向量的和，如果为1（defaut）则采用均值。只有使用CBOW的时候才起作用。</td>
+</tr>
+<tr>
+<td style="text-align:left">hashfxn： hash函数来初始化权重。默认使用python的hash函数</td>
+</tr>
+<tr>
+<td style="text-align:left">iter： 迭代次数，默认为5</td>
+</tr>
+<tr>
+<td style="text-align:left">trim_rule： 用于设置词汇表的整理规则，指定那些单词要留下，哪些要被删除。可以设置为None（min_count会被使用）或者一个接受()并返回RU·E_DISCARD,uti·s.RU·E_KEEP或者uti·s.RU·E_DEFAU·T的函数。</td>
+</tr>
+<tr>
+<td style="text-align:left">sorted_vocab： 如果为1（defaut），则在分配word index 的时候会先对单词基于频率降序排序。</td>
+</tr>
+<tr>
+<td style="text-align:left">batch_words：每一批的传递给线程的单词的数量，默认为10000</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>参考：</strong></p>
+<p><a href="https://blog.csdn.net/weixin_41843918/article/details/90312339">https://blog.csdn.net/weixin_41843918/article/details/90312339</a></p>
+<p><a href="https://www.cnblogs.com/liyuxia713/p/11185028.html">https://www.cnblogs.com/liyuxia713/p/11185028.html</a></p>
+<p><a href="http://qiancy.com/2016/08/17/word2vec-hierarchical-softmax/">http://qiancy.com/2016/08/17/word2vec-hierarchical-softmax/</a></p>
+<p><a href="https://blog.csdn.net/chinwuforwork/article/details/85180138">https://blog.csdn.net/chinwuforwork/article/details/85180138</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[BERT衍生模型]]></title>
+        <id>https://aprilspring.github.io/post/bert-yan-sheng-mo-xing/</id>
+        <link href="https://aprilspring.github.io/post/bert-yan-sheng-mo-xing/">
+        </link>
+        <updated>2020-01-11T01:29:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>结合网络大牛的总结（致谢大牛！），目前存在一些针对BERT进行优化的衍生模型。</p>
+<p>主要优化方向：</p>
+<blockquote>
+<p>性能（ALBERT）</p>
+<p>增加图谱实体（ERINE, K-BERT）</p>
+<p>多样的Attention方式（XLNet, UNILM）</p>
+<p>新增训练任务（MT-DNN）</p>
+<p>兼容生成式任务（MASS, UNILM）等</p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<p>结合网络大牛的总结（致谢大牛！），目前存在一些针对BERT进行优化的衍生模型。</p>
+<p>主要优化方向：</p>
+<blockquote>
+<p>性能（ALBERT）</p>
+<p>增加图谱实体（ERINE, K-BERT）</p>
+<p>多样的Attention方式（XLNet, UNILM）</p>
+<p>新增训练任务（MT-DNN）</p>
+<p>兼容生成式任务（MASS, UNILM）等</p>
+</blockquote>
+<!--more-->
+<h1 id="albert">ALBERT</h1>
+<p>Ref: ALBERT: A LITE BERT FOR SELF-SUPERVISED LEARNING OF LANGUAGE REPRESENTATIONS</p>
+<p>轻量级BERT模型（减少参数量、但未减少计算量）：</p>
+<blockquote>
+<ol>
+<li>
+<p>跨层共享参数（Attention层共享、全连接层共享）</p>
+</li>
+<li>
+<p>修改预测句子衔接的任务：负样本由“随机两个句子”改为“颠倒正样本的两个句子”</p>
+</li>
+<li>
+<p>拆分Embedding向量维度和隐藏层向量维度，将E<sub>vm</sub>=A<sub>vk</sub> * B<sub>km</sub></p>
+</li>
+</ol>
+</blockquote>
+<h1 id="ernie">ERNIE</h1>
+<p>Ref: ERNIE: Enhanced Representation through Knowledge Integration</p>
+<p>为百度开发模型，与BERT的主要差别是，在做mask任务时，mask的为一个实体，而非一个词。</p>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667021375153.png" alt="" loading="lazy"></figure>
+<h1 id="mt-dnn">MT-DNN</h1>
+<p>Ref: Multi-Task Deep Neural Networks for Natural Language Understanding</p>
+<p>为微软开发模型，与BERT的主要区别是，额外增加了自定义的multi-task进行训练。</p>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667021390472.png" alt="" loading="lazy"></figure>
+<h1 id="xlnet">XLNet</h1>
+<p>Ref: XLNet：Generalized Autoregressive Pretraining for Language Understanding</p>
+<p><strong>主要特点</strong></p>
+<blockquote>
+<ol>
+<li>
+<p>在自回归LM模式下，采用<strong>掩码双流自注意力</strong>（Masked Two-Stream Self-Attention），实现双向语言模型</p>
+</li>
+<li>
+<p>引入了Transformer-XL的主要思路：相对位置编码（relative encoding scheme）以及分段递归机制（segment recurrence mechanism），有利于长文档任务</p>
+</li>
+<li>
+<p>加大增加了预训练阶段使用的数据规模</p>
+</li>
+</ol>
+</blockquote>
+<p><strong>出发点</strong></p>
+<p>1）融合自回归LM和DAE LM两者的优点。</p>
+<blockquote>
+<p>如果站在自回归LM的角度，如何引入和双向语言模型等价的效果？</p>
+<p>如果站在DAE LM的角度看，它本身是融入双向语言模型的，如何抛掉表面的那个[Mask]标记，让预训练和Fine-tuning保持一致？</p>
+</blockquote>
+<p>2）Bert被Mask单词之间相互独立的问题</p>
+<blockquote>
+<p>Bert 在第一个预训练阶段，假设句子中多个单词被Mask掉，这些被Mask掉的单词之间没有任何关系，是条件独立的，而有时候这些单词之间是有关系的，XLNet则考虑了这种关系。</p>
+</blockquote>
+<p><strong>解决方法</strong></p>
+<p>1）排序语言模型</p>
+<p>XLNet通过对句子中单词的排列组合，把一部分Ti下文的单词排到Ti的上文位置中，于是，就看到了上文和下文，但是形式上看上去仍然是从左到右在预测后一个单词。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667021405087.png" alt="" loading="lazy"><br>
+2）Attention掩码的机制</p>
+<p>但是直接对单词排列组合会导致句子语义混乱，因此，预训练阶段的输入部分，看上去仍然是原始的语句顺序，但是可以在Transformer部分做些工作。XLNet采取了Attention掩码的机制，实现Permutation Language Model，PLM。</p>
+<blockquote>
+<p>假设当前的输入句子是X，要预测的单词Ti是第i个单词，一般情况下，只有前面1到i-1个单词，用于Ti的预测，但是在Transformer内部，通过Attention掩码，从X的输入单词里面，也就是Ti的上文和下文单词中，随机选择i-1个，用于Ti的预测（想象中放在Ti的上文位置），把其它单词的输入通过Attention掩码隐藏掉，不让它们在预测单词Ti的时候发生作用，就能够达成我们期望的目标。</p>
+<p>排序语言模型的目标函数</p>
+<blockquote>
+<p>理想状态下，针对每一种排列方式，计算每一个词出现的联合概率</p>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667021423775.png" alt="" loading="lazy"></figure>
+<p>实际情况下，仅预测每个词的概率（XLNet maximizes the expected log likelihood of a sequence w.r.t. all possible permutations of the factorization order）</p>
+<figure data-type="image" tabindex="4"><img src="https://aprilspring.github.io/post-images/1667021444482.png" alt="" loading="lazy"></figure>
+</blockquote>
+</blockquote>
+<p>3）双流自注意力模型（masked two-stream attention）</p>
+<p>具体的，XLNet采用“双流自注意力模型”实现上述目标。同时预测下一个位置的词（固定位置预测词，即预测下一个位置出现的词，Content流=内容+位置），及预测位置（固定词预测位置，即多种位置扰动后，某个词所在的位置是什么，Query流=位置，相当于BERT的[mask]功能）。主要包括：内容流自注意力（Content stream self-attention）和Query流自注意力（Query stream self-attention）。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667021460477.png" alt="" loading="lazy"><br>
+<strong>优势</strong></p>
+<p>XLNet就是Bert、GPT 2.0和Transformer XL的综合体变身。</p>
+<blockquote>
+<p>首先，它通过PLM预训练目标，吸收了Bert的双向语言模型；</p>
+<p>然后，吸收了GPT2.0的核心其实是更多更高质量的预训练数据；</p>
+<blockquote>
+<p>BERT语料库基础上（BooksCorpus + Wiki = ~13G），增加Giga5，ClueWeb以及Common Crawl数据，并去掉其中的一些低质量数据，大小分别是16G，19G和78G。</p>
+</blockquote>
+<p>最后，Transformer XL的主要思想也被吸收进来，因此解决了Transformer对于长文档NLP应用不够友好的问题；</p>
+<p>由于能够维持表面从左向右的生成过程，可能有利于生成式任务。</p>
+</blockquote>
+<h1 id="k-bert">K-BERT</h1>
+<p>Ref: K-BERT: Enabling Language Representation with Knowledge Graph</p>
+<p>不同与百度的ERINE，K-BERT将实体间的关系融入到BERT模型中，融入实体关系后，可以体现出除字面意思外的先验知识。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667021475296.png" alt="" loading="lazy"><br>
+具体如下：</p>
+<blockquote>
+<ol>
+<li>
+<p>输入语句首先经过知识层（即知识图谱体现的三元组关系），获取到相关的实体</p>
+</li>
+<li>
+<p>结合相关实体，将输入句子转换成树结构</p>
+</li>
+<li>
+<p>将具有树结构的句子进行软编码（soft-position，红色编码所示）和硬编码（hard-position，黑色所示）</p>
+</li>
+<li>
+<p>计算可见矩阵（Visible matrix），为0/1值矩阵，决定了self-attention时，哪些词可以跟哪些词是可见的，是可以进行attention的，这里通过图谱连接的实体关系，与原输入文本的其他词是不可见的，即一个词的词嵌入只来源于其同一个枝干的上下文，而不同枝干的词之间相互不影响，例如visiting(6) 与 <a href="0">CLS</a>, Tim(1), Cook(2), is(5), Beijing(7), now(12)均是可见的，与Beijing(7)相关的图谱实体capital(8), China(9), is_a(10), City(11)均是不可见的。</p>
+</li>
+<li>
+<p>计算mask self-attention，即将可见矩阵加入到Self-attention计算时的softmax中，使得不可见的词之间产生的权重为0，可见词之间的权重计算无影响</p>
+</li>
+<li>
+<p>针对既定任务，进行与BERT相同的fine-tune训练</p>
+</li>
+</ol>
+</blockquote>
+<figure data-type="image" tabindex="5"><img src="https://aprilspring.github.io/post-images/1667021487000.png" alt="" loading="lazy"></figure>
+<p>优势：K-BERT除了软位置和可见矩阵，其余结构均与 Google BERT 保持一致，这就给 K-BERT 带来了一个很好的特性——兼容 BERT 类的模型参数。K-BERT 可以直接加载 Google BERT、Baidu ERNIE、Facebook RoBERTa 等市面上公开的已预训练好的 BERT 类模型，无需自行再次预训练，给使用者节约了很大一笔计算资源。</p>
+<h1 id="mass">MASS</h1>
+<p>Ref: MASS: Masked Sequence to Sequence Pre-training for Language Generation</p>
+<p>MASS 分别用 BERT 类似的 Transformer 模型来做 encoder 和 decoder，它的主要贡献就是提供了一种 Seq2Seq 思想的预训练方案。</p>
+<h1 id="unilm">UNILM</h1>
+<p>Ref: Unified Language Model Pre-training for Natural Language Understanding and Generation</p>
+<p>可用于生成式任务，UNILM提供了一种优雅的方式，能够让我们直接用<strong>单个 BERT 模型就可以做 Seq2Seq 任务，而不用区分 encoder 和 decoder</strong>，而实现这一点几乎不费吹灰之力——只需要一个特别的 Mask，简单的来讲，1）通过乱序mask使得attention是双向的（即encoder模式），2）通过顺序mask使得attention是单向的（即decoder模式），3）针对2个句子，对第一个句子使用乱序mask，对第二个句子使用顺序mask，即第一个句子 Attention 是双向的，第二个句子 Attention 是单向（即seq2seq模式）。</p>
+<figure data-type="image" tabindex="6"><img src="https://aprilspring.github.io/post-images/1667021501319.png" alt="" loading="lazy"></figure>
+<p>优点：这便是 UNILM 里边提供的用单个 BERT 模型就可以完成 Seq2Seq 任务的思路，只要添加上述形状的 Mask，而不需要修改模型架构，并且还可以直接沿用 BERT 的 Masked Language Model 预训练权重，收敛更快。</p>
+<p><strong>参考：</strong></p>
+<p><a href="https://mp.weixin.qq.com/s/29y2bg4KE-HNwsimD3aauw">https://mp.weixin.qq.com/s/29y2bg4KE-HNwsimD3aauw</a></p>
+<p><a href="https://arxiv.org/pdf/1906.08237.pdf">https://arxiv.org/pdf/1906.08237.pdf</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/101302240">https://zhuanlan.zhihu.com/p/101302240</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/84157931">https://zhuanlan.zhihu.com/p/84157931</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[隐语义模型]]></title>
+        <id>https://aprilspring.github.io/post/yin-yu-yi-mo-xing/</id>
+        <link href="https://aprilspring.github.io/post/yin-yu-yi-mo-xing/">
+        </link>
+        <updated>2020-01-08T11:08:13.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="lsa">LSA</h1>
+<p>LSA即潜语义分析（或主题模型，主题即为潜在的语义信息），认为“<strong>一篇文章是通过一定的概率选择了某个主题，并从这个主题中以一定概率选择某个词语</strong>”这样一个过程得到的。</p>
+<p>目标是：通过对“文档-单词”矩阵进行分解，得到“文档-主题”和“主题-单词”两个概率分布，即根据给定的一篇文档，推测其主题分布。</p>
+<p>主要有2种主要方法：<strong>奇异值分解SVD、非负矩阵分解NMF</strong>。</p>
+<p><strong>单词集合W</strong>={w1, w2, …, wm}</p>
+<p><strong>文档集合D</strong>={d1, d2, …, dn}</p>
+<p><strong>单词向量空间X<sub>m*n</sub></strong>：单词-文本矩阵，每个单词在文档中出现的频率(行-单词，列-文档)</p>
+<p><strong>话题向量空间T<sub>m*k</sub></strong>：单词-话题矩阵，每个单词在话题中出现的频率(行-单词，列-话题)，T是X的一个子集</p>
+<p><strong>文本在话题空间的向量表示Y<sub>k*n</sub></strong>： X<sub>mn </sub>= T<sub>mk </sub> * Y<sub>kn</sub>，Y<sub>kn</sub> 就是我们需要求得的隐变量，即每个文本对应每个话题的权重，可将每个文本标记为权重较大的话题上。</p>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="lsa">LSA</h1>
+<p>LSA即潜语义分析（或主题模型，主题即为潜在的语义信息），认为“<strong>一篇文章是通过一定的概率选择了某个主题，并从这个主题中以一定概率选择某个词语</strong>”这样一个过程得到的。</p>
+<p>目标是：通过对“文档-单词”矩阵进行分解，得到“文档-主题”和“主题-单词”两个概率分布，即根据给定的一篇文档，推测其主题分布。</p>
+<p>主要有2种主要方法：<strong>奇异值分解SVD、非负矩阵分解NMF</strong>。</p>
+<p><strong>单词集合W</strong>={w1, w2, …, wm}</p>
+<p><strong>文档集合D</strong>={d1, d2, …, dn}</p>
+<p><strong>单词向量空间X<sub>m*n</sub></strong>：单词-文本矩阵，每个单词在文档中出现的频率(行-单词，列-文档)</p>
+<p><strong>话题向量空间T<sub>m*k</sub></strong>：单词-话题矩阵，每个单词在话题中出现的频率(行-单词，列-话题)，T是X的一个子集</p>
+<p><strong>文本在话题空间的向量表示Y<sub>k*n</sub></strong>： X<sub>mn </sub>= T<sub>mk </sub> * Y<sub>kn</sub>，Y<sub>kn</sub> 就是我们需要求得的隐变量，即每个文本对应每个话题的权重，可将每个文本标记为权重较大的话题上。</p>
+ <!--more-->
+<h2 id="截断-奇异值分解svd">[截断] 奇异值分解(SVD)</h2>
+<p><img src="https://aprilspring.github.io/post-images/1667021968291.png" alt="" loading="lazy"><br>
+因此，话题向量空间是   ，文本在话题空间的表示是   ，k为主题的数目（提前设定主题数目k，即截断SVD）。</p>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667021975168.png" alt="" loading="lazy"></figure>
+<h2 id="非负矩阵分解nmf">非负矩阵分解(NMF)</h2>
+<p>若一个矩阵的所有元素均为非负，则为非负矩阵。对于一个非负矩阵X<sub>mn</sub>，可以找到两个非负矩阵W<sub>mk</sub>和H<sub>kn</sub>，使得：</p>
+<p><img src="https://aprilspring.github.io/post-images/1667021982637.png" alt="" loading="lazy"><br>
+因此，话题向量空间是W，文本在话题空间的表示是H，k为主题的数目。</p>
+<h2 id="lsa的推荐应用">LSA的推荐应用</h2>
+<p>此时的隐语义，即通过用户-商品矩阵进行分解，得到的潜在<strong>用户兴趣</strong>。就是根据用户的当前偏好信息，得到用户的兴趣偏好，将该类兴趣对应的物品推荐给当前用户。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667021989055.png" alt="" loading="lazy"><br>
+<strong>缺点</strong>：隐语义模型训练耗时，不能因为用户行为的变化实时地调整推荐结果，来满足用户最近的行为。</p>
+<h1 id="plsa">pLSA</h1>
+<p>Probabilistic Latent Semantic Analysis, pLSA，基于概率的隐性语义分析。</p>
+<p>思想：单词已一定概率生成主题（单词分布p(w|z)），主题已一定概率生成文档（主题分布p(z|d)），因此在已知文档（d）和单词（w）的情况下，估计主题（z，即隐变量），由EM算法介绍可知，在<strong>含有隐变量</strong>时，使用<strong>EM算法</strong>求的概率模型的最优参数，即p(w|z)和p(z|d)。</p>
+<blockquote>
+<p>其中，D代表文档，Z代表隐含主题，W代表观察到的词，P(d)表示选中文档d的概率，P(z|d)表示给定文档d中主题z的概率，P(w|z)表示给定主题z、出现单词w的概率，P(d,w)表示文档d与单词w联合出现的概率，为唯一的已知概率。</p>
+</blockquote>
+<p>此外，pLSA使用EM估计参数，并且估计的参数是固定的（概率思想）。</p>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667021997139.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667022002790.png" alt="" loading="lazy"></figure>
+<h1 id="lda">LDA</h1>
+<p>Latent Dirichlet Allocation，LDA，基于贝叶斯。</p>
+<p>与pLSA不同的是，pLSA中认为P(z|d)和P(w|z)看成是确定的未知常数，并可以求解出来；而LDA认为待估计参数不再是一个固定的常数，而是服从狄利克雷分布的随机变量，</p>
+<p>该随机变量通过2个Dirichlet先验参数生成的。</p>
+<figure data-type="image" tabindex="4"><img src="https://aprilspring.github.io/post-images/1667022010757.png" alt="" loading="lazy"></figure>
+<p><strong>参考：</strong></p>
+<p><a href="https://blog.csdn.net/yangliuy/article/details/8330640">https://blog.csdn.net/yangliuy/article/details/8330640</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[TextCNN]]></title>
+        <id>https://aprilspring.github.io/post/textcnn/</id>
+        <link href="https://aprilspring.github.io/post/textcnn/">
+        </link>
+        <updated>2020-01-07T04:38:13.000Z</updated>
+        <summary type="html"><![CDATA[<p><strong>用途</strong>：一般用于文本分类，主要包括输入层、卷积层、max-pooling层、全连接+softmax层</p>
+<p><strong>输入</strong>：文本向量矩阵（行：每个词、列：每个词的向量表示-word2vec or glove），如果输入有多个channel，则针对每个词使用了多个不同的向量化表示</p>
+<p><strong>卷积核</strong>：卷积核的“宽度”通常与输入矩阵的宽度相同，高度或区域大小可以变化，一般为2-5个单词的窗口</p>
+]]></summary>
+        <content type="html"><![CDATA[<p><strong>用途</strong>：一般用于文本分类，主要包括输入层、卷积层、max-pooling层、全连接+softmax层</p>
+<p><strong>输入</strong>：文本向量矩阵（行：每个词、列：每个词的向量表示-word2vec or glove），如果输入有多个channel，则针对每个词使用了多个不同的向量化表示</p>
+<p><strong>卷积核</strong>：卷积核的“宽度”通常与输入矩阵的宽度相同，高度或区域大小可以变化，一般为2-5个单词的窗口</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667018718349.png" alt="" loading="lazy"></figure>
+<p><strong>举例子</strong>：</p>
+<p>1）文本向量矩阵（7<em>5），使用3种不同大小的卷积核（2</em>5，3<em>5，4</em>5），每种卷积核包含2个不同的channel，相当于一共6个滤波器</p>
+<p>2）当每个滤波器在输入的文本向量上划窗进行移动时，例如2<em>5的卷集合，可以在7</em>5的文本向量矩阵中移动6个steps，因此得到6个值，形成一个6*1的向量</p>
+<p>3）分别针对6个滤波器得到的6个向量，进行max-pooling，每个向量留取一个最大值，得到一个1*6的向量</p>
+<p>4）针对上述的1*6向量，进行全连接+softmax层，对文本进行分类<br>
+<img src="https://aprilspring.github.io/post-images/1667018734767.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[最大期望算法]]></title>
+        <id>https://aprilspring.github.io/post/zui-da-qi-wang-suan-fa/</id>
+        <link href="https://aprilspring.github.io/post/zui-da-qi-wang-suan-fa/">
+        </link>
+        <updated>2019-08-05T12:22:10.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="极大似然算法">极大似然算法</h2>
+<p>极大似然算法的思想：知道结果，反推条件θ</p>
+<p>如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。</p>
+<p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="极大似然算法">极大似然算法</h2>
+<p>极大似然算法的思想：知道结果，反推条件θ</p>
+<p>如果概率模型不依赖隐变量，则可直接用极大似然算法获取参数估计值。</p>
+<p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮记录A和B是正面还是反面的次数，估计A正面朝上的概率、B正面朝上的概率。</p>
+<!--more-->
+<h3 id="求极大似然函数估计值的一般步骤">求极大似然函数估计值的一般步骤</h3>
+<p>a)   写出似然函数；</p>
+<p>b)  对似然函数取对数，并整理；</p>
+<p>c)   求导数，令导数为0，得到似然方程；</p>
+<p>d)  解似然方程，得到的参数即为所求；</p>
+<p>e)   如果是n个参数，则计算每个参数的偏导数=0，最后解n方程组，就是似然函数的极值点了。</p>
+<h3 id="对数似然函数">对数似然函数</h3>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667021632220.png" alt="" loading="lazy"></figure>
+<h2 id="em算法">EM算法</h2>
+<p>最大期望算法（Expectation-maximization algorithm，EM），是在概率模型中寻找参数最大似然估计或者最大后验估计的算法，其中概率模型依赖于无法观测的隐性变量。</p>
+<h3 id="隐变量">隐变量</h3>
+<p>EM算法与极大似然算法的区别是，<strong>EM算法中包含隐变量。</strong></p>
+<p><strong>举例</strong>：随机抛硬币A和B很多轮，每轮不知道当前抛的是A硬币还是B硬币（即隐性变量），记录正面还是反面的次数，然后估计A正面朝上的概率、B正面朝上的概率。由于其中包含隐变量，已知隐变量时，则转化为极大似然算法，而未知隐变量时，则采取EM算法。</p>
+<h3 id="em的2个步骤">EM的2个步骤</h3>
+<p>第一步是计算期望（E），先参数初始化，而后计算隐藏变量的当前估计值；</p>
+<p>第二步是最大化（M），基于E步骤的隐变量估计值，计算似然函数的最大似然值，获取新的参数估计值。</p>
+<p>M步上找到的新的参数估计值，被用于下一个E步计算中重新计算隐变量估计值，这个过程不断交替进行，直至参数不再变化，模型收敛。</p>
+<p><strong>参考：</strong></p>
+<p><a href="https://www.julyedu.com/question/big/kp_id/23/ques_id/1006">https://www.julyedu.com/question/big/kp_id/23/ques_id/1006</a></p>
+<p><a href="https://www.julyedu.com/question/big/kp_id/23/ques_id/1007">https://www.julyedu.com/question/big/kp_id/23/ques_id/1007</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[优化算法]]></title>
+        <id>https://aprilspring.github.io/post/you-hua-suan-fa/</id>
+        <link href="https://aprilspring.github.io/post/you-hua-suan-fa/">
+        </link>
+        <updated>2019-07-25T07:12:15.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667021814230.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667021820396.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667021824677.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://aprilspring.github.io/post-images/1667021829076.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://aprilspring.github.io/post-images/1667021833814.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://aprilspring.github.io/post-images/1667021838347.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://aprilspring.github.io/post-images/1667021842883.png" alt="" loading="lazy"></figure>
+<p><strong>Adam优点</strong>：</p>
+<p>1）实现简单，计算高效，对内存需求少</p>
+<p>2）参数的更新不受梯度的伸缩变换影响</p>
+<p>3）超参数具有很好的解释性，且通常无需调整或仅需很少的微调</p>
+<p>4）更新的步长能够被限制在大致的范围内（初始学习率）</p>
+<p>5）能自然地实现步长退火过程（自动调整学习率）</p>
+<p>6） 很适合应用于大规模的数据及参数的场景</p>
+<p>7）适用于不稳定目标函数</p>
+<p>8）适用于梯度稀疏或梯度存在很大噪声的问题</p>
+<figure data-type="image" tabindex="8"><img src="https://aprilspring.github.io/post-images/1667021848279.png" alt="" loading="lazy"></figure>
+<p>参考：<a href="https://cloud.tencent.com/developer/article/1428819">https://cloud.tencent.com/developer/article/1428819</a></p>
+<p><a href="https://blog.csdn.net/weixin_42398658/article/details/84525917">https://blog.csdn.net/weixin_42398658/article/details/84525917</a></p>
+<p><a href="https://www.jianshu.com/p/aebcaf8af76e">https://www.jianshu.com/p/aebcaf8af76e</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[随机森林]]></title>
+        <id>https://aprilspring.github.io/post/sui-ji-sen-lin/</id>
+        <link href="https://aprilspring.github.io/post/sui-ji-sen-lin/">
+        </link>
+        <updated>2019-07-22T05:22:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>随机森林是有很多随机得决策树构成，它们之间没有关联。得到RF以后，在预测时分别对每一个决策树进行判断，最后使用Bagging的思想进行结果的输出（也就是投票的思想）。</p>
+<h2 id="学习过程简介">学习过程简介</h2>
+<p>现在有N个训练样本，每个样本的特征为M个，需要建K颗树</p>
+<p>从N个训练样本中有放回的取N个样本作为一组训练集（其余未取到的样本作为预测分类，评估其误差）</p>
+<p>从M个特征中取m个特征左右子集特征(m&lt;&lt;M)</p>
+<p>对采样的数据使用完全分裂的方式来建立决策树，这样的决策树每个节点要么无法分裂，要么所有的样本都指向同一个分类</p>
+<p>重复2的过程K次，即可建立森林</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>随机森林是有很多随机得决策树构成，它们之间没有关联。得到RF以后，在预测时分别对每一个决策树进行判断，最后使用Bagging的思想进行结果的输出（也就是投票的思想）。</p>
+<h2 id="学习过程简介">学习过程简介</h2>
+<p>现在有N个训练样本，每个样本的特征为M个，需要建K颗树</p>
+<p>从N个训练样本中有放回的取N个样本作为一组训练集（其余未取到的样本作为预测分类，评估其误差）</p>
+<p>从M个特征中取m个特征左右子集特征(m&lt;&lt;M)</p>
+<p>对采样的数据使用完全分裂的方式来建立决策树，这样的决策树每个节点要么无法分裂，要么所有的样本都指向同一个分类</p>
+<p>重复2的过程K次，即可建立森林</p>
+<!--more-->
+<h2 id="预测过程">预测过程</h2>
+<p>1）将预测样本输入到K颗树分别进行预测</p>
+<p>2）如果是分类问题，直接使用投票的方式选择分类频次最高的类别</p>
+<p>3）如果是回归问题，使用分类之后的均值作为结果</p>
+<h2 id="参数说明">参数说明</h2>
+<p>1）这里的一般取m=sqrt(M)</p>
+<p>2）关于树的个数K，一般都需要成百上千，但是也有具体的样本有关（比如特征数量）</p>
+<p>3）树的最大深度，（太深可能可能导致过拟合？？）</p>
+<p>4）节点上的最小样本数、最小信息增益</p>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667022117697.png" alt="" loading="lazy"></figure>
+<h2 id="泛化误差估计">泛化误差估计</h2>
+<p>使用oob（out-of-bag）进行泛化误差的估计，将各个树的未采样样本作为预测样本（大约有36.8%），使用已经建立好的森林对各个预测样本进行预测，预测完之后最后统计误判样本占总预测样本的比率作为RF的<strong>oob误分率</strong>。</p>
+<h2 id="学习算法">学习算法</h2>
+<p>1） ID3算法：处理离散值的量</p>
+<p>2） C45算法：处理连续值的量</p>
+<p>3）Cart算法：离散和连续 两者都合适？</p>
+<p>关于CART：Cart可以通过特征的选择迭代建立一颗分类树，使得每次的分类平面能最好的将剩余数据分为两类 gini=1-sigma(pi^2)，表示每个类别出现的概率和与1的差值。分类问题：argmax（Gini-GiniLeft-GiniRight），回归问题argmax(Var-VarLeft-VarRight)，查找最佳特征f已经最佳属性阈值th 小于th的在左边，大于th的在右边子树。</p>
+<h2 id="随机森林特点">随机森林特点</h2>
+<p>1）能够处理大量特征的分类，并且还不用做特征选择</p>
+<p>2）在训练完成之后能给出哪些feature的比较重要</p>
+<p>3）训练速度很快</p>
+<p>4）很容易并行</p>
+<p>5）实现相对来说较为简单</p>
+<h2 id="具体学习过程">具体学习过程</h2>
+<h3 id="训练过程">训练过程</h3>
+<ol>
+<li>
+<pre><code>给定训练集S，测试集T，特征维数F。
+</code></pre>
+</li>
+<li>
+<pre><code>确定参数：使用到的CART的数量为t，每棵树的深度d，每个节点使用到的特征数量f，终止条件：节点上最少样本数s，节点上最少的信息增益m。
+</code></pre>
+</li>
+<li>
+<pre><code>对于第t-1棵树，i=t-1: 从S中有放回的抽取大小和S一样的训练集S(i)，作为根节点的样本，从根节点开始训练（随机样本）。
+</code></pre>
+</li>
+<li>
+<pre><code>如果当前节点上达到终止条件，则设置当前节点为叶子节点，如果是分类问题，该叶子节点的预测输出为当前节点样本集合中数量最多的哪一类c(j)，概率p为c(j)占当前样本集的比例；如果是回归问题，预测输出为当前节点样本集各个样本值的平均值。然后继续训练其他节点。
+</code></pre>
+</li>
+<li>
+<pre><code>如果当前节点没有达到终止条件，则从F维特征中无放回的随机选取f维度特征。利用这f维特征，寻找分类效果最好的一维特征k及其阈值th，当前节点上样本第k维特征小于th的样本被划分到左节点，其余被划分到右节点。继续训练其他节点（随机特征）。
+</code></pre>
+</li>
+<li>
+<pre><code>重复(3)(4) (5)直到所有节点都训练过了或者被标记为叶子节点。
+</code></pre>
+</li>
+<li>
+<pre><code>重复(3)(4) (5)直到所有CART都被训练过。
+</code></pre>
+</li>
+</ol>
+<h3 id="预测过程-2">预测过程</h3>
+<p>对于第t-1棵树，i=t-1;</p>
+<ol>
+<li>
+<pre><code>从当前树的根节点开始，根据当前节点的阈值th，判断是进入左节点(&lt;th)还是进入右节点(&gt;=th)，直到到达某个叶子节点，并输出预测值。
+</code></pre>
+</li>
+<li>
+<pre><code>重复执行(1)直到所有t棵树都输出了预测值。如果是分类问题，则输出为所有树种预测概率总和最大的那一个类，即对每个c(j)的p进行累计；如果是回归问题，则输出为所有树的输出的平均值。
+</code></pre>
+</li>
+</ol>
+<p>影响分类性能的主要因素</p>
+<ol>
+<li>
+<pre><code>森林中单棵树的分类强度：每棵树的分类强度越大，则随机森林的分类性能越好。
+</code></pre>
+</li>
+<li>
+<pre><code>森林中树之间的相关度：树之间的相关度越大，则随机森林的分类性能越差。
+</code></pre>
+</li>
+</ol>
+<h2 id="随机森林的优缺点">随机森林的优缺点</h2>
+<p>随机森林，指的是利用多棵树对样本进行训练并预测的一种分类器。</p>
+<p>①样本随机性：对于每棵树，它们使用的训练集是从总的训练集中有放回采样出来的。这意味着，总的训练集中的有些样本可能多次出现在一棵树的训练集中，也可能从未出现在一棵树的训练集中。</p>
+<p>②特征随机性：在训练每棵树的节点时，使用的特征是从所有特征中按照一定比例随机地无放回抽取的，根据Leo Breiman的建议，假设总的特征数量为M，这个比例可以是sqrt(M)，1/2sqrt(M)，2sqrt(M)。</p>
+<p>优点：</p>
+<ol>
+<li>
+<pre><code>两个随机性的引入，使得随机森林不容易陷入过拟合，并且具有很好的抗噪能力。
+</code></pre>
+</li>
+<li>
+<pre><code>它能够处理很高维度的数据，并且不用做特征选择，由于模型可以自动得出变量重要性排序（基于OOB误分率的增加量和基于分裂时的GINI下降量）。
+</code></pre>
+</li>
+<li>
+<pre><code>对数据集的适应能力强：既能处理离散型数据，也能处理连续型数据，数据集无需规范化。
+</code></pre>
+</li>
+<li>
+<pre><code>训练速度快，训练时树与树之间是相互独立的，容易做成并行化方法。
+</code></pre>
+</li>
+<li>
+<pre><code>在训练过程中，能够检测到feature间的互相影响。可生成一个Proximities=(pij)矩阵，用于度量样本之间的相似性：pij=aij/N，aji表示样本i和j出现在随机森林中同一个叶子结点的次数，N表示随机森林中树的棵树。
+</code></pre>
+</li>
+<li>
+<pre><code>对于不平衡的数据集来说，它可以平衡误差。
+</code></pre>
+</li>
+<li>
+<pre><code>如果有很大一部分的特征遗失，仍可以维持准确度。
+</code></pre>
+</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>
+<pre><code>随机森林已经被证明在某些噪音较大的分类或回归问题上会过拟。
+</code></pre>
+</li>
+<li>
+<pre><code>对于有不同取值的属性的数据，取值划分较多的属性会对随机森林产生更大的影响，所以随机森林在这种数据上产出的属性权值是不可信的。
+</code></pre>
+</li>
+</ol>
+<h2 id="随机森林的特征选择方法">随机森林的特征选择方法</h2>
+<p>1）平均不纯度减少（mean decrease impurity）</p>
+<p>利用不纯度可以确定划分的最优节点。对于分类问题，通常采用基尼不纯度或者信息增益，对于回归问题，通常采用的是方差或者最小二乘拟合。当训练决策树的时候，可以计算出每个特征减少了多少树的不纯度。对于一个决策树森林来说，可以算出每个特征平均减少了多少不纯度，并把它平均减少的不纯度作为特征选择的值。</p>
+<p>值得注意：1、这种方法存在偏向，对具有更多类别的变量会更有利（ID3）；2、对于存在关联的多个特征，其中任意一个都可以作为指示器（优秀的特征），并且一旦某个特征被选择之后，其他特征的重要度就会急剧下降，因为不纯度已经被选中的那个特征降下来了，其他的特征就很难再降低那么多不纯度了，这样一来，只有先被选中的那个特征重要度很高，其他的关联特征重要度往往较低。在理解数据时，这就会造成误解，导致错误的认为先被选中的特征是很重要的，而其余的特征是不重要的，但实际上这些特征对响应变量的作用确实非常接近的。</p>
+<p>2）平均精确率减少（Mean decrease accuracy）</p>
+<p>直接度量每个特征对模型精确率的影响。主要思路是打乱每个特征的特征值顺序（也即打乱划分节点的优先级顺序），并且度量顺序变动对模型的精确率的影响。很明显，对于不重要的变量来说，打乱顺序对模型的精确率影响不会太大，但是对于重要的变量来说，打乱顺序就会降低模型的精确率。</p>
+<p><strong>鸣谢</strong></p>
+<p><a href="http://blog.csdn.net/keepreder/article/details/47277517">http://blog.csdn.net/keepreder/article/details/47277517</a></p>
+<p><a href="http://blog.csdn.net/u012102306/article/details/52228516">http://blog.csdn.net/u012102306/article/details/52228516</a></p>
+<p><a href="https://www.cnblogs.com/amberdata/p/7203632.html">https://www.cnblogs.com/amberdata/p/7203632.html</a></p>
+]]></content>
+    </entry>
+</feed>

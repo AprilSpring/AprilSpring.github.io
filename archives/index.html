@@ -1,0 +1,547 @@
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+        <div class="content-container">
+          
+          
+
+<div class="archives-container">
+  
+    <h2 class="year">2020</h2>
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/ais-2020-lun-wen-bao-gao-hui/">
+            <h2 class="post-title">
+              AIS 2020论文报告会
+              <small>2020-10-29</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/tensorflow20-chang-yong-han-shu/">
+            <h2 class="post-title">
+              Tensorflow2.0-常用函数
+              <small>2020-02-08</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/learning-to-rank/">
+            <h2 class="post-title">
+              Learning to rank
+              <small>2020-01-12</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/word2vec/">
+            <h2 class="post-title">
+              word2vec
+              <small>2020-01-12</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/bert-yan-sheng-mo-xing/">
+            <h2 class="post-title">
+              BERT衍生模型
+              <small>2020-01-11</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/yin-yu-yi-mo-xing/">
+            <h2 class="post-title">
+              隐语义模型
+              <small>2020-01-08</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/textcnn/">
+            <h2 class="post-title">
+              TextCNN
+              <small>2020-01-07</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    <h2 class="year">2019</h2>
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/zui-da-qi-wang-suan-fa/">
+            <h2 class="post-title">
+              最大期望算法
+              <small>2019-08-05</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/you-hua-suan-fa/">
+            <h2 class="post-title">
+              优化算法
+              <small>2019-07-25</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/sui-ji-sen-lin/">
+            <h2 class="post-title">
+              随机森林
+              <small>2019-07-22</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/jue-ce-shu/">
+            <h2 class="post-title">
+              决策树
+              <small>2019-07-20</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/fen-bu-shi-xun-lian-2/">
+            <h2 class="post-title">
+              分布式训练
+              <small>2019-06-28</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/bert-yuan-ma-jie-xi/">
+            <h2 class="post-title">
+              BERT源码解析
+              <small>2019-01-29</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/bert-yuan-li-he-shi-yong/">
+            <h2 class="post-title">
+              BERT原理和使用
+              <small>2019-01-26</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    <h2 class="year">2018</h2>
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/zi-ran-yu-yan-chu-li/">
+            <h2 class="post-title">
+              自然语言处理
+              <small>2018-07-12</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/ji-qi-xue-xi-du-xu-yao-dong-sha/">
+            <h2 class="post-title">
+              机器学习都需要懂啥？
+              <small>2018-04-08</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/chu-shi-spark/">
+            <h2 class="post-title">
+              初识Spark
+              <small>2018-01-20</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/mysql-wen-ben-dao-ru/">
+            <h2 class="post-title">
+              MySQL文本导入
+              <small>2018-01-17</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    <h2 class="year">2017</h2>
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/excel-shu-ju-chu-li/">
+            <h2 class="post-title">
+              Excel数据处理
+              <small>2017-09-12</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/python-chang-yong-han-shu/">
+            <h2 class="post-title">
+              Python-常用函数
+              <small>2017-07-28</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/python-matplotlib/">
+            <h2 class="post-title">
+              Python-matplotlib
+              <small>2017-07-27</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/python-numpy/">
+            <h2 class="post-title">
+              Python-numpy
+              <small>2017-07-26</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/hexo-build/">
+            <h2 class="post-title">
+              Hexo build
+              <small>2017-04-13</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+      
+        <article class="post">
+          <a href="https://aprilspring.github.io/post/my-new-post/">
+            <h2 class="post-title">
+              My-New-Post
+              <small>2017-04-12</small>
+            </h2>
+          </a>
+        </article>
+      
+    
+  
+</div>
+
+
+        </div>
+
+        <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+      </div>
+      <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+    </div>
+  </body>
+</html>

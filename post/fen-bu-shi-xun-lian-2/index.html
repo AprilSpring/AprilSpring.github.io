@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>分布式训练 | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">分布式训练</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2019-06-28</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/3cZXJD2mO/">
+                    Distribute
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <h1 id="模型并行vs数据并行">模型并行vs.数据并行</h1>
+<h2 id="模型并行">模型并行</h2>
+<p><strong>不同 node 输入相同数据，运行模型的不同部分</strong></p>
+<ol>
+<li>适用模型本身很大，否则一般不会采用模型并行，因为模型层与层之间存在串行逻辑</li>
+<li>或者，模型本身存在一些可以并行的单元，模型的各个部分并行于多个计算设备上</li>
+</ol>
+<!--more-->
+<h2 id="数据并行">数据并行</h2>
+<p><strong>不同 node 输入不同数据，运行相同的完整的模型</strong></p>
+<ol>
+<li>多个模型副本分别处理不同的训练数据，以提高整体吞吐量，是常见的分布式训练策略</li>
+<li>模型参数更新：同步（synchronous）和异步（asynchronous）</li>
+<li>模型复制： in-graph复制 vs. between-graph复制</li>
+<li>目前TF中常采用的是异步Between-graph</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://aprilspring.github.io/post-images/1667022338479.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://aprilspring.github.io/post-images/1667022347141.png" alt="" loading="lazy"></figure>
+<h1 id="ps-架构">PS 架构</h1>
+<h2 id="ps架构介绍">PS架构介绍</h2>
+<p><strong>Parameter server 架构，是TensorFlow基础的分布式框架，将几百亿的参数分散到不同的机器上去保存和更新，解决参数存储和更新的性能问题。</strong></p>
+<figure data-type="image" tabindex="3"><img src="https://aprilspring.github.io/post-images/1667022368362.png" alt="" loading="lazy"></figure>
+<ol>
+<li>Client通常是一个程序，用于构建tensorflow graph，通过Session与集群中的Master service进行交互。</li>
+<li>参与TensorFlow分布式系统的所有节点或者设备统称为一个Cluster，被切分成多个job，每个job负责一类特定任务（比如 ps job / ps节点或者worker job/worker节点），每个job可以包含多个Task，命名： /job:ps/task:0, /job:worker/task:1 。</li>
+<li>每个Task是一台独立机器，如果参数量太大，一台机器处理不了，这就要需要多个Tasks，每个Task计算一个字图（模型并行）。</li>
+<li>每个Task对应一个Server ， Server和Task是一一对应的，每个Server上会绑定两个Service：Master service和Worker service。</li>
+<li>Client通过Session连接集群中的任意一个Server的Master Service提交计算图，Master Service负责划分子图，并派发Task给Worker Service，Worker Service负责运算派发过来的Task，完成子图的运算。</li>
+<li>Worker job 上的Worker Service将负责梯度运算，ps job上的Worker Service将负责参数更新，Master Service将仅有一个会在需要时被用到，负责子图划分与Task派发。</li>
+</ol>
+<figure data-type="image" tabindex="4"><img src="https://aprilspring.github.io/post-images/1667022396384.png" alt="" loading="lazy"></figure>
+<h2 id="同步更新-vs-异步更新">同步更新 vs. 异步更新</h2>
+<h3 id="同步更新synchronous">同步更新（synchronous）</h3>
+<ol>
+<li>所有设备的mini-batch训练完成后，收集它们的梯度然后取均值，然后执行模型的一次参数更新</li>
+<li>优势：loss 下降稳定</li>
+<li>劣势：每一步的处理速度都取决于最慢的那个 worker</li>
+</ol>
+<h3 id="异步更新asynchronous">异步更新（asynchronous）</h3>
+<ol>
+<li>各个设备完成一个mini-batch训练之后，不需要等待其它节点，直接去更新模型的参数</li>
+<li>优势：速度快，优化计算资源利用率</li>
+<li>劣势：loss 下降不稳定</li>
+</ol>
+<figure data-type="image" tabindex="5"><img src="https://aprilspring.github.io/post-images/1667022407269.png" alt="" loading="lazy"></figure>
+<p><img src="https://aprilspring.github.io/post-images/1667022412569.png" alt="" loading="lazy"><br>
+​				Workers从25到200（8倍），数据处理速度从500到2500（4000，效率62.5%）</p>
+<h2 id="in-graph-vs-between-graph">in-graph vs. between-graph</h2>
+<h3 id="in-graph-replication-图内复制">in-graph replication 图内复制</h3>
+<p>只存在一个Client进程，这个Client只创建一个Session，这个Session只构建一个图，并将模型计算复制到各个worker节点，如果 worker 节点及设备过多，计算图过大会导致性能下降；并且只构建一个 client，数据分发的效率以及整体容错性都不好。</p>
+<figure data-type="image" tabindex="6"><img src="https://aprilspring.github.io/post-images/1667022431505.png" alt="" loading="lazy"></figure>
+<h3 id="between-graph-replication-图间复制">between-graph replication 图间复制</h3>
+<p>每个worker节点都有各自的client，它们构建相同的计算图，然后把模型参数推送到ps节点上，多个worker共享ps上的参数，只需要更新参数，免除了数据分发环节，在规模较大的情况下，相比 in-graph 提高了训练并行效率和容错性。</p>
+<p><img src="https://aprilspring.github.io/post-images/1667022441440.png" alt="" loading="lazy"><br>
+图内复制与图间复制的比较示意图：</p>
+<figure data-type="image" tabindex="7"><img src="https://aprilspring.github.io/post-images/1667022453277.png" alt="" loading="lazy"></figure>
+<h1 id="ring-allreduce-架构">Ring-allreduce 架构</h1>
+<h2 id="ring-allreduce介绍">Ring-allreduce介绍</h2>
+<ol>
+<li>
+<p>集群拓扑结构</p>
+<p>GPU 集群被组织成一个逻辑环</p>
+<p>每个 GPU 有一个左邻居、一个右邻居</p>
+<p>每个 GPU 只从左邻居接受数据、并发送数据给右邻居</p>
+</li>
+<li>
+<p>梯度融合</p>
+<p>Scatter Reduce：GPU 会逐步交换彼此的梯度并进行融合，最后每个 GPU 都会包含完整融合梯度的一部</p>
+<p>Allgather：GPU 会逐步交换彼此不完整的融合梯度，最后所有 GPU 都会得到完整的融合梯度</p>
+</li>
+</ol>
+<figure data-type="image" tabindex="8"><img src="https://aprilspring.github.io/post-images/1667022465343.png" alt="" loading="lazy"></figure>
+<h2 id="ring-allreduce原理">Ring-allreduce原理</h2>
+<figure data-type="image" tabindex="9"><img src="https://aprilspring.github.io/post-images/1667022476072.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="10"><img src="https://aprilspring.github.io/post-images/1667022487981.png" alt="" loading="lazy"></figure>
+<h2 id="ring-allreduce优势">Ring-allreduce优势</h2>
+<ol>
+<li>
+<p>随GPU数量增多，通信成本恒定</p>
+<p><strong>① 一般情况下，系统中多GPU间参数同步的通信成本增加</strong></p>
+<p>​	单个GPU必须从所有GPU接收所有参数，并将所有参数发送到所有GPU，系统中的GPU越多，通信成本就越高。</p>
+<p><strong>② 使用Ring-allreduce，通信成本不随 GPU 数量增长而增长，系统拥有理论上的线性加速能力</strong></p>
+<p>​	N 是 GPU 数量，K 是同步的总数据大小（比如模型参数量）</p>
+<p>​	每个 GPU 在Scatter Reduce 阶段，分发N-1 次数据</p>
+<p>​	每个 GPU 在allgather 阶段，分发N-1 次数据</p>
+<p>​	每个 GPU 每次发送 K/N 大小数据块</p>
+<p>​	传输到每个GPU的数据总量（Data Transferred）=2(N−1)*K/N = (2(N−1)/N)*K ～= 2K</p>
+<p>​	即随着 GPU 数量 N 增加，总传输量恒定</p>
+<p><strong>③ 举例</strong></p>
+<p>​	300million 参数也就是 1.2Gb 数据量，因此每个GPU必须发送和接收大约2.4Gb 数据， 假设网络使用 GPUDirect RDMA + InfiniBand，GPUDirect RDMA 带宽约为10Gb/s；InfiniBand 带宽约为 6Gb/s， 所以通信瓶颈在 InfiniBand 。(2.4Gb)/(6.0Gb/s) ≈ 400ms，也就是每轮迭代需要 400 ms 做参数同步， 这 400ms 的参数数据同步时间是恒定的，不随 GPU 数量增加而增加。</p>
+</li>
+<li>
+<p>随GPU数量增多，样本处理量线性增大</p>
+</li>
+</ol>
+<p><img src="https://aprilspring.github.io/post-images/1667022502550.png" alt="" loading="lazy"><br>
+​				GPUs从5到40（8倍），数据处理速度从300到1800（2400，效率75%）</p>
+<h1 id="horovod架构">Horovod架构</h1>
+<h2 id="特点">特点</h2>
+<ol>
+<li>是 Uber 开源基于ring-allreduce的分布式深度学习框架</li>
+<li>具备更快的数据处理时效</li>
+<li>可以实现接近 0.9x 的加速比</li>
+<li>Only does synchronized parameter update</li>
+</ol>
+<figure data-type="image" tabindex="11"><img src="https://aprilspring.github.io/post-images/1667022518870.png" alt="" loading="lazy"></figure>
+<h2 id="bert-multi-gpu-with-horovod">BERT Multi-GPU with horovod</h2>
+<p><a href="https://lambdalabs.com/blog/bert-multi-gpu-implementation-using-tensorflow-and-horovod-with-code/">https://lambdalabs.com/blog/bert-multi-gpu-implementation-using-tensorflow-and-horovod-with-code/</a></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/bert-yuan-ma-jie-xi/">
+              <h3 class="post-title">
+                下一篇：BERT源码解析
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,449 @@
+
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        
+        
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/jue-ce-shu/">
+        <h2 class="post-title">决策树</h2>
+      </a>
+      <div class="post-abstract">
+        <p>决策树是一颗依托决策而建立起来的树。</p>
+<h3 id="id3">ID3</h3>
+<p>首先，针对当前的集合，计算每个特征的信息增益；</p>
+<p>然后，选择<strong>信息增益最大</strong>的特征作为当前节点的决策特征；</p>
+<p>根据特征不同的类别划分到不同的子节点（比如年龄特征有青年，中年，老年，则划分到3颗子树），然后继续对子节点进行递归，直到所有特征都被划分。</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-07-20</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                MachineLearning
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/fen-bu-shi-xun-lian-2/">
+        <h2 class="post-title">分布式训练</h2>
+      </a>
+      <div class="post-abstract">
+        <h1 id="模型并行vs数据并行">模型并行vs.数据并行</h1>
+<h2 id="模型并行">模型并行</h2>
+<p><strong>不同 node 输入相同数据，运行模型的不同部分</strong></p>
+<ol>
+<li>适用模型本身很大，否则一般不会采用模型并行，因为模型层与层之间存在串行逻辑</li>
+<li>或者，模型本身存在一些可以并行的单元，模型的各个部分并行于多个计算设备上</li>
+</ol>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-06-28</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/3cZXJD2mO/">
+                Distribute
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/bert-yuan-ma-jie-xi/">
+        <h2 class="post-title">BERT源码解析</h2>
+      </a>
+      <div class="post-abstract">
+        <h1 id="源码整体框架">源码整体框架</h1>
+<p>地址：https://github.com/google-research/bert</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-01-29</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/bert-yuan-li-he-shi-yong/">
+        <h2 class="post-title">BERT原理和使用</h2>
+      </a>
+      <div class="post-abstract">
+        <p>最近NLP领域发生了一件大事，一个叫BERT的预训练模型掀起了一场革命式的风波。基于这段时间参读大牛们精细的解析，简单总结下BERT的原理（What）和怎么应用到自己的数据中（How）。</p>
+<h1 id="bert简介">BERT简介</h1>
+<h2 id="bert">BERT</h2>
+<p>BERT（<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentation from <strong>T</strong>ransformers），是谷歌AI团队新发布的应用于NLP领域的模型，在11项NLP任务均获得了相当不错的结果，文章于2018年10月发表，并提供了开源地址（ https://github.com/google-research/bert ），致谢👏👏👏。</p>
+<h2 id="语料库">语料库</h2>
+<p>Corpus: BooksCorpus (800M words) +  English Wikipedia (2,500M words).</p>
+<h2 id="预训练模型及参数">预训练模型及参数</h2>
+<p>可参考GitHub详细文档。</p>
+<h2 id="bert的主要特点">BERT的主要特点</h2>
+<p>Ø  使用Transformer作为特征提取器</p>
+<p>Ø  双向语言模型</p>
+<p><font color=red>由于BERT是基于Transformer模型的，而Transformer模型主要基于Attention机制，因此先需要了解下Attention机制。</font></p>
+<p>​</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-01-26</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/zi-ran-yu-yan-chu-li/">
+        <h2 class="post-title">自然语言处理</h2>
+      </a>
+      <div class="post-abstract">
+        <p>根据这一阵子对文本分析的研究，做了一些整理，可供参考。<br>
+有不对之处，恳请大家指正。</p>
+<h2 id="预料库">预料库</h2>
+<blockquote>
+<p>1）直接下载现成的语料库<br>
+2）爬虫方法获取语料库<br>
+3）当前分析的所有文本形成语料库</p>
+</blockquote>
+<h2 id="文本预处理">文本预处理</h2>
+<blockquote>
+<p>主要包括：<br>
+1）文本删除（文本去重复、机械压缩去词、短句删除、去除无效标签等）<br>
+2）编码转换<br>
+3）拼写检查（针对英文）<br>
+4）大小写统一（针对英文）<br>
+5）分词<br>
+6）去停用词（网上提供1208个停用词：https://pan.baidu.com/s/1gfMXMl9）</p>
+</blockquote>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2018-07-12</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/UGg7JjI7b/">
+                NLP
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/ji-qi-xue-xi-du-xu-yao-dong-sha/">
+        <h2 class="post-title">机器学习都需要懂啥？</h2>
+      </a>
+      <div class="post-abstract">
+        <h1 id="如何才能成为一名合格的机器学习算法工程师呢">如何才能成为一名合格的机器学习算法工程师呢？</h1>
+<p>这是一个探索了许久的问题，期间整了一些牛人的材料，希望可以有助于知识梳理。<br>
+身为跨行菜鸟，也迫切的感谢各位资深老鸟们可以给予一些建议。</p>
+<p>以下是若干必要不充分条件：</p>
+<h2 id="数据处理的编程语言">数据处理的编程语言</h2>
+<ol>
+<li>Python（必要）</li>
+<li>R（可选）</li>
+<li>SQL（必要）</li>
+<li>Shell（必要）</li>
+</ol>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2018-04-08</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/Fgq3FAATx/">
+                MachineLearning
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/chu-shi-spark/">
+        <h2 class="post-title">初识Spark</h2>
+      </a>
+      <div class="post-abstract">
+        <h1 id="浅谈spark与python">浅谈Spark与Python</h1>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2018-01-20</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/Rh458seQG/">
+                Spark
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/mysql-wen-ben-dao-ru/">
+        <h2 class="post-title">MySQL文本导入</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2018-01-17</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/KC82pswm2/">
+                MySQL
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/excel-shu-ju-chu-li/">
+        <h2 class="post-title">Excel数据处理</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-09-12</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/a-VDfidIN/">
+                Excel
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://aprilspring.github.io/post/python-chang-yong-han-shu/">
+        <h2 class="post-title">Python-常用函数</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-07-28</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://aprilspring.github.io/tag/jVciP1z0t/">
+                Python
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+
+<div class="pagination-container">
+  
+    <a href="https://aprilspring.github.io/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="https://aprilspring.github.io/page/3/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+
+      </div>
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Python-numpy | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Python-numpy</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2017-07-26</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/jg5Iyz2cc/">
+                    numpy
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <!-- more -->
+<h1 id="python的numpy模块">Python的Numpy模块</h1>
+<h2 id="数组对象">数组对象</h2>
+<ol>
+<li>ndarray对象<br>
+NumPy中定义的最重要的对象是称为ndarray的N维数组类型。它描述相同类型的元素集合，可以使用基于零的索引访问集合中的项目。<br>
+ndarray中的每个元素在内存中使用相同大小的块。ndarray中的每个元素是数据类型对象的对象（称为 dtype）。</li>
+</ol>
+<h2 id="数组函数">数组函数</h2>
+<ol>
+<li>array函数<br>
+用于创建ndarray对象。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; a = np.array([1,2,3]) # 一维
+&gt;&gt;&gt; print(a)
+[1 2 3]
+
+&gt;&gt;&gt; a = np.array([[1,2],[3,4]]) # 二维
+&gt;&gt;&gt; print(a)
+[[1 2]
+ [3 4]]
+
+&gt;&gt;&gt; a = np.array([1,2,3,4,5], ndmin = 3) # 最小维度=3
+&gt;&gt;&gt; print(a)
+[[[1 2 3 4 5]]]
+</code></pre>
+<ol start="2">
+<li>arange函数<br>
+range与arange的异同：<br>
+range()返回的是range object，而np.arange()返回的是numpy.ndarray()。<br>
+range()不支持步长为小数，np.arange()支持步长为小数。<br>
+两者都可用于迭代，均有三个参数，以第一个参数为起点，第三个参数为步长，截止到第二个参数之前的不包括第二个参数的数据序列。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; range(1,5)
+range(1, 5)
+&gt;&gt;&gt; np.arange(1,5)
+array([1, 2, 3, 4])
+&gt;&gt;&gt; np.arange(1,5,.5)
+array([ 1. ,  1.5,  2. ,  2.5,  3. ,  3.5,  4. ,  4.5])
+</code></pre>
+<ol start="3">
+<li>tile函数<br>
+模块位置：numpy.lib.shape_base<br>
+功能：重复某个数组的操作<br>
+说明：tile(A,reps) 功能是将数组A重复n次，构成一个新的数组。A的类型众多，几乎所有类型都可以：array, list, tuple, dict, matrix以及基本数据类型int, string, float以及bool类型；reps的类型也很多，可以是tuple，list, dict, array, int,bool.但不可以是float, string, matrix类型。</li>
+</ol>
+<pre><code>from numpy import *
+
+&gt;&gt;&gt; tile([0,0],3)
+array([0, 0, 0, 0, 0, 0])
+
+&gt;&gt;&gt; tile([0,0],(3,1))
+array([[0, 0],
+       [0, 0],
+       [0, 0]])
+
+&gt;&gt;&gt; tile(3,(2,3))
+array([[3, 3, 3],
+       [3, 3, 3]])
+
+&gt;&gt;&gt; tile([0,0],(2,3))
+array([[0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0]])
+
+&gt;&gt;&gt; tile([[1,2],[3,4]],[2,3])
+array([[1, 2, 1, 2, 1, 2],
+       [3, 4, 3, 4, 3, 4],
+       [1, 2, 1, 2, 1, 2],
+       [3, 4, 3, 4, 3, 4]])
+</code></pre>
+<ol start="4">
+<li>reshape函数<br>
+在不改变数据内容的条件下，修改数据维度。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; a = np.arange(8)
+[0 1 2 3 4 5 6 7]
+&gt;&gt;&gt; b=a.reshape(4
+&gt;&gt;&gt; print(b)
+[[0 1]
+ [2 3]
+ [4 5]
+ [6 7]]
+&gt;&gt;&gt;
+</code></pre>
+<h2 id="随机函数">随机函数</h2>
+<ol>
+<li>random.uniform函数<br>
+功能：random.uniform(low, high, size): 产生均匀分布的数组，在[low,high]范围内，size为数组长度</li>
+</ol>
+<pre><code>&gt;&gt;&gt; random.uniform(0,5,20)
+array([ 3.54073911,  1.45452369,  2.55413803,  4.46473477,  4.48146544,
+        0.62792655,  1.03621439,  0.25733602,  2.20404922,  0.14938105,
+        2.28416612,  3.24572024,  1.39243641,  3.38127451,  2.95431409,
+        0.11990941,  2.79427044,  1.29626223,  2.07550599,  1.41762541])
+</code></pre>
+<ol start="2">
+<li>random.rand函数<br>
+功能：产生元素均为[0, 1）的浮点数，服从均匀分布</li>
+</ol>
+<pre><code>&gt;&gt;&gt; random.rand(3,5)
+array([[ 0.85176361,  0.28418067,  0.20699102,  0.71170681,  0.37894006],
+       [ 0.37958202,  0.5821716 ,  0.1213053 ,  0.01412197,  0.62404343],
+       [ 0.94331619,  0.11345315,  0.14307748,  0.30844734,  0.72912914]])
+</code></pre>
+<ol start="3">
+<li>random.randn函数<br>
+功能：产生元素均为[0, 1）的浮点数，服从标准正态分布</li>
+</ol>
+<pre><code>&gt;&gt;&gt; random.randn(3,5)
+array([[-1.17499716, -0.34973163,  0.00935449, -0.9145827 ,  0.73754291],
+       [-0.90732152, -0.30879743, -0.01624762, -0.27330003, -0.25671239],
+       [ 0.55841618, -0.08200828,  1.76866924,  1.79613533, -0.46784581]])
+</code></pre>
+<ol start="4">
+<li>random.randint函数<br>
+功能：randint(low,high,(shape)): 依shape创建随机整数或整数数组，范围是[low,high）</li>
+</ol>
+<pre><code>&gt;&gt;&gt; random.randint(3,5,(2,3))
+array([[4, 3, 4],
+       [4, 3, 4]])
+</code></pre>
+<ol start="5">
+<li>
+<p>random.seed(s)：随机数种子</p>
+</li>
+<li>
+<p>random.shuffle(a): 根据数组a的第一轴进行随机排列，改变数组a</p>
+</li>
+</ol>
+<pre><code>&gt;&gt;&gt; a=[3,4,5,6]
+&gt;&gt;&gt; random.shuffle(a)
+&gt;&gt;&gt; a
+[6, 4, 5, 3]
+</code></pre>
+<ol start="7">
+<li>random.permutation(a): 根据数组a的第一轴进行随机排列，但是不改变原数组，将生成新数组</li>
+</ol>
+<pre><code>&gt;&gt;&gt; random.permutation
+array([3, 5, 4, 6])
+&gt;&gt;&gt; b = random.permutation
+&gt;&gt;&gt; b
+array([5, 4, 6, 3])
+</code></pre>
+<ol start="8">
+<li>random.choice(a, size=None, replace=True, p=None): 从一维数组a中以概率p抽取元素，形成size形状新数组，replace表示是否可以重用元素，默认为False。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; random.choice(a,size=3,replace=True)
+array([3, 6, 3])
+</code></pre>
+<ol start="9">
+<li>random.normal(loc, scale, size): 产生正态分布的数组，loc为均值，scale为标准差，size为形状</li>
+</ol>
+<pre><code>&gt;&gt;&gt; random.normal(0,1,10)
+array([-1.05368742, -0.91878414,  0.00852071,  1.01270555, -1.87120247,
+        0.85779193, -0.93330128,  0.26973425, -0.91206319, -0.87171282])
+</code></pre>
+<ol start="10">
+<li>random.poisson(lam, size): 产生泊松分布的数组，lam随机事件发生概率，size为形状</li>
+</ol>
+<pre><code>&gt;&gt;&gt; random.poisson(2,20)
+array([3, 1, 3, 2, 2, 1, 4, 0, 1, 3, 3, 4, 1, 2, 1, 2, 2, 3, 0, 2])
+</code></pre>
+<h2 id="统计函数">统计函数</h2>
+<ol>
+<li>sum函数<br>
+sum(a, axis = None) : 依给定轴axis计算数组a相关元素之和，axis为整数或者元组<br>
+axis=None时,计算数组中的所有值的平均值<br>
+axis=0时,以列为单位,计算数组的每列的所有值的平均值<br>
+axis=1时,以行为单位,计算数组的每行为单位的所有事的平均值</li>
+</ol>
+<pre><code>from numpy import *
+&gt;&gt;&gt; a = array([[1,2],[3,4]
+&gt;&gt;&gt; a
+array([[1, 2],
+       [3, 4]])
+&gt;&gt;&gt; mean(a,axis=0)
+array([ 2.,  3.])
+&gt;&gt;&gt; mean(a,axis=1)
+array([ 1.5,  3.5])
+&gt;&gt;&gt; mean(a,axis=None)
+2.5
+</code></pre>
+<ol start="2">
+<li>
+<p>mean函数<br>
+mean(a, axis = None) : 同理，计算平均值</p>
+</li>
+<li>
+<p>average函数<br>
+average(a, axis =None, weights=None) 依给定轴axis计算数组a相关元素的加权平均值<br>
+average(a, axis =0, weights =[10, 5, 1]) weights中为权重，注意要和a的第一维匹配</p>
+</li>
+<li>
+<p>median函数<br>
+median(a) : 计算数组a中元素的中位数（中值）</p>
+</li>
+<li>
+<p>std和var函数<br>
+std（a, axis = None） ：同理，计算标准差<br>
+var（a, axis = None）: 计算方差</p>
+</li>
+<li>
+<p>min和max函数<br>
+min(a) max(a) : 计算数组a的最小值和最大值</p>
+</li>
+<li>
+<p>argmin和argmax函数<br>
+argmin(a) argmax(a) : 计算数组a的最小、最大值的下标（注：是一维的下标）</p>
+</li>
+<li>
+<p>unravel_index函数<br>
+unravel_index(index, shape) : 根据shape将一维下标index转成多维下标</p>
+</li>
+<li>
+<p>ptp函数<br>
+ptp(a) : 计算数组a最大值和最小值的差</p>
+</li>
+</ol>
+<h2 id="排序函数">排序函数</h2>
+<ol>
+<li>sort和sorted函数<br>
+需要注意：sort()方法仅定义在list中，而sorted()方法对所有的可迭代序列都有效。<br>
+可以添加参数：<br>
+axis=0 #row sort<br>
+axis=1 #column sort<br>
+kind = 'quicksort'（快速排序,默认） | 'mergesort'（归并排序）| 'heapsort'（堆排序）<br>
+order 如果数组包含字段,则是要排序的字段。<br>
+key 按照什么来排序，eg., key=operator.itemgetter(1) #按照对象的第一个索引来排序<br>
+reverse=True or False</li>
+</ol>
+<pre><code>import numpy as np
+&gt;&gt;&gt; print(sorted({8: 'D', 2: 'B', 3: 'B', 4: 'E', 5: 'A'}))
+[2, 3, 4, 5, 8]
+&gt;&gt;&gt; a = np.array([[3,7],[9,1]])
+&gt;&gt;&gt; print(np.sort(a, axis=0)) 
+[[3 1]
+ [9 7]]
+&gt;&gt;&gt; print(np.sort(a, axis=1))
+[[3 7]
+ [1 9]]
+</code></pre>
+<ol start="2">
+<li>argsort函数<br>
+对输入数组沿给定轴执行间接排序，并使用指定排序类型返回数据的索引数组(默认升序索引)。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; x = np.array([3,1,2])
+&gt;&gt;&gt; y = np.argsort(x)
+&gt;&gt;&gt; print(y)
+[1 2 0]
+&gt;&gt;&gt; z=y[::-1] #降序索引
+&gt;&gt;&gt; print(z)
+[0 2 1]
+</code></pre>
+<h2 id="矩阵函数">矩阵函数</h2>
+<ol>
+<li>
+<p>转置函数<br>
+y=transpose(A)或y=A.T #求矩阵A的转置矩阵</p>
+</li>
+<li>
+<p>shape函数<br>
+模块位置：numpy.core.fromnumeric<br>
+功能：读取矩阵的长度</p>
+</li>
+</ol>
+<pre><code>from numpy import *
+matDemo=mat(random.rand(3,5))
+matDemo.shape[0] #获取矩阵第一维的长度,输入参数是一个整数表示维度
+matDemo.shape[1] #获取矩阵第二维的长度，
+shape(matDemo)   #获取矩阵的各个维度的大小，输入参数是一个矩阵
+shape(matDemo)[i]#这样写也可以获取矩阵的第i个维度的大小
+</code></pre>
+<ol start="3">
+<li>matlib.empty函数<br>
+返回一个新的矩阵，而不初始化元素。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; import numpy.matlib
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; print(np.matlib.empty((2,2)))
+[[ 10.  20.]
+ [  3.   4.]]
+&gt;&gt;&gt;
+</code></pre>
+<ol start="4">
+<li>matlib.zeros函数<br>
+返回以零填充的矩阵。</li>
+</ol>
+<pre><code>&gt;&gt; print(np.matlib.zeros((2,2)))
+[ 0.  0.]
+[ 0.  0.]]
+</code></pre>
+<ol start="5">
+<li>matlib.ones函数<br>
+返回以一填充的矩阵。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; print(np.matlib.ones((2,2)))
+[[ 1.  1.]
+ [ 1.  1.]]
+</code></pre>
+<ol start="6">
+<li>matlib.eye函数<br>
+返回一个矩阵，对角线元素为 1，其他位置为零。</li>
+</ol>
+<pre><code>&gt;&gt; print(np.matlib.eye(n = 3, M = 4, k = 0, dtype = float)) # n为行数、M为例数、k为对角线索引
+[ 1.  0.  0.  0.]
+[ 0.  1.  0.  0.]
+[ 0.  0.  1.  0.]]
+</code></pre>
+<ol start="7">
+<li>matlib.identity函数<br>
+返回给定大小的单位矩阵。单位矩阵是主对角线元素都为 1 的方阵。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; print(np.matlib.identity(5, dtype = float))
+[[ 1.  0.  0.  0.  0.]
+ [ 0.  1.  0.  0.  0.]
+ [ 0.  0.  1.  0.  0.]
+ [ 0.  0.  0.  1.  0.]
+ [ 0.  0.  0.  0.  1.]]
+</code></pre>
+<ol start="8">
+<li>matlib.rand函数<br>
+回给定大小的填充随机值的矩阵。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; print(np.matlib.rand(3,3))
+[[ 0.14631622  0.99544318  0.35572909]
+ [ 0.54713075  0.49181555  0.12965838]
+ [ 0.86005346  0.2183979   0.82433139]]
+</code></pre>
+<ol start="9">
+<li>getA函数<br>
+getA()函数是numpy.matrix下的一个函数，用作把矩阵转换成数组。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; x = np.matrix(np.arange(12).reshape((3,4)))
+&gt;&gt;&gt; x
+matrix([[ 0,  1,  2,  3],
+        [ 4,  5,  6,  7],
+        [ 8,  9, 10, 11]])
+&gt;&gt;&gt; x.getA()
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11]])
+</code></pre>
+<h2 id="条件提取的函数">条件提取的函数</h2>
+<ol>
+<li>where函数：返回输入数组中满足给定条件的元素的索引。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; x = np.arange(9).reshape(3,3)
+&gt;&gt;&gt; print(x)
+[[ 0  1  2]
+ [ 3  4  5]
+ [ 6  7  8]]
+&gt;&gt;&gt; y = np.where(x &gt; 3)
+&gt;&gt;&gt; print(x[y])
+[ 4  5  6  7  8]
+</code></pre>
+<ol start="2">
+<li>extract函数：返回满足任何条件的元素。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; x = np.arange(9).reshape(3,3)
+&gt;&gt;&gt; condition = np.mod(x,2) == 0
+&gt;&gt;&gt; condition
+array([[ True, False,  True],
+       [False,  True, False],
+       [ True, False,  True]], dtype=bool)
+&gt;&gt;&gt; print(np.extract(condition, x))
+[0 2 4 6 8]
+</code></pre>
+<ol start="3">
+<li>nonzero函数<br>
+返回输入数组中非零元素的索引。</li>
+</ol>
+<pre><code>&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; a = np.array([[30,40,0],[0,20,10],[50,0,60]])
+&gt;&gt;&gt; print(a)
+[[30 40  0]
+ [ 0 20 10]
+
+&gt;&gt;&gt; print(a[np.nonzero(a)])
+[30 40 20 10 50 60]
+</code></pre>
+<h2 id="算数运算函数">算数运算函数</h2>
+<ol>
+<li>add, subtract, multiply和divide函数</li>
+</ol>
+<pre><code>&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; a = np.arange(9, dtype = np.float_).reshape(3,3)
+&gt;&gt;&gt; print(a)
+[[ 0.  1.  2.]
+ [ 3.  4.  5.]
+ [ 6.  7.  8.]]
+&gt;&gt;&gt; b = np.array([10,10,10])
+&gt;&gt;&gt; print(b)
+[10 10 10]
+
+&gt;&gt;&gt; print(np.add(a,b))
+[[ 10.  11.  12.]
+ [ 13.  14.  15.]
+ [ 16.  17.  18.]]
+&gt;&gt;&gt; print(np.subtract(a,b))
+[[-10.  -9.  -8.]
+ [ -7.  -6.  -5.]
+ [ -4.  -3.  -2.]]
+&gt;&gt;&gt; print(np.multiply(a,b))
+[[  0.  10.  20.]
+ [ 30.  40.  50.]
+ [ 60.  70.  80.]]
+&gt;&gt;&gt; print(np.divide(a,b))
+[[ 0.   0.1  0.2]
+ [ 0.3  0.4  0.5]
+ [ 0.6  0.7  0.8]]
+</code></pre>
+<ol start="2">
+<li>
+<p>reciprocal函数<br>
+求倒数</p>
+</li>
+<li>
+<p>power函数<br>
+第一个输入数组中的元素作为底数，计算它与第二个输入数组中相应元素的幂。</p>
+</li>
+<li>
+<p>mod或remainder函数<br>
+返回输入数组中相应元素的除法余数。</p>
+</li>
+</ol>
+<pre><code>&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; a = np.array([10,20,30])
+&gt;&gt;&gt; b = np.array([3,5,7])
+&gt;&gt;&gt; print(np.mod(a,b))
+[1 0 2]
+&gt;&gt;&gt; print(np.remainder(a,b))
+[1 0 2]
+</code></pre>
+<h2 id="取整或舍入函数">取整或舍入函数</h2>
+<ol>
+<li>
+<p>around函数<br>
+返回四舍五入到所需精度的值。<br>
+around(a,decimals) # decimals要舍入的小数位数，默认值为0。</p>
+</li>
+<li>
+<p>floor函数<br>
+返回小于输入值的最大整数。例如1.2，返回1。</p>
+</li>
+<li>
+<p>ceil函数<br>
+返回大于输入值的最小整数。例如1.2，返回2。</p>
+</li>
+</ol>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/hexo-build/">
+              <h3 class="post-title">
+                下一篇：Hexo build
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Hexo build | 书生海海</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://aprilspring.github.io/favicon.ico?v=1667029754307">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://aprilspring.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://aprilspring.github.io">
+        <img class="avatar" src="https://aprilspring.github.io/images/avatar.png?v=1667029754307" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://aprilspring.github.io">
+        <h1 class="site-title">书生海海</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Hexo build</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2017-04-13</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://aprilspring.github.io/tag/Kzs5e6ds5/">
+                    Hexo
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content" v-pre>
+            <p>终于搭建好了自己的博客，借助前辈们的基础，自己也踩了几个坑。<br>
+下面就谈谈，身为菜鸟的我，是怎么一步步操作的。</p>
+<!-- more -->
+<h1 id="一-hexo搭建">一、Hexo搭建</h1>
+<h2 id="1-必要软件下载">1. 必要软件下载</h2>
+<p>node.js：https://nodejs.org/en/<br>
+git：https://git-scm.com/downloads/</p>
+<h2 id="2-github账号注册和repository创建">2. Github账号注册和Repository创建</h2>
+<p>申请页面：https://github.com/<br>
+记录好 <strong>用户名，Email，密码</strong><br>
+新建Repository，我的库名为<strong>AprilSpring.github.io</strong></p>
+<h2 id="3-创建ssh秘钥">3. 创建SSH秘钥</h2>
+<p>打开git bash终端，输入</p>
+<pre><code>git config --global user.name &quot;你的GitHub用户名&quot;
+git config --global user.email &quot;你的GitHub注册邮箱&quot;
+</code></pre>
+<p>这里需要你上面的用户名和邮箱。</p>
+<h2 id="4-生成ssh秘钥">4. 生成SSH秘钥</h2>
+<p><code>ssh-keygen -t rsa -C &quot;你的GitHub注册邮箱&quot;</code><br>
+不用管弹出来的东西，直接回车就OK。<br>
+此时，在C:/Users/User/下，生成一个.ssh文件夹，记事本打开其中的id_rsa.pub，并拷贝。<br>
+然后，打开Github，AprilSpring.github.io -&gt; Settings -&gt; Depoly keys -&gt; New SSH key -&gt; 将id_rsa.pub中的内容复制到Key文本框中，记住勾选Allow write access，然后点击Add SSH key(添加SSH)按钮。</p>
+<h2 id="5-开始安装hexo">5. 开始安装Hexo</h2>
+<p>打开你的终端（可以用cmd），进入到blog下面：</p>
+<pre><code>npm install hexo-cli g  #安装hexo
+hexo init blog  #初始化博客文件夹
+cd blog  #切换到该路径
+npm install  #安装hexo的扩展插件
+npm install hexo-server --save  #安装其它插件
+npm install hexo-admin --save
+npm install hexo-generator-archive --save
+npm install hexo-generator-feed --save
+npm install hexo-generator-search --save
+npm install hexo-generator-tag --save
+npm install hexo-deployer-git --save
+npm install hexo-generator-sitemap --save
+</code></pre>
+<h2 id="6-更改配置文件">6. 更改配置文件</h2>
+<p>打开blog/_config.yml，进行下面修改：</p>
+<pre><code>deploy:
+  type: git
+  repo: git@github.com:AprilSpring/AprilSpring.github.io.git
+  branch: master
+</code></pre>
+<p>值得注意的是，git@github.com:<strong>???</strong>/<strong>&amp;&amp;&amp;</strong>.git，???应该为你Github的用户名，而&amp;&amp;&amp;应该为你Github库的名字。<br>
+此外，其中的url和root更改为：</p>
+<pre><code>url: https://aprilspring.github.io/
+root: /
+</code></pre>
+<p>为了避免弄错，可以先备份一份。</p>
+<h2 id="7-部署到github服务器上">7. 部署到Github服务器上</h2>
+<p>首先，生成静态页面：<code>hexo generate 或 hexo g</code><br>
+而后，可以通过开启开启本地服务器来查看我们的Blog：<code>hexo sever 或 hexo s</code><br>
+将Blog部署到Github服务器上：<code>hexo deploy 或 hexo d</code><br>
+有时，你可能还需要先清除静态页面：<code>hexo clean</code>，来从新部署。<br>
+这时，打开你的网页：https://aprilspring.github.io/<br>
+<font color=red size=4>~~~你的博客来了！</font><br/><br/></p>
+<h1 id="二-hexo主题更换">二、Hexo主题更换</h1>
+<p>看了网上的几个Theme后，我选择了Next主题。<br>
+http://theme-next.iissnan.com/getting-started.html 这个网页写的很详尽，就按照他的步骤安装和更改配置文件。<br>
+我选择了scheme: Pisces，还可以添加头像，棒棒的！<br/><br/></p>
+<h1 id="三-添加菜单">三、添加菜单</h1>
+<ol>
+<li>如果已经安装好了Next，就没有必要再额外添加菜单啦，因为在Next里面，就有参数可以选择菜单的添加。</li>
+<li>否则，请按下面进行：<br>
+新建一个页面，也就是添加新菜单，我们的这个菜单叫做&quot;About&quot;：<code>hexo new page &quot;about&quot;</code><br>
+然后你会发现source里面多了个目录about，里面有个index.md。<br>
+接着修改blog/themes/theme_name/_config.yml文件，找到里面的menu项，添加一行<code>About: /about</code>。</li>
+<li>那么如何编辑about呢？<br>
+直接修改source/about/index.md文件就ok啦。完美。</li>
+<li>同样的方式，可以添加并编辑Categories和Tags。<br>
+我的Catagories和Tags分别如下：</li>
+</ol>
+<pre><code>---
+title: Categories
+date: 2017-04-12 15:05:25
+type: &quot;categories&quot;
+comments: false
+---
+
+---
+title: Tags
+date: 2017-04-12 15:05:25
+type: &quot;tags&quot;
+comments: false
+---
+categories:
+</code></pre>
+<br/>
+# 四、写一个博客
+## 1. 新建一个博客
+`hexo new post "BlogName"`
+然后，去blog/source/_posts/下面，找到这个BlogName.md，Notepad打开，进行编辑。
+<h2 id="2-常用的makedown修饰语言">2. 常用的MakeDown修饰语言</h2>
+<p>比如：字体、字号、加粗、缩进等。<br>
+参见：http://blog.csdn.net/u011419965/article/details/50536937 #字体字号颜色<br>
+特殊符号前面用反斜线&quot;&quot;。</p>
+<h2 id="3-插入图片">3. 插入图片</h2>
+<p>首先，更改blog/_config.yml文件中的 <code>post_asset_folder: true</code><br>
+然后，运行： <code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code><br>
+确保在blog/source/_posts下创建和md文件同名的目录，在里面放该md需要的图片。<br>
+目录结构如下：<br>
+———————————————————<br>
+|- source/_posts<br>
+  |- test.md<br>
+  |- test<br>
+    |- pic.png<br>
+———————————————————<br>
+而后，在test.md文件中需要插入图片的地方写上：<br>
+<code>![](目录名/文件名.png)</code>，也即 <code>![](test/pic.png)</code><br>
+最后，依次执行：<code>hexo clean、hexo g、hexo d</code>，怎么样？图片在了吧？！</p>
+<h2 id="4-添加read-more">4. 添加Read more</h2>
+<p>如果博文过长，可以在文中添加<code>&lt;\!--more--\&gt;</code>，则该标记之前的部分就会成为该文章的简述，显示在首页里，其余隐藏。</p>
+<h2 id="5-随时编辑">5. 随时编辑</h2>
+<p>在编辑博客的时候，可以<code>hexo s</code>打开本地服务器的博客，随时保存并刷新页面，以便查看自己写的博客，等完成之后一并部署。</p>
+<br/>
+# 五、还要解决的问题
+1. 在线的Markdown编辑器，方便边编辑、边部署
+2. 换了一台电脑，我该怎么写博客？怎么移植过去，还是？
+3. 另外，About还是打不开的原因？
+解决方案：
+修改.deploy_git文件夹 ->.git文件夹下的config 文件，将ignorecase=true 改为 ignorecase=false，重新部署，问题解决。
+参考：http://1mhz.me/2015/hexo-deploy-case-sensitive/ 
+<br/>
+# 特别鸣谢
+http://blog.csdn.net/xuezhisdc/article/details/53130328
+https://github.com/iissnan/hexo-theme-next
+http://theme-next.iissnan.com/getting-started.html
+https://segmentfault.com/q/1010000000618915
+http://blog.csdn.net/u011419965/article/details/50536937#字体字号颜色
+http://www.cnblogs.com/palance/p/5493201.html
+https://www.zhihu.com/question/52523619
+https://segmentfault.com/q/1010000002561642
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://aprilspring.github.io/post/my-new-post/">
+              <h3 class="post-title">
+                下一篇：My-New-Post
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://aprilspring.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '337e2992c146020878cb',
+        clientSecret: '883fa6db7cdfafda50356191ec9938e4d661aca1',
+        repo: 'AprilSpring.github.io',
+        owner: 'AprilSpring',
+        admin: ['AprilSpring'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
